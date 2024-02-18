@@ -63,8 +63,8 @@ createServerHandler({
     }));
     server.use(helmet.xssFilter());
 
-    server.use("/helios/api", useApiProxy);
-    server.use("/helios/assets", useApiProxy);
+    server.use("/unicare/api", useApiProxy);
+    server.use("/unicare/assets", useApiProxy);
 
     server.use(express.json());
     server.use(express.urlencoded({ extended: true }));
