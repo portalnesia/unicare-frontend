@@ -1,28 +1,39 @@
 import { useSelector } from "@/redux/store";
 import API from "@/utils/axios";
-import LocalStorage from "@/utils/local-storage";
 import { isAuthExpired } from "@/utils/main";
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import Router from "next/router";
 import React from "react";
 
-export type ResponseData<R = any, Pages = false, Additional extends {} = {}> = {
-    message: string | { message: string };
-    success: boolean;
-    result: R;
-} & (Pages extends true ? {
-    pages: {
-        current_page: number;
-        total_data: number;
-        total_page: number;
-    }
-} : {}) & Additional
+type ApiErrorTypes = boolean | {
+    name: string,
+    code: number,
+    description: string
+}
+
+export interface ResponseData<R = any> {
+    error: ApiErrorTypes,
+    data: R;
+    message: string;
+}
+
+export type PaginationResponse<D, Other extends {} = {}> = {
+    page: number,
+    total_page: number,
+    can_load: boolean,
+    total: number,
+    data: D[]
+} & Other
 
 class CatchApiError extends Error {
     constructor(dt: ResponseData<any>) {
-        if (typeof dt.message === "string") super(dt.message);
-        else if (typeof dt?.message?.message === "string") super(dt.message.message);
-        else super("Something went wrong");
+        let msg = "";
+        if (typeof dt?.error === 'boolean') {
+            msg = dt?.message;
+        } else {
+            msg = dt?.error?.description;
+        }
+        super(msg);
         this.name = "CatchApiError";
     }
 }
@@ -40,94 +51,69 @@ function catchError(e: any) {
             return e.message;
         }
         else {
+            console.error(e);
             return "Something went wrong";
         }
     } else if (e instanceof AxiosError) {
         if (e?.code === 'ECONNABORTED') {
             return "Connection timeout"
         }
-        else if (typeof e?.response?.data?.message === 'string' && typeof e?.response?.data?.success === 'boolean' && e?.response?.data?.success === false) {
+        if (e?.response?.status && e?.response?.data?.error?.description) {
+            return (e?.response?.data?.error?.description || "Something went wrong") as string
+        }
+        if ((e?.response?.status && ![500, 503].includes(e?.response?.status)) && typeof e?.response?.data.error === 'boolean') {
             return (e?.response?.data?.message || "Something went wrong") as string
         }
-        else if (e?.response?.status === 401) {
-            return "Missing authorization";
+        if ((e?.response?.status && ![500, 503].includes(e?.response?.status)) && e?.response?.status == 440) {
+            return "Token expired. Please refresh browser"
         }
-        else if (axios.isCancel(e)) {
-            return "Canceled";
+        if (axios.isCancel(e)) {
+            return "Cancelled";
         }
     }
     if (process.env.NODE_ENV !== "production") console.error(e);
     return "Something went wrong";
 }
 
-export enum UploadFlag {
-    Outlet,
-    Gallery,
-    Passport,
-    Imei
-}
-
 export default function useAPI() {
     const auth = useSelector(s => s.auth);
 
-    const getOptions = React.useCallback((opt?: AxiosRequestConfig) => {
+    const getHeaders = React.useCallback((opt?: AxiosRequestConfig) => {
         if (auth) {
             if (isAuthExpired(auth.expired_at)) {
                 setTimeout(() => {
                     Router.push("/logout");
                 }, 500);
-                throw new CatchApiError({ message: "Login expired", result: {}, success: false });
+                throw new CatchApiError({ message: "Login expired", error: true, data: null });
             }
         }
+
         return {
             ...opt,
-            headers: {
-                ...auth ? {
-                    Authorization: `Bearer ${auth.token}`
-                } : {},
-                ...opt?.headers,
-            }
+            withCredentials: true
         }
     }, [auth])
-
-    const get = React.useCallback(async<R = any, Pages = false>(url: string): Promise<ResponseData<R, Pages>> => {
-        try {
-            const opt = getOptions();
-            const res = await API.get<ResponseData<R, Pages>>(url, opt);
-            if (!res?.data?.success) {
-                throw new CatchApiError(res?.data)
-            }
-            return res.data;
-        } catch (e: any) {
-            const string = catchError(e);
-            throw new ApiError(string);
-        }
-    }, [getOptions]);
 
     /**
      * @example
      * ```js
-     * const response = upload<IResponse>(url: string,data: FormData)
+     * const response = get<IResponse>(url: string)
      * ```
      */
-    const upload = React.useCallback(async<R = any>(url: string, data: FormData, config?: AxiosRequestConfig): Promise<R> => {
-        const opt = getOptions(config);
-        opt.headers = {
-            ...opt.headers,
-            'Content-Type': 'multipart/form-data'
-        }
+    const get = React.useCallback(async<R = any>(url: string): Promise<R> => {
         try {
-            const res = await API.post<ResponseData<R>>(url, data, opt);
+            const opt = getHeaders();
+            const res = await API.get<ResponseData<R>>(url, opt);
 
-            if (!res?.data?.success) {
+            if (res?.data?.error) {
                 throw new CatchApiError(res?.data)
             }
-            return res.data.result;
+            return res.data.data;
         } catch (e: any) {
             const string = catchError(e);
             throw new ApiError(string);
         }
-    }, [getOptions]);
+    }, [getHeaders]);
 
     /**
      * @example
@@ -137,19 +123,19 @@ export default function useAPI() {
      */
     const post = React.useCallback(async<R = any>(url: string, data: Record<string, any> | null | FormData, config?: AxiosRequestConfig): Promise<R> => {
         const dt = data === null ? {} : data;
-        const opt = getOptions(config);
+        const opt = getHeaders(config);
         try {
             const res = await API.post<ResponseData<R>>(url, dt, opt);
 
-            if (!res?.data?.success) {
+            if (res?.data?.error) {
                 throw new CatchApiError(res?.data)
             }
-            return res.data.result;
+            return res.data.data;
         } catch (e: any) {
             const string = catchError(e);
             throw new ApiError(string);
         }
-    }, [getOptions]);
+    }, [getHeaders]);
 
     /**
      * @example
@@ -157,20 +143,20 @@ export default function useAPI() {
      * const response = del<IResponse>(url: string)
      * ```
      */
-    const del = React.useCallback(async<R = any>(url: string, config?: AxiosRequestConfig): Promise<ResponseData<R>> => {
-        const opt = getOptions(config);
+    const del = React.useCallback(async<R = any>(url: string, config?: AxiosRequestConfig): Promise<R> => {
         try {
+            const opt = getHeaders();
             const res = await API.delete<ResponseData<R>>(url, opt);
 
-            if (!res?.data?.success) {
+            if (res?.data?.error) {
                 throw new CatchApiError(res?.data)
             }
-            return res.data;
+            return res.data.data;
         } catch (e: any) {
             const string = catchError(e);
             throw new ApiError(string);
         }
-    }, [getOptions]);
+    }, [getHeaders]);
 
     /**
      * @example
@@ -179,20 +165,20 @@ export default function useAPI() {
      * ```
      */
     const put = React.useCallback(async<R = any>(url: string, data: Record<string, any> | null | FormData, config?: AxiosRequestConfig): Promise<R> => {
-        const dt = data === null ? {} : data;
-        const opt = getOptions(config);
+        const dt = data === null ? {} : data
+        const opt = getHeaders(config);
         try {
             const res = await API.put<ResponseData<R>>(url, dt, opt);
 
-            if (!res?.data?.success) {
-                throw new CatchApiError(res?.data)
+            if (res?.data?.error) {
+                throw new CatchApiError(res?.data);
             }
-            return res.data.result;
+            return res.data.data;
         } catch (e: any) {
             const string = catchError(e);
             throw new ApiError(string);
         }
-    }, [getOptions]);
+    }, [getHeaders]);
 
-    return { get, post, put, del, upload }
+    return { get, post, put, del }
 }

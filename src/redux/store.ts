@@ -12,11 +12,12 @@ import { AxiosError } from 'axios';
 import axios from '@/utils/axios';
 import { ResponseData } from '@/hooks/api';
 import { isAuthExpired, webUrl } from '@/utils/main';
-import { Session, SessionRecord } from "next-session/lib/types";
-import { CookieValueTypes, getCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import nextI18nextConfig from 'root/next-i18next.config';
 import { SSRConfig } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import jwt from 'jsonwebtoken'
+import { IRoles, rolesArray } from '@/model/auth';
 
 export const useDispatch = () => originalUseDispatch<Dispatch<ActionType>>()
 export const useSelector = <D = State>(selector: (state: State) => D) => originalUseSelector<State, D>(selector)
@@ -79,8 +80,6 @@ type CallbackParams<P extends {}> = GetServerSidePropsContext<ParsedUrlQuery, an
     // only use when auth is available
     fetchAPI: <D = any>(url: string) => Promise<D>
     auth?: State['auth'] | null,
-    auth_cookies?: CookieValueTypes
-    // session: Session<SessionRecord>;
 })
 
 type Callback<P extends {}> = (params: CallbackParams<P>) => Promise<GetServerSidePropsResult<IPages<P>>>
@@ -97,30 +96,52 @@ export class BackendError {
 export default function wrapper<P extends {}>(callback: Callback<P>) {
     return wrapperRoot.getServerSideProps((store) => async (ctx) => {
         try {
-            const auth_cookies = getCookie("_auth", { req: ctx.req, res: ctx.res });
+            const auth_token = getCookie("_auth", { req: ctx.req, res: ctx.res });
+            let auth: State["auth"] = null;
+
+            if (typeof auth_token === "string") {
+                try {
+                    const token = jwt.verify(auth_token, process.env.SECRET_JWT || "", { issuer: "northbit", audience: "unicare" })
+                    if (typeof token === "object" && typeof token?.id === "number" && typeof token?.rl === "string" && token.exp) {
+                        if (rolesArray.includes(token.rl)) {
+                            // to get user data, request to /api/user/me
+                            auth = {
+                                id: token.id,
+                                roles: token.rl as IRoles,
+                                expired_at: token.exp
+                            }
+                            if (isAuthExpired(token.exp) && !["/reset-password", "/login_in", "/"]) {
+                                return redirect<P>(webUrl("/")) as GetServerSidePropsResult<IPages<P>>;
+                            }
+                            stored(store, { auth })
+                        }
+                    }
+                } catch (err) {
+                    console.error("ERROR AUTH", err)
+                }
+            }
+
 
             const fetchAPI = async<R = any>(url: string) => {
                 try {
                     const resp = await axios.get<ResponseData<R>>(url)
-                    return resp.data.result;
-                } catch (e) {
+                    return resp.data.data;
+                } catch (e: any) {
                     if (e instanceof AxiosError) {
-                        console.log(e.response?.data)
-                        let message = "Something went wrong";
-                        if (typeof e.response?.data?.success === "boolean" && !e?.response?.data?.success) {
-                            if (typeof e.response?.data?.message === "string") message = e.response?.data?.message;
-                            else if (typeof e.response?.data?.message?.message) message = e.response?.data?.message?.message;
-                        }
+                        console.error("Err Response", e)
+                        const message = e.response?.data?.error === "object" && 'description' in e.response?.data.error ? e.response?.data.error.description : (e.response?.data.message || "Something went wrong")
                         throw new BackendError(e.response?.status || 503, message);
                     }
                     throw new BackendError(503, "Something went wrong");
                 }
             }
-            if (!auth_cookies && (!ctx.resolvedUrl.startsWith("/login") && !ctx.resolvedUrl.startsWith("/logout") && !ctx.resolvedUrl.startsWith("/reset-password"))) {
+
+            // TODO: sesuaiin yang mana private yang mana public
+            if (!auth_token && (!ctx.resolvedUrl.startsWith("/login") && !ctx.resolvedUrl.startsWith("/logout") && !ctx.resolvedUrl.startsWith("/reset-password"))) {
                 return redirect<P>(webUrl("/login")) as GetServerSidePropsResult<IPages<P>>;
             }
 
-            const result = await callback({ store, redirect, fetchAPI, auth_cookies, ...ctx });
+            const result = await callback({ store, redirect, fetchAPI, auth, ...ctx });
             return result;
         } catch (err) {
             if (process.env.NODE_ENV !== 'production' && err instanceof Error) console.log(err.message, err.stack)
@@ -166,6 +187,5 @@ export function wrapperStatic<P extends {}>(config?: CallbackStatic<P> | Pick<IC
         } catch (err) {
             return { notFound: true }
         }
-
     })
 }

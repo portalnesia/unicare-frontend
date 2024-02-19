@@ -1,13 +1,10 @@
 const express = require('express')
 const next = require('next')
-const cors = require('cors')
 const dev = process.env.NODE_ENV !== 'production'
 const hostn = "localhost";
 const app = next({ dev })
 const helmet = require('helmet')
 const { createProxyMiddleware } = require('http-proxy-middleware');
-
-const corsOrigin = ["https://ht2024.id/", /\.ht2024\.id$/];
 
 app.prepare().then(() => {
     const port = parseInt(process.env.PORT, 10) || 3000
@@ -26,9 +23,6 @@ app.prepare().then(() => {
         return apiProxy(req, res, next);
     }
 
-    server.options('*', cors({ origin: corsOrigin }))
-    server.use(cors({ origin: corsOrigin }))
-
     server.use(helmet.dnsPrefetchControl());
     // server.use(helmet.expectCt());
     server.use(helmet.frameguard());
@@ -42,8 +36,8 @@ app.prepare().then(() => {
     }));
     server.use(helmet.xssFilter());
 
-    server.use("/unicare/api", useApiProxy);
-    server.use("/unicare/assets", useApiProxy);
+    server.use("/api", useApiProxy);
+    server.use("/assets", useApiProxy);
 
     server.use(express.json());
     server.use(express.urlencoded({ extended: true }));
