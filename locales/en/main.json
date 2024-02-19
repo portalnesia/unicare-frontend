@@ -2,5 +2,7 @@
     "title_home": "Home",
     "title_about_us": "About Us",
     "title_our_services": "Our Services",
-    "title_contact_us": "Contact Us"
+    "title_contact_us": "Contact Us",
+    "sign_in": "Sign In",
+    "administration": "Administration"
 }

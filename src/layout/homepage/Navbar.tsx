@@ -4,7 +4,7 @@ import React from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
+import { styled, useThemeProps } from "@mui/material/styles";
 import Link from "next/link";
 import ButtonBase from "@mui/material/ButtonBase";
 import useResponsive from "@/hooks/responsive";
@@ -18,12 +18,14 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import { isIOS } from "react-device-detect";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import { webUrl } from "@/utils/main";
+import { getDayJs, webUrl } from "@/utils/main";
 import { SvgLogo } from "@/components/svg/Logo";
 import Button from "@/components/Button";
 import { useTranslation } from "next-i18next";
 import Card from "@mui/material/Card/Card";
 import Divider from "@mui/material/Divider/Divider";
+import { setCookie } from "cookies-next";
+import { domainCookie } from "@/config";
 
 const RootStyle = styled(AppBar, { shouldForwardProp: (prop: string) => !['transparent'].includes(prop) })<{ transparent?: boolean }>(({ theme, transparent, position }) => ({
     top: 0,
@@ -46,7 +48,7 @@ export const onMenuClick = (d: Pick<INavbar, 'link'>) => (e?: React.MouseEvent<H
         if (e) e.preventDefault();
         const div = document.getElementById(d.link.replace("/#", ""))
         if (div) {
-            const top = div.offsetTop - NAVBAR_HEIGHT + 241;
+            const top = div.offsetTop - NAVBAR_HEIGHT + 80;
             Router.replace("/", undefined, { shallow: true, scroll: false })
             window.scrollTo({ left: 0, top, behavior: 'smooth' })
         }
@@ -124,6 +126,16 @@ export default function Navbar() {
             window.scrollTo({ top: 0, left: 0, behavior: "smooth" })
         }
     }, [router.pathname])
+
+    const handleChangeLanguage = React.useCallback((lang: 'id' | 'en') => {
+        setCookie(
+            "NEXT_LOCALE",
+            lang,
+            { domain: domainCookie, expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production" }
+        )
+        const { pathname, query, asPath } = router
+        router.replace({ pathname, query }, asPath, { locale: lang })
+    }, [router])
 
     React.useEffect(() => {
         function onScroll() {
@@ -204,8 +216,8 @@ export default function Navbar() {
     return (
         <RootStyle transparent={transparent} position="fixed" sx={{ boxShadow: theme => theme.shadows[1] }}>
             <ToolbarStyle transparent={transparent}>
-                <Container maxWidth={"lg"} sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%" }}>
-                    <Stack direction="row" justifyContent="space-between" spacing={2}>
+                <Container maxWidth={"xl"} sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%", pt: 2 }}>
+                    <Stack direction="row" justifyContent="space-around" spacing={2}>
                         {!isMd ? (
                             <>
                                 <Link href={"/"} onClick={onClick()}>
@@ -221,34 +233,63 @@ export default function Navbar() {
                                                     onClick={onClick(d)}
                                                     sx={{ py: 1, px: { xs: 1, md: 2, lg: 2 }, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
                                                 >
-                                                    <Typography variant="subtitle2" fontWeight={500} component="span">{t(d.name)}</Typography>
+                                                    <Typography variant="h6" fontWeight={500} component="span">{t(d.name)}</Typography>
                                                 </ButtonBase>
                                             </Link>
                                         </MenuButton>
                                     ))}
                                 </Stack>
-                                <Stack direction="row" spacing={2}>
+                                <Stack direction="row" spacing={1}>
                                     <MenuButton>
-                                        <Link href={"/en"} legacyBehavior passHref>
-                                            <ButtonBase
-                                                component="a"
-                                                onClick={() => {}}
-                                                sx={{ py: 1, px: 0, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
-                                            >
-                                                <Typography variant="subtitle2" fontWeight={500} fontSize={16} component="span">EN</Typography>
-                                            </ButtonBase>
-                                        </Link>
+                                        <ButtonBase
+                                            component="a"
+                                            onClick={() => {
+                                                handleChangeLanguage("en")
+                                            }}
+                                            sx={{
+                                                py: 1, px: 0, borderRadius: 2,
+                                                ":hover": { bgcolor: "action.hover" },
+                                            }}
+                                        >
+                                            <Typography variant="h6" component="span" color={"primary.main"} sx={{
+                                                "&::after": {
+                                                    content: '""',
+                                                    display: "block",
+                                                    position: 'absolute',
+                                                    margin: "auto",
+                                                    width: 0,
+                                                    height: 3,
+                                                    backgroundColor: "primary.main",
+                                                    ...(router.locale == "en" ? {
+                                                        width: "100%",
+                                                    } : {})
+                                                }
+                                            }}>EN</Typography>
+                                        </ButtonBase>
                                     </MenuButton>
                                     <MenuButton>
-                                        <Link href={"/id"} legacyBehavior passHref>
-                                            <ButtonBase
-                                                component="a"
-                                                onClick={() => {}}
-                                                sx={{ py: 1, px: 0, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
-                                            >
-                                                <Typography variant="subtitle2" fontWeight={500} fontSize={16} component="span">ID</Typography>
-                                            </ButtonBase>
-                                        </Link>
+                                        <ButtonBase
+                                            component="a"
+                                            onClick={() => {
+                                                handleChangeLanguage("id")
+                                            }}
+                                            sx={{ py: 1, mr: 1, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
+                                        >
+                                            <Typography variant="h6" component="span" color={"primary.main"} sx={{
+                                                "&::after": {
+                                                    content: '""',
+                                                    display: "block",
+                                                    position: 'absolute',
+                                                    margin: "auto",
+                                                    width: 0,
+                                                    height: 3,
+                                                    backgroundColor: "primary.main",
+                                                    ...(router.locale == "id" ? {
+                                                        width: "100%",
+                                                    } : {})
+                                                },
+                                            }}>ID</Typography>
+                                        </ButtonBase>
                                     </MenuButton>
                                     <Button><Typography>{t("sign_in")}</Typography></Button>
                                     <Button><Typography>{t("administration")}</Typography></Button>
@@ -279,7 +320,6 @@ export default function Navbar() {
                                         <Box
                                             bgcolor="primary.main"
                                             color="white"
-                                            // borderBottom={theme => `2px solid ${theme.palette.divider}`}
                                             zIndex={2}
                                         >
                                             <Link href={"/"} onClick={onClick()} passHref legacyBehavior>

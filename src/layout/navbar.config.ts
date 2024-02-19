@@ -1,4 +1,4 @@
-export const NAVBAR_HEIGHT = 120;
+export const NAVBAR_HEIGHT = 140;
 export const DRAWER_WIDTH = 270;
 
 export type INavbarChild = {
