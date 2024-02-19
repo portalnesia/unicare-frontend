@@ -1,11 +1,14 @@
-import { Auth } from '@/models/auth';
-import { TripRequest, IOperationalCostRequest } from '@/models/trip';
+import { Auth } from '@/model/auth';
+import { ICustomer, IUser } from '@/model/user';
 import { HYDRATE } from 'next-redux-wrapper';
 
 export type State = {
     auth: Auth | null;
-    dashboardForm: TripRequest | null
-    operationalCost: IOperationalCostRequest | null;
+    /**
+     *  null means no auth
+     *  undefined means data not yet requested
+     */
+    user?: IUser | ICustomer | null;
 }
 
 export type ActionType = {

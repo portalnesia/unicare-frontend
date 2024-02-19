@@ -4,8 +4,6 @@ import { Reducer } from 'redux'
 
 const initialState: State = {
     auth: null,
-    dashboardForm: null,
-    operationalCost: null
 }
 
 const rootReducer: Reducer<State, ActionType> = (state = initialState, action) => {
