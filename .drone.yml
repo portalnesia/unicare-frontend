@@ -11,22 +11,8 @@ trigger:
     - push
 
 steps:
-# Restore caches
-- name: restore-cache
-  image: drillster/drone-volume-cache
-  settings:
-    restore: true
-    mount:
-      - ./node_modules
-      - ./.next/cache
-  volumes:
-  - name: cache
-    path: /caches
-
 - name: build
   image: node:18.16.1-alpine3.18
-  depends_on:
-  - restore-cache
   volumes:
   - name: northbit
     path: /northbit
@@ -92,9 +78,9 @@ steps:
     - failure
   settings:
     webhook_id:
-      from_secret: discord_id
+      from_secret: unicare_discord_id
     webhook_token:
-      from_secret: discord_token
+      from_secret: unicare_discord_token
     avatar_url: https://content.portalnesia.com/icon/PN-Logo.png
     username: Portalnesia
     message: |
@@ -110,24 +96,7 @@ steps:
       
       by. Portalnesia CI/CD
 
-# Rebuild caches
-- name: rebuild-cache
-  image: drillster/drone-volume-cache
-  settings:
-    rebuild: true
-    mount:
-    - ./node_modules
-    - ./.next/cache
-  volumes:
-  - name: cache
-    path: /caches
-  depends_on:
-  - discord
-
 volumes:
-- name: cache
-  host:
-    path: /tmp/drone/caches
 - name: northbit
   host:
     path: /home/putu/portalnesia/nodejs/northbit

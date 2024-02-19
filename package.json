@@ -13,7 +13,7 @@
         "build": "npm run build:webpack && npm run build:pack",
         "tsc": "tsc ./server.ts --module commonjs --esModuleInterop --resolveJsonModule",
         "docker": "npm run build:webpack && node bin/docker.js",
-        "reload": "rm -rf ./.next && unzip -q -o northbit && pm2 reload unicare-frontend"
+        "reload": "rm -rf ./.next ./public ./locales && unzip -q -o northbit && pm2 reload unicare-frontend"
     },
     "devDependencies": {
         "@emotion/react": "^11.11.1",
