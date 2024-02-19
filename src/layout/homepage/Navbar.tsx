@@ -46,7 +46,7 @@ export const onMenuClick = (d: Pick<INavbar, 'link'>) => (e?: React.MouseEvent<H
         if (e) e.preventDefault();
         const div = document.getElementById(d.link.replace("/#", ""))
         if (div) {
-            const top = div.offsetTop - NAVBAR_HEIGHT + 24;
+            const top = div.offsetTop - NAVBAR_HEIGHT + 241;
             Router.replace("/", undefined, { shallow: true, scroll: false })
             window.scrollTo({ left: 0, top, behavior: 'smooth' })
         }
@@ -204,7 +204,7 @@ export default function Navbar() {
     return (
         <RootStyle transparent={transparent} position="fixed" sx={{ boxShadow: theme => theme.shadows[1] }}>
             <ToolbarStyle transparent={transparent}>
-                <Container maxWidth={"xl"} sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%" }}>
+                <Container maxWidth={"lg"} sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%" }}>
                     <Stack direction="row" justifyContent="space-between" spacing={2}>
                         {!isMd ? (
                             <>
@@ -212,21 +212,46 @@ export default function Navbar() {
                                     <SvgLogo sx={{ mt: 1 }} />
                                 </Link>
 
-                                <Stack direction="row" spacing={2}>
+                                <Stack direction="row" spacing={1}>
                                     {navbar.map((d, i) => (
                                         <MenuButton key={`${d.name}-${i}`} className={`section-hash-button`} data-hash={d.link} activeMenu={isActive(d)}>
                                             <Link href={d.link} legacyBehavior passHref>
                                                 <ButtonBase
                                                     component="a"
                                                     onClick={onClick(d)}
-                                                    sx={{ py: 1, px: { xs: 2, md: 3, lg: 4 }, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
+                                                    sx={{ py: 1, px: { xs: 1, md: 2, lg: 2 }, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
                                                 >
-                                                    <Typography variant="subtitle2" fontWeight={500} fontSize={16} component="span">{t(d.name)}</Typography>
+                                                    <Typography variant="subtitle2" fontWeight={500} component="span">{t(d.name)}</Typography>
                                                 </ButtonBase>
                                             </Link>
                                         </MenuButton>
                                     ))}
-                                    <Button><Typography>Sign In</Typography></Button>
+                                </Stack>
+                                <Stack direction="row" spacing={2}>
+                                    <MenuButton>
+                                        <Link href={"/en"} legacyBehavior passHref>
+                                            <ButtonBase
+                                                component="a"
+                                                onClick={() => {}}
+                                                sx={{ py: 1, px: 0, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
+                                            >
+                                                <Typography variant="subtitle2" fontWeight={500} fontSize={16} component="span">EN</Typography>
+                                            </ButtonBase>
+                                        </Link>
+                                    </MenuButton>
+                                    <MenuButton>
+                                        <Link href={"/id"} legacyBehavior passHref>
+                                            <ButtonBase
+                                                component="a"
+                                                onClick={() => {}}
+                                                sx={{ py: 1, px: 0, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
+                                            >
+                                                <Typography variant="subtitle2" fontWeight={500} fontSize={16} component="span">ID</Typography>
+                                            </ButtonBase>
+                                        </Link>
+                                    </MenuButton>
+                                    <Button><Typography>{t("sign_in")}</Typography></Button>
+                                    <Button><Typography>{t("administration")}</Typography></Button>
                                 </Stack>
                             </>
                         ) : (
