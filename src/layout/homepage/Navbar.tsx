@@ -26,6 +26,8 @@ import Card from "@mui/material/Card/Card";
 import Divider from "@mui/material/Divider/Divider";
 import { setCookie } from "cookies-next";
 import { domainCookie } from "@/config";
+import { Icon } from "@iconify/react";
+import { SvgIcon } from "@mui/material";
 
 const RootStyle = styled(AppBar, { shouldForwardProp: (prop: string) => !['transparent'].includes(prop) })<{ transparent?: boolean }>(({ theme, transparent, position }) => ({
     top: 0,
@@ -239,7 +241,7 @@ export default function Navbar() {
                                         </MenuButton>
                                     ))}
                                 </Stack>
-                                <Stack direction="row" spacing={1}>
+                                <Stack direction="row" spacing={2}>
                                     <MenuButton>
                                         <ButtonBase
                                             component="a"
@@ -291,8 +293,14 @@ export default function Navbar() {
                                             }}>ID</Typography>
                                         </ButtonBase>
                                     </MenuButton>
-                                    <Button><Typography>{t("sign_in")}</Typography></Button>
-                                    <Button><Typography>{t("administration")}</Typography></Button>
+                                    <Button outlined sx={{ px: 5 }}><Typography variant="subtitle1">{t("sign_in")}</Typography></Button>
+                                    <Button
+                                        icon="ci:menu-alt-05"
+                                        iconPosition="start"
+                                        sx={{ transform: "scaleX(-1);" }}
+                                    >
+                                        <Typography variant="subtitle1" sx={{ transform: "scaleX(-1);" }}>{t("administration")}</Typography>
+                                    </Button>
                                 </Stack>
                             </>
                         ) : (

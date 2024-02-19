@@ -7,9 +7,10 @@ import Iconify from './Iconify';
 
 const Tooltip = dynamic(() => import('@mui/material/Tooltip'))
 
-const LoadingButton = styled(Buttonn, { shouldForwardProp: (prop: string) => !['small'].includes(prop) })<{ small?: boolean }>(({ small }) => ({
-    borderRadius: "24px",
-    padding: small ? "8px 32px" : "12px 52px",
+const LoadingButton = styled(Buttonn, { shouldForwardProp: (prop: string) => !['small'].includes(prop) })<{  small?: boolean }>(({ theme, small }) => ({
+    borderRadius: "8px",
+    border: `3px ${theme.palette.primary.main} solid`,
+    padding: small ? "8px 8px" : "12px 12px",
     gap: "8px",
     boxShadow: "none",
     // ...(!small ? {
