@@ -3,7 +3,7 @@ import type { TooltipProps } from '@mui/material'
 import Buttonn, { LoadingButtonProps } from '@mui/lab/LoadingButton'
 import { styled } from '@mui/material/styles';
 import dynamic from 'next/dynamic'
-import Iconify from './Iconify';
+import Iconify, { IconifyProps } from './Iconify';
 
 const Tooltip = dynamic(() => import('@mui/material/Tooltip'))
 
@@ -38,21 +38,22 @@ export interface ButtonProps extends LoadingButtonProps {
     icon?: string | React.ReactNode | undefined
     iconPosition?: 'start' | 'end'
     small?: boolean;
+    iconifyProps?: Partial<IconifyProps>;
     component?: any
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-    const { size = "medium", loadingPosition: loadingPosisi, disabled = false, outlined = false, children, color = 'primary', variant = "contained", tooltip, endIcon, icon, tooltipProps, loading, iconPosition = 'end', startIcon, name = 'button', small, ...other } = props;
+    const { size = "medium", loadingPosition: loadingPosisi, disabled = false, outlined = false, children, color = 'primary', variant = "contained", tooltip, endIcon, icon, iconifyProps, tooltipProps, loading, iconPosition = 'end', startIcon, name = 'button', small, ...other } = props;
     const loadingPosition = loadingPosisi ? loadingPosisi : (icon) && children ? iconPosition : "center";
     const cusIcon = React.useMemo((): React.ReactNode | undefined => {
         if (endIcon && iconPosition === 'end') return endIcon;
         if (startIcon && iconPosition === 'start') return startIcon
         if (typeof icon === 'string') {
-            if (icon === 'submit') return <Iconify icon="material-symbols:arrow-right-alt" />
-            else return <Iconify icon={icon} />
+            if (icon === 'submit') return <Iconify {...iconifyProps} ref={null} icon="material-symbols:arrow-right-alt" />
+            else return <Iconify {...iconifyProps} ref={null} icon={icon} />
         }
         return undefined;
-    }, [icon, endIcon, startIcon, iconPosition])
+    }, [icon, endIcon, startIcon, iconPosition, iconifyProps])
 
     if (tooltip && !disabled) {
         return (

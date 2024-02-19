@@ -235,7 +235,7 @@ export default function Navbar() {
                                                     onClick={onClick(d)}
                                                     sx={{ py: 1, px: { xs: 1, md: 2, lg: 2 }, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
                                                 >
-                                                    <Typography variant="h6" fontWeight={500} component="span">{t(d.name)}</Typography>
+                                                    <Typography variant="h6" fontWeight={500} component="span">{t(d.name as any)}</Typography>
                                                 </ButtonBase>
                                             </Link>
                                         </MenuButton>
