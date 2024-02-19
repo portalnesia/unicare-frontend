@@ -1,7 +1,7 @@
 import "i18next";
 import main from "../../locales/en/main.json";
-import menu from "../../locales/en/menu.json";
-import home from "../../locales/en/home.json";
+// import menu from "../../locales/en/menu.json";
+// import home from "../../locales/en/home.json";
 
 declare module "i18next" {
     const resources = {
@@ -14,8 +14,8 @@ declare module "i18next" {
         // custom resources type
         resources: {
             main: typeof main
-            menu: typeof menu
-            home: typeof home
+            // menu: typeof menu
+            // home: typeof home
         }
         // other
     }

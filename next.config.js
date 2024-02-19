@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 
+const { i18n } = require('./next-i18next.config')
 const { withSuperjson } = require('next-superjson')
 
 const nextConfig = {
+    i18n,
     output: 'standalone',
     reactStrictMode: true,
     poweredByHeader: false,

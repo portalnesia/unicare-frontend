@@ -4,7 +4,7 @@ import { alpha } from '@mui/system/colorManipulator';
 export const PRIMARY = {
     lighter: '#D9EBFD',
     light: '#82BCF7',
-    main: '#328AE2',
+    main: '#003FB5',
     dark: '#0B63BB',
     darker: '#004182',
     contrastText: '#fff'

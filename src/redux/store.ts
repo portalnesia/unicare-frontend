@@ -14,6 +14,9 @@ import { ResponseData } from '@/hooks/api';
 import { isAuthExpired, webUrl } from '@/utils/main';
 import { Session, SessionRecord } from "next-session/lib/types";
 import { CookieValueTypes, getCookie } from 'cookies-next';
+import nextI18nextConfig from 'root/next-i18next.config';
+import { SSRConfig } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 export const useDispatch = () => originalUseDispatch<Dispatch<ActionType>>()
 export const useSelector = <D = State>(selector: (state: State) => D) => originalUseSelector<State, D>(selector)
@@ -130,12 +133,17 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
     })
 }
 
+async function getTranslation(translation?: string | string[], locale: string = 'id') {
+    const translations = translation ? ['menu', 'main'].concat(typeof translation === 'string' ? [translation] : translation) : ['menu', 'main'];
+    return await serverSideTranslations(locale, translations, nextI18nextConfig)
+}
+
 type CallbackStaticParams = GetStaticPropsContext<ParsedUrlQuery, any> & ({
     store: Store<State, ActionType> & {
         dispatch: Dispatch<ActionType>;
     }
 }) & ({
-
+    getTranslation(translation?: string | string[], locale?: string): Promise<SSRConfig>;
 })
 type CallbackStatic<P extends {}> = (params: CallbackStaticParams) => Promise<GetStaticPropsResult<IPages<P>>>
 
@@ -145,11 +153,12 @@ export function wrapperStatic<P extends {}>(config?: CallbackStatic<P> | Pick<IC
             let props = { props: {} } as any
 
             if (typeof config === 'function') {
-                props = await config({ store, ...ctx })
+                props = await config({ store, getTranslation, ...ctx })
             } else {
                 props = {
                     props: {
                         ...props.props,
+                        ...(await getTranslation(config?.translation, ctx?.locale || "en"))
                     },
                 }
             }
