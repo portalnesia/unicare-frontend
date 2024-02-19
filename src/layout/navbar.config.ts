@@ -1,4 +1,4 @@
-export const NAVBAR_HEIGHT = 64;
+export const NAVBAR_HEIGHT = 120;
 export const DRAWER_WIDTH = 270;
 
 export type INavbarChild = {
@@ -22,16 +22,16 @@ export type INavbar = {
 }
 
 export const getNavbarMenu = (): INavbar[] => ([{
-    name: "Home",
+    name: "title_home",
     link: "/#home",
 }, {
-    name: "About Us",
+    name: "title_about_us",
     link: "/#about-us",
 }, {
-    name: "Our Services",
+    name: "title_our_services",
     link: "/#our-services",
 }, {
-    name: "Contact Us",
+    name: "title_contact_us",
     link: "/#contact-us",
 },
 ])

@@ -21,7 +21,7 @@ export default function HomepageLayout({ children, rich = true, navbar = true, s
     }, [slider, navbar])
 
     return (
-        <Box position="relative" >
+        <Box maxWidth="100%" position="relative" >
             {rich ? (
                 <Container sx={{ position: "relative" }}>
                     {/* <Redbox id="homepage-box" homepage={slider} sx={{
@@ -36,7 +36,7 @@ export default function HomepageLayout({ children, rich = true, navbar = true, s
             {navbar ? (
                 <Navbar />
             ) : null}
-            <Box pt={pt} {...!navbar ? { pb: 7 } : {}}>{children}</Box>
+            <Box mt={0} {...!navbar ? { mb: 7 } : {}}>{children}</Box>
         </Box>
     )
 }

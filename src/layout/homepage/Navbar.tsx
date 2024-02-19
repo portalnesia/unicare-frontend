@@ -19,6 +19,11 @@ import ListItemButton from "@mui/material/ListItemButton";
 import { isIOS } from "react-device-detect";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import { webUrl } from "@/utils/main";
+import { SvgLogo } from "@/components/svg/Logo";
+import Button from "@/components/Button";
+import { useTranslation } from "next-i18next";
+import Card from "@mui/material/Card/Card";
+import Divider from "@mui/material/Divider/Divider";
 
 const RootStyle = styled(AppBar, { shouldForwardProp: (prop: string) => !['transparent'].includes(prop) })<{ transparent?: boolean }>(({ theme, transparent, position }) => ({
     top: 0,
@@ -41,7 +46,7 @@ export const onMenuClick = (d: Pick<INavbar, 'link'>) => (e?: React.MouseEvent<H
         if (e) e.preventDefault();
         const div = document.getElementById(d.link.replace("/#", ""))
         if (div) {
-            const top = div.offsetTop - NAVBAR_HEIGHT - 24;
+            const top = div.offsetTop - NAVBAR_HEIGHT + 24;
             Router.replace("/", undefined, { shallow: true, scroll: false })
             window.scrollTo({ left: 0, top, behavior: 'smooth' })
         }
@@ -51,7 +56,7 @@ export const onMenuClick = (d: Pick<INavbar, 'link'>) => (e?: React.MouseEvent<H
 const MenuButton = styled(Box, {
     shouldForwardProp: (p: string) => !['activeMenu'].includes(p)
 })<{ component?: any, activeMenu?: boolean }>(({ theme, activeMenu }) => ({
-    color: "#A9C0C6",
+    color: "#858585",
     fontSize: 20,
     textAlign: "center",
     position: "relative",
@@ -66,16 +71,16 @@ const MenuButton = styled(Box, {
             duration: theme.transitions.duration.enteringScreen,
         }),
         ...(activeMenu ? {
-            width: "100%"
+            width: "100%",
         } : {})
     },
     ...(activeMenu ? {
-        color: theme.palette.secondary.main,
+        color: theme.palette.primary.main,
     } : {}),
     "&.active": {
-        color: theme.palette.secondary.main,
+        color: theme.palette.primary.main,
         "&::after": {
-            width: "100%"
+            width: "100%",
         }
     }
 }))
@@ -87,7 +92,7 @@ export default function Navbar() {
     // const isSwipe = useResponsive('down', 651);
     const isMd = useResponsive("down", 462);
     const [transparent, setTransparent] = React.useState(false);
-
+    const [t] = useTranslation("main");
 
     const navbar = React.useMemo(() => {
         return getNavbarMenu();
@@ -197,35 +202,41 @@ export default function Navbar() {
     }, [router.pathname])
 
     return (
-        <RootStyle transparent={transparent} position="fixed">
+        <RootStyle transparent={transparent} position="fixed" sx={{ boxShadow: theme => theme.shadows[1] }}>
             <ToolbarStyle transparent={transparent}>
-                <Container sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%" }}>
+                <Container maxWidth={"xl"} sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%" }}>
                     <Stack direction="row" justifyContent="space-between" spacing={2}>
                         {!isMd ? (
                             <>
                                 <Link href={"/"} onClick={onClick()}>
-                                    {/* <SvgLogo sx={{ mt: 1 }} /> */}
+                                    <SvgLogo sx={{ mt: 1 }} />
                                 </Link>
 
                                 <Stack direction="row" spacing={2}>
                                     {navbar.map((d, i) => (
                                         <MenuButton key={`${d.name}-${i}`} className={`section-hash-button`} data-hash={d.link} activeMenu={isActive(d)}>
                                             <Link href={d.link} legacyBehavior passHref>
-                                                <ButtonBase component="a" onClick={onClick(d)} sx={{ py: 1, px: { xs: 2, md: 3, lg: 4 }, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}><Typography variant="button" component="span">{d.name}</Typography></ButtonBase>
+                                                <ButtonBase
+                                                    component="a"
+                                                    onClick={onClick(d)}
+                                                    sx={{ py: 1, px: { xs: 2, md: 3, lg: 4 }, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
+                                                >
+                                                    <Typography variant="subtitle2" fontWeight={500} fontSize={16} component="span">{t(d.name)}</Typography>
+                                                </ButtonBase>
                                             </Link>
                                         </MenuButton>
-                                        // <MenuButton key={`${d.name}-${i}`} className={`section-hash-button`} data-hash={d.link} activeMenu={isActive(d)}><Link href={d.link} legacyBehavior passHref><ButtonBase component="a" onClick={onClick(d)} sx={{ py: 1, px: { sm: 1, md: 2, lg: 3 }, borderRadius: 2, fontSize: { xs: 13, sm: 16, md: 18, lg: 20 }, ":hover": { bgcolor: "action.hover" } }}>{d.name}</ButtonBase></Link></MenuButton>
                                     ))}
+                                    <Button><Typography>Sign In</Typography></Button>
                                 </Stack>
                             </>
                         ) : (
                             <>
                                 <IconButton onClick={handleToogle}>
-                                    <Iconify icon="mingcute:menu-fill" sx={{ color: "white", width: 30, height: 30, }} />
+                                    <Iconify icon="mingcute:menu-fill" sx={{ color: "primary.main", width: 30, height: 30, }} />
                                 </IconButton>
 
                                 <Link href={"/"} onClick={onClick()}>
-                                    {/* <SvgLogo sx={{ mt: 1 }} /> */}
+                                    <SvgLogo sx={{ mt: 1 }} />
                                 </Link>
 
                                 <Portal>
