@@ -3,8 +3,9 @@ import { SvgLogo } from "@/components/svg/Logo";
 import HomepageLayout from "@/layout/homepage";
 import Navbar from "@/layout/homepage/Navbar";
 import { wrapperStatic } from "@/redux/store";
+import SectionAboutUs from "@/sections/AboutUs";
 import SectionHome from "@/sections/Home";
-import { Typography } from "@mui/material";
+import Box from "@mui/material/Box/Box";
 import Container from "@mui/material/Container/Container";
 import { useTranslation } from "next-i18next";
 import { useEffect } from "react";
@@ -20,19 +21,27 @@ export default function HomePage() {
     return (
         <Pages>
             <HomepageLayout>
-                <Container id="home" className="section-northbit-home" sx={{ pt: 19, px: 2, zIndex: 1 }}>
+                <Container id="home" className="section-northbit-home" sx={{ pt: 19, pb: 8, px: 2, zIndex: 1 }}>
                     {/* <Typography sx={{backgroundColor: "red", height: "500px"}}>home section</Typography> */}
                     <SectionHome />
                 </Container>
-                <Container id="about-us" className="section-northbit-home" sx={{ pt: 50, px: 2, zIndex: 1 }}>
-                    <h1>about us section</h1>
-                </Container>
+
+                <Box id="about-us" className="section-northbit-home" sx={{backgroundColor: "#F3F3F3"}}>
+                    <Container  sx={{
+                        position: "relative", py: 10, px: 2, zIndex: 1
+                    }}>
+                        <SectionAboutUs />
+                    </Container>
+                </Box>
+
                 <Container id="our-services" className="section-northbit-home" sx={{ pt: 50, px: 2, zIndex: 1 }}>
                     <h1>our-services</h1>
                 </Container>
+
                 <Container id="contact-us" className="section-northbit-home" sx={{ py: 50, px: 2, zIndex: 1 }}>
                     <h1>contact-us</h1>
                 </Container>
+
                 <Container sx={{ my: 50, px: 2, zIndex: 1 }}>
                     <h1>Footer</h1>
                 </Container>

@@ -10,7 +10,6 @@ import Button from "./Button";
 import Scrollbar from "./Scrollbar";
 import { useTranslation } from "next-i18next";
 import TextField from "./TextField";
-import BootstrapTextField, { BootstrapInput } from "./BootstrapInput";
 
 export type MapProps = {
     sx?: SxProps<Theme> | undefined

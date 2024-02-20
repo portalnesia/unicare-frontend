@@ -34,7 +34,7 @@ export const BootstrapInput = styled(InputBase, {
     ]),
     // Use the system font instead of the default Roboto font.
     fontFamily: [
-        'Montserrat',
+        'Inter',
         'sans-serif',
     ].join(','),
     ...error ? {

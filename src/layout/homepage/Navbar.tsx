@@ -32,7 +32,7 @@ import { SvgIcon } from "@mui/material";
 const RootStyle = styled(AppBar, { shouldForwardProp: (prop: string) => !['transparent'].includes(prop) })<{ transparent?: boolean }>(({ theme, transparent, position }) => ({
     top: 0,
     boxShadow: "none",
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
     // ...(boxShadow ? {} : { boxShadow: "none" }),
 }));
 
