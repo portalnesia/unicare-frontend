@@ -22,8 +22,13 @@ const FONT_PRIMARY = [
     'Inter', 'Sans-serif'
 ].join(", ")
 
+export const FONT_SECONDARY = [
+    'DM Sans', 'Sans-serif'
+].join(", ")
+
 const typography: ThemeOptions['typography'] = {
     fontFamily: FONT_PRIMARY,
+    // fontFamily: FONT_SECONDARY,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
     fontWeightBold: 700,
@@ -31,6 +36,7 @@ const typography: ThemeOptions['typography'] = {
         fontWeight: 700,
         lineHeight: 80 / 64,
         fontSize: pxToRem(36),
+        fontFamily: FONT_SECONDARY,
         ...responsiveFontSizes({ sm: 38, md: 40, lg: 42 })
     },
     h2: {
@@ -75,7 +81,7 @@ const typography: ThemeOptions['typography'] = {
     },
     body1: {
         lineHeight: 1.5,
-        fontSize: pxToRem(15)
+        fontSize: pxToRem(16)
     },
     body2: {
         lineHeight: 22 / 14,
@@ -97,7 +103,8 @@ const typography: ThemeOptions['typography'] = {
         lineHeight: 24 / 14,
         fontSize: pxToRem(18),
         textTransform: 'capitalize'
-    }
+    },
+    
 };
 
 export default typography;

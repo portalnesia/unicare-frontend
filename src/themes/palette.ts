@@ -51,7 +51,7 @@ const palette: PaletteOptions = {
     mode: 'light',
     common: { black: '#000', white: '#fff' },
     background: { paper: '#FBFBFB', default: '#FFFFFF' },
-    text: { primary: "#212B36", secondary: "#919EAB" },
+    text: { primary: "#333333", secondary: "#919EAB" },
     primary: PRIMARY,
     secondary: SECONDARY,
     info: INFO,

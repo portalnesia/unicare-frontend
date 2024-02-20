@@ -3,6 +3,7 @@ import { SvgLogo } from "@/components/svg/Logo";
 import HomepageLayout from "@/layout/homepage";
 import Navbar from "@/layout/homepage/Navbar";
 import { wrapperStatic } from "@/redux/store";
+import SectionHome from "@/sections/Home";
 import { Typography } from "@mui/material";
 import Container from "@mui/material/Container/Container";
 import { useTranslation } from "next-i18next";
@@ -20,7 +21,8 @@ export default function HomePage() {
         <Pages>
             <HomepageLayout>
                 <Container id="home" className="section-northbit-home" sx={{ pt: 19, px: 2, zIndex: 1 }}>
-                    <Typography sx={{backgroundColor: "red", height: "500px"}}>home section</Typography>
+                    {/* <Typography sx={{backgroundColor: "red", height: "500px"}}>home section</Typography> */}
+                    <SectionHome />
                 </Container>
                 <Container id="about-us" className="section-northbit-home" sx={{ pt: 50, px: 2, zIndex: 1 }}>
                     <h1>about us section</h1>
