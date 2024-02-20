@@ -23,7 +23,7 @@ export default function SectionHome() {
                 </Grid>
             </Grid>
             <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ? process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY : ""}>
-                <HospitalMap sx={{ height: "75vh", my: 5 }} />
+                <HospitalMap sx={{ height: "700px", my: 5 }} />
             </Wrapper>
         </Stack>
     )

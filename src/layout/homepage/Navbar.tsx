@@ -365,13 +365,13 @@ export default function Navbar() {
                                             }}>ID</Typography>
                                         </ButtonBase>
                                     </MenuButton>
-                                    <Button variant="text" sx={{ px: 5 }}><Typography color="primary" variant="subtitle1">{t("sign_in")}</Typography></Button>
+                                    <Button variant="text" sx={{ px: 5, flex: "none" }}><Typography color="primary" variant="subtitle2" >{t("sign_in")}</Typography></Button>
                                     <Button
                                         icon="ci:menu-alt-05"
                                         iconPosition="start"
                                         sx={{ transform: "scaleX(-1);" }}
                                     >
-                                        <Typography variant="subtitle1" sx={{ transform: "scaleX(-1);" }}>{t("administration")}</Typography>
+                                        <Typography variant="subtitle2" sx={{ transform: "scaleX(-1);" }}>{t("administration")}</Typography>
                                     </Button>
                                 </Stack>
                             </>
