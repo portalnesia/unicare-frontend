@@ -16,7 +16,7 @@ export default function SectionHome() {
         <Stack direction="column" pt={{ xs: 2, md: 8 }}>
             <Grid container alignItems="center" spacing={4}>
                 <Grid item xs={12} sm={5}>
-                    <Typography fontFamily={FONT_SECONDARY} variant="h1">{t("heading_title_check_out_our_providers")}</Typography>
+                    <Typography fontFamily={FONT_SECONDARY} variant="h1" color="#333333">{t("heading_title_check_out_our_providers")}</Typography>
                 </Grid>
                 <Grid item xs={12} sm={7}>
                     <Typography variant="body1">{t("description_explore_our_network")}</Typography>
