@@ -32,7 +32,7 @@ import { SvgIcon } from "@mui/material";
 const RootStyle = styled(AppBar, { shouldForwardProp: (prop: string) => !['transparent'].includes(prop) })<{ transparent?: boolean }>(({ theme, transparent, position }) => ({
     top: 0,
     boxShadow: "none",
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
     // ...(boxShadow ? {} : { boxShadow: "none" }),
 }));
 
@@ -218,25 +218,97 @@ export default function Navbar() {
     return (
         <RootStyle transparent={transparent} position="fixed" sx={{ boxShadow: theme => theme.shadows[1] }}>
             <ToolbarStyle transparent={transparent}>
-                <Container maxWidth={"xl"} sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%", pt: 2 }}>
-                    <Stack direction="row" justifyContent="space-around" spacing={2}>
+                <Container maxWidth={"xl"} sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%" }}>
+                    <Stack direction="row" justifyContent="space-around" spacing={2} height="100%">
                         {!isMd ? (
                             <>
                                 <Link href={"/"} onClick={onClick()}>
                                     <SvgLogo sx={{ mt: 1 }} />
                                 </Link>
 
-                                <Stack direction="row" spacing={1}>
+                                <Stack direction="row" spacing={1} height="50%">
                                     {navbar.map((d, i) => (
-                                        <MenuButton key={`${d.name}-${i}`} className={`section-hash-button`} data-hash={d.link} activeMenu={isActive(d)}>
+                                        <MenuButton key={`${d.name}-${i}`} className={`section-hash-button`} data-hash={d.link} activeMenu={isActive(d)} sx={{
+                                            height: "100%",
+                                        }}>
                                             <Link href={d.link} legacyBehavior passHref>
                                                 <ButtonBase
                                                     component="a"
                                                     onClick={onClick(d)}
-                                                    sx={{ py: 1, px: { xs: 1, md: 2, lg: 2 }, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
+                                                    sx={{
+                                                        py: 1,
+                                                        px: { xs: 1, md: 2, lg: 2 },
+                                                        borderRadius: 20,
+                                                        height: "100%",
+                                                        // ":hover": { background: "linear-gradient(to bottom, transparent 0%, lightgrey 50%, transparent 100%)", opacity: "25%" },
+                                                        // position: "relative",
+                                                        // overflow: "hidden",
+                                                        "&:active": {
+                                                            // height: "25%"
+                                                            // content: '""',
+                                                            // position: "absolute",
+                                                            // top: "50%",
+                                                            // left: 0,
+                                                            // right: 0,
+                                                            // bottom: 0,
+                                                            // borderRadius: 20,
+                                                            // background: "linear-gradient(to bottom, transparent 0%, lightgrey 50%, transparent 100%)",
+                                                            // height: "50%",
+                                                            // opacity: "25%",
+                                                            // transform: "translateY(-50%)"
+                                                        },
+                                                        "&:hover::after": {
+                                                            content: '""',
+                                                            position: "absolute",
+                                                            top: "50%",
+                                                            left: 0,
+                                                            right: 0,
+                                                            bottom: 0,
+                                                            borderRadius: 20,
+                                                            background: "linear-gradient(to bottom, transparent 0%, lightgrey 50%, transparent 100%)",
+                                                            height: "100%",
+                                                            opacity: "25%",
+                                                            transform: "translateY(-50%)"
+                                                        },
+                                                    }}
                                                 >
                                                     <Typography variant="h6" fontWeight={500} component="span">{t(d.name as any)}</Typography>
                                                 </ButtonBase>
+                                                {/* <Box sx={{
+                                                    height: "100%",
+                                                    position: "relative",
+                                                    display: "flex",
+                                                    justifyContent: "center",
+                                                    alignItems: "center",
+                                                }}>
+                                                    <Box sx={{
+                                                        height: "50%",
+                                                        display: "flex",
+                                                        position: "absolute",
+                                                        top: 0,
+                                                        left: 0,
+                                                        right: 0,
+                                                        bottom: 0,
+                                                        ":hover": { bgcolor: "action.hover" },
+                                                        zIndex: 1, // Ensure the hover box is behind the button
+                                                    }} />
+                                                    <ButtonBase
+                                                        component="a"
+                                                        onClick={onClick(d)}
+                                                        sx={{
+                                                            py: 1,
+                                                            px: { xs: 1, md: 2, lg: 2 },
+                                                            borderRadius: 20,
+                                                            height: "100%",
+                                                            // backgroundColor: "transparent"
+                                                            // position: "relative",
+                                                            // zIndex: -1
+                                                        }}
+                                                    >
+                                                        <Typography variant="h6" fontWeight={500} component="span">{t(d.name as any)}</Typography>
+                                                    </ButtonBase>
+                                                </Box> */}
+
                                             </Link>
                                         </MenuButton>
                                     ))}
@@ -260,7 +332,7 @@ export default function Navbar() {
                                                     position: 'absolute',
                                                     margin: "auto",
                                                     width: 0,
-                                                    height: 3,
+                                                    height: 2,
                                                     backgroundColor: "primary.main",
                                                     ...(router.locale == "en" ? {
                                                         width: "100%",
@@ -284,7 +356,7 @@ export default function Navbar() {
                                                     position: 'absolute',
                                                     margin: "auto",
                                                     width: 0,
-                                                    height: 3,
+                                                    height: 2,
                                                     backgroundColor: "primary.main",
                                                     ...(router.locale == "id" ? {
                                                         width: "100%",
@@ -293,7 +365,7 @@ export default function Navbar() {
                                             }}>ID</Typography>
                                         </ButtonBase>
                                     </MenuButton>
-                                    <Button outlined sx={{ px: 5 }}><Typography variant="subtitle1">{t("sign_in")}</Typography></Button>
+                                    <Button variant="text" sx={{ px: 5 }}><Typography color="primary" variant="subtitle1">{t("sign_in")}</Typography></Button>
                                     <Button
                                         icon="ci:menu-alt-05"
                                         iconPosition="start"
@@ -312,7 +384,7 @@ export default function Navbar() {
                                 <Link href={"/"} onClick={onClick()}>
                                     <SvgLogo sx={{ mt: 1 }} />
                                 </Link>
-
+1
                                 <Portal>
                                     <SwipeableDrawer
                                         open={open}

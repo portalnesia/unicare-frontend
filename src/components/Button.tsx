@@ -9,7 +9,7 @@ const Tooltip = dynamic(() => import('@mui/material/Tooltip'))
 
 const LoadingButton = styled(Buttonn, { shouldForwardProp: (prop: string) => !['small'].includes(prop) })<{  small?: boolean }>(({ theme, small }) => ({
     borderRadius: "8px",
-    border: `3px ${theme.palette.primary.main} solid`,
+    border: `2px ${theme.palette.primary.main} solid`,
     padding: small ? "8px 8px" : "12px 12px",
     gap: "8px",
     boxShadow: "none",
