@@ -49,8 +49,7 @@ const Sliders = forwardRef<Slider, CarouselProps>(({ autoPlay = true, transition
             <Slider
                 {...props}
                 autoPlay={autoPlay}
-                autoPlaySpeed={transitionDuration || 1000}
-                transitionDuration={undefined}
+                autoPlaySpeed={transitionDuration || 3000}
                 arrows={arrows}
                 infinite={infinite}
                 swipeable

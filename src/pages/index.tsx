@@ -4,6 +4,7 @@ import HomepageLayout from "@/layout/homepage";
 import { wrapperStatic } from "@/redux/store";
 import SectionAboutUs from "@/sections/AboutUs";
 import SectionHome from "@/sections/Home";
+import SectionOurServices from "@/sections/OurServices";
 import SectionPartners from "@/sections/Partners";
 import Box from "@mui/material/Box/Box";
 import Container from "@mui/material/Container/Container";
@@ -31,15 +32,14 @@ export default function HomePage() {
                     </Container>
                 </Box>
 
-                <Box id="about-us" className="section-northbit-home" sx={{ backgroundColor: "#F9F9F9" }}>
-                    <Container maxWidth={maxWidth} sx={{ py: 12, px: 2, zIndex: 1 }}>
+                <Box sx={{ backgroundColor: "#F9F9F9" }}>
+                    <Container id="about-us" className="section-northbit-home" maxWidth={maxWidth} sx={{ py: 12, px: 2, zIndex: 1 }}>
                         <SectionAboutUs />
                     </Container>
+                    <Container id="our-services" className="section-northbit-home" maxWidth={maxWidth} sx={{ py: 12, px: 2, zIndex: 1 }}>
+                        <SectionOurServices />
+                    </Container>
                 </Box>
-
-                <Container id="our-services" className="section-northbit-home" sx={{ pt: 50, zIndex: 1 }}>
-                    <h1>our-services</h1>
-                </Container>
 
                 <Container id="contact-us" className="section-northbit-home" sx={{ py: 50, zIndex: 1 }}>
                     <h1>contact-us</h1>
