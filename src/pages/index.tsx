@@ -25,7 +25,6 @@ export default function HomePage() {
         <Pages>
             <HomepageLayout>
                 <Container id="home" className="section-northbit-home" sx={{ pt: 19, pb: 8, zIndex: 1 }}>
-                    {/* <Typography sx={{backgroundColor: "red", height: "500px"}}>home section</Typography> */}
                     <SectionHome />
                 </Container>
 
@@ -36,7 +35,7 @@ export default function HomePage() {
                 </Box>
 
                 <Box id="about-us" className="section-northbit-home" sx={{ backgroundColor: "#F9F9F9" }}>
-                    <Container sx={{ position: "relative", py: 12, px: 2, zIndex: 1 }}>
+                    <Container sx={{ py: 12, px: 2, zIndex: 1 }}>
                         <SectionAboutUs />
                     </Container>
                 </Box>

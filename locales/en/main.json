@@ -12,5 +12,7 @@
     "healthcare_providers": "HEALTHCARE PROVIDERS",
     "business_partnership": "BUSINESS PARTNERSHIP",
     "total_insured_members": "TOTAL INSURED MEMBERS",
-    "over_17": "Over 17"
+    "over_17": "Over 17",
+    "description_unicare_profile": "We are a company operating in the health services sector with a concentration in Managed Care (Employee Health Management). \nFacilities available include Medical Check Up, In House Clinic, First Aid Training and Doctor On Call. Through this, Unicare Managed Care is always committed to providing the best and trusted health products for company employees, in full accordance with medical indications. Managed Care not only treats disease, but also prevents disease before it occurs with comprehensive services.",
+    "title_unicare_profile": "Unicare Managed Care Company Profile"
 }

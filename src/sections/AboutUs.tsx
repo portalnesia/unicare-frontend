@@ -1,3 +1,4 @@
+import Img from "@/components/Img";
 import Box from "@mui/material/Box/Box";
 import Stack from "@mui/material/Stack/Stack";
 import Typography from "@mui/material/Typography/Typography";
@@ -23,9 +24,14 @@ export default function SectionAboutUs() {
                     <Typography variant="body1" fontWeight={400}>{t("total_insured_members")}</Typography>
                 </Box>
             </Stack>
-            {
-                // TODO ABOUT US COMPANY PROFILE
-            }
+            <Stack width="100%" direction="row" spacing={8}>
+                <Img src="assets/aboutus1.png" sx={{ objectFit: "cover", borderRadius: 2, maxWidth: "500px" }} />
+                <Stack direction="column" spacing={4} justifyContent="space-between">
+                    <Typography variant="h2" color="primary.main">{t("title_about_us")}</Typography>
+                    <Typography variant="h1" color="#333333">{t("title_unicare_profile")}</Typography>
+                    <Typography variant="body1" color="#333333">{t("description_unicare_profile")}</Typography>
+                </Stack>
+            </Stack>
         </Stack>
     );
 }

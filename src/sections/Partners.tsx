@@ -9,7 +9,7 @@ import partners from "root/data/partners.json"
 export default function SectionPartners() {
     const [t] = useTranslation("main")
     return (
-        <Stack maxWidth="xl" direction="column">
+        <Stack direction="column">
             <Stack direction="row" alignItems="center" spacing={6} width="100%">
                 <Typography variant="subtitle1" fontWeight={400} sx={{ flex: "none" }}>PROUD TO PARTNER WITH</Typography>
                 <Box sx={{
