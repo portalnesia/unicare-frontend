@@ -1,4 +1,5 @@
 import Img from "@/components/Img";
+import { FONT_SECONDARY } from "@/themes/typography";
 import Box from "@mui/material/Box/Box";
 import Grid from "@mui/material/Grid/Grid";
 import Stack from "@mui/material/Stack/Stack";
@@ -42,7 +43,7 @@ export default function SectionAboutUs() {
             </Grid>
             <Grid item xs={12} sm={7}>
                 <Stack direction="column" spacing={4} justifyContent="space-between" alignItems={{ xs: "center", sm: "start" }}>
-                    <Typography variant="h2" color="primary.main" >{t("title_about_us")}</Typography>
+                    <Typography variant="h2" color="primary.main" fontFamily={FONT_SECONDARY} >{t("title_about_us")}</Typography>
                     <Typography variant="h1" color="#333333" >{t("title_unicare_profile")}</Typography>
                     <Typography variant="body1" color="#333333" >{t("description_unicare_profile")}</Typography>
                 </Stack>

@@ -28,7 +28,6 @@ export const FONT_SECONDARY = [
 
 const typography: ThemeOptions['typography'] = {
     fontFamily: FONT_PRIMARY,
-    // fontFamily: FONT_SECONDARY,
     fontWeightRegular: 400,
     fontWeightMedium: 600,
     fontWeightBold: 700,
