@@ -19,16 +19,29 @@ export interface CardPackageProps {
 export default function CardPackageHome({ onClick, sx }: CardPackageProps) {
 
     return (
-        <Card sx={{ borderRadius: "10px", zIndex: 2, height: "100%", bgcolor: "white", position: "relative", ...sx }} elevation={0}>
-            <CardContent sx={{ height: "100%", position: "relative", px: 0 }}>
-                <Stack direction="column" spacing={3}>
+        // <Card sx={{ borderRadius: "10px", zIndex: 2, height: "100%", bgcolor: "red", ...sx }} elevation={1}>
+        <Card sx={{
+            // bgcolor: "red",
+            padding: 3,
+            // width: "100%"
+        }}>
+            {/* <CardContent sx={{ height: "100%", position: "relative", px: 0 }}> */}
+            <Stack direction="column" display="flex" justifyContent="center" alignItems="start" spacing={3}>
+                <Img src="https://dummyimage.com/414x288/" width={"100%"} />
+                <Typography variant="subtitle1" fontSize={20}>On Call Services</Typography>
+                <Typography variant="body1" fontSize={20}>Whether it’s urgent medical advice or assistance, our dedicated team is just a call away.</Typography>
+                <Button variant="text" sx={{ width: "calc(100% - 200px)", alignContent: "left" }} onClick={onClick}>
+                    Learn More
+                </Button>
+            </Stack>
+            {/* <Stack direction="column" spacing={3} padding={2}>
                     <Img src="https://dummyimage.com/414x288/" />
                     <Button variant="text" sx={{ width: "calc(100% - 200px)" }} onClick={onClick}>
                         Learn More
                     </Button>
-                </Stack>
+                </Stack> */}
 
-                {/* <Stack spacing={2} alignItems="start" pb={3} px={2}>
+            {/* <Stack spacing={2} alignItems="start" pb={3} px={2}>
                     <Box><Typography variant="subtitle1" sx={{ borderBottom: `3px solid #E8C341`, display: "inline" }}>{pkg.name}</Typography></Box>
                     <Box>
                         <Stack direction="row" spacing={1}>
@@ -52,7 +65,7 @@ export default function CardPackageHome({ onClick, sx }: CardPackageProps) {
                 <Box width="100%" position="absolute" left={8} bottom={16}>
                     <Button sx={{ width: "calc(100% - 16px)" }} onClick={onClick}>Buy now</Button>
                 </Box> */}
-            </CardContent>
+            {/* </CardContent> */}
         </Card>
     )
 }

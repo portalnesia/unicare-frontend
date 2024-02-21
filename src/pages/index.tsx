@@ -1,3 +1,4 @@
+import CardPackageHome from "@/components/CardPackageHome";
 import Img from "@/components/Img";
 import Pages from "@/components/Pages";
 import { maxWidth } from "@/config";
@@ -61,6 +62,7 @@ export default function HomePage() {
 
                 <Container id="contact-us" className="section-northbit-home" sx={{ py: 50, zIndex: 1 }}>
                     <h1>contact-us</h1>
+                    <CardPackageHome />
                 </Container>
 
                 <Container sx={{ my: 50, px: 2, zIndex: 1 }}>

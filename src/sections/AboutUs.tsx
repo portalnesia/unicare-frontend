@@ -44,8 +44,8 @@ export default function SectionAboutUs() {
             <Grid item xs={12} sm={7}>
                 <Stack direction="column" spacing={4} justifyContent="space-between" alignItems={{ xs: "center", sm: "start" }}>
                     <Typography variant="h2" color="primary.main" fontFamily={FONT_SECONDARY} >{t("title_about_us")}</Typography>
-                    <Typography variant="h1" color="#333333" >{t("title_unicare_profile")}</Typography>
-                    <Typography variant="body1" color="#333333" >{t("description_unicare_profile")}</Typography>
+                    <Typography variant="h1" >{t("title_unicare_profile")}</Typography>
+                    <Typography variant="body1" >{t("description_unicare_profile")}</Typography>
                 </Stack>
             </Grid>
         </Grid>

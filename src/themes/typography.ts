@@ -1,4 +1,5 @@
 import { ThemeOptions } from "@mui/material";
+import { TEXT_SECONDARY_COLOR } from "./palette";
 
 function pxToRem(value: number) {
     return `${value / 16}rem`;
@@ -80,7 +81,8 @@ const typography: ThemeOptions['typography'] = {
     },
     body1: {
         lineHeight: 1.5,
-        fontSize: pxToRem(16)
+        fontSize: pxToRem(16),
+        color: TEXT_SECONDARY_COLOR
     },
     body2: {
         lineHeight: 22 / 14,
