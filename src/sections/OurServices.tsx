@@ -14,6 +14,7 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import CardPackageHome from "@/components/CardPackageHome";
+import { ourServices } from "root/data/content-data";
 
 const BoxGrid = styled(Box)(({ theme }) => ({
     "&:hover": {
@@ -74,9 +75,9 @@ export default function SectionOurServices() {
                     }
                 }}
             >
-                {northbitProduct.filter((_, i) => i < northbitProduct.length).map((d, i) => (
-                    <SwiperSlide key={`${i}`} style={{ paddingTop: 16, paddingBottom: 16 }}>
-                        <CardPackageHome />
+                {ourServices.map((d, i) => (
+                    <SwiperSlide key={`${i}`} style={{ paddingTop: 16, paddingBottom: 16, height: "100%" }}>
+                        <CardPackageHome data={d} sx={{}} />
                     </SwiperSlide>
                 ))}
             </Swiper>

@@ -10,62 +10,32 @@ import Button from "./Button";
 import { SxProps } from "@mui/material/styles";
 import { numberFormat } from "@/utils/main";
 import Img from "./Img";
+import { ourServices } from "root/data/content-data";
+import { useTranslation } from "next-i18next";
+import Grid from "@mui/material/Grid/Grid";
 
 export interface CardPackageProps {
+    data: typeof ourServices[number]
     onClick?: () => () => void;
     sx?: SxProps;
 }
 
-export default function CardPackageHome({ onClick, sx }: CardPackageProps) {
-
+export default function CardPackageHome({ data, onClick, sx }: CardPackageProps) {
+    const [t] = useTranslation("main")
     return (
-        // <Card sx={{ borderRadius: "10px", zIndex: 2, height: "100%", bgcolor: "red", ...sx }} elevation={1}>
         <Card sx={{
-            // bgcolor: "red",
             padding: 3,
-            // width: "100%"
+            height: "100%",
+            ...sx
         }}>
-            {/* <CardContent sx={{ height: "100%", position: "relative", px: 0 }}> */}
-            <Stack direction="column" display="flex" justifyContent="center" alignItems="start" spacing={3}>
-                <Img src="https://dummyimage.com/414x288/" width={"100%"} />
-                <Typography variant="subtitle1" fontSize={20}>On Call Services</Typography>
-                <Typography variant="body1" fontSize={20}>Whether it’s urgent medical advice or assistance, our dedicated team is just a call away.</Typography>
+            <Stack direction="column" justifyContent="center" alignItems="start" spacing={3}>
+                <Img src={data.image_path} width={"100%"} />
+                <Typography variant="subtitle1" fontSize={20}>{data.name}</Typography>
+                <Typography variant="body1" fontSize={20}>{t(data.description_t as any)}</Typography>
                 <Button variant="text" sx={{ width: "calc(100% - 200px)", alignContent: "left" }} onClick={onClick}>
                     Learn More
                 </Button>
             </Stack>
-            {/* <Stack direction="column" spacing={3} padding={2}>
-                    <Img src="https://dummyimage.com/414x288/" />
-                    <Button variant="text" sx={{ width: "calc(100% - 200px)" }} onClick={onClick}>
-                        Learn More
-                    </Button>
-                </Stack> */}
-
-            {/* <Stack spacing={2} alignItems="start" pb={3} px={2}>
-                    <Box><Typography variant="subtitle1" sx={{ borderBottom: `3px solid #E8C341`, display: "inline" }}>{pkg.name}</Typography></Box>
-                    <Box>
-                        <Stack direction="row" spacing={1}>
-                            <Typography variant="h2" component="h2" sx={{ color: "primary.main", fontSize: 32 }}>{`${pkg.quota}`}</Typography>
-                            <Divider orientation="vertical" flexItem sx={{ borderColor: "primary.main" }} />
-                            <Typography variant="h4" component="h4" sx={{ color: "primary.main", fontSize: 18 }}>{`${pkg.period}`}</Typography>
-                        </Stack>
-                    </Box>
-                    <Box>
-                        <Typography variant="subtitle1">IDR 200`}</Typography>
-                    </Box>
-                    <Stack alignItems="start" spacing={1} pb={2} flexGrow={1} flexShrink={1}>
-                        {[pkg?.feature_1, pkg?.feature_2, pkg?.feature_3]?.filter(f => f?.length)?.map((f, i) => (
-                            <Stack direction="row" spacing={1} key={`${i}-${f}`}>
-                                <Iconify icon="material-symbols:check" />
-                                <Typography sx={{ fontSize: 14, lineHeight: "22px" }}>{f}</Typography>
-                            </Stack>
-                        ))}
-                    </Stack>
-                </Stack>
-                <Box width="100%" position="absolute" left={8} bottom={16}>
-                    <Button sx={{ width: "calc(100% - 16px)" }} onClick={onClick}>Buy now</Button>
-                </Box> */}
-            {/* </CardContent> */}
         </Card>
     )
 }
