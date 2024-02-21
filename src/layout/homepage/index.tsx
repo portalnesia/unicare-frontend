@@ -2,6 +2,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Navbar from "./Navbar";
 import { useMemo } from "react";
+import { maxWidth } from "@/config";
 
 export type HomePageLayoutProps = {
     children: React.ReactNode
@@ -21,9 +22,9 @@ export default function HomepageLayout({ children, rich = true, navbar = true, s
     }, [slider, navbar])
 
     return (
-        <Box maxWidth="100%" position="relative" >
+        <Box position="relative" >
             {rich ? (
-                <Container sx={{ position: "relative" }}>
+                <Container maxWidth={maxWidth} sx={{ position: "relative" }}>
                     {/* <Redbox id="homepage-box" homepage={slider} sx={{
                         position: "absolute",
                         width: "100%",

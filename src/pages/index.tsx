@@ -1,15 +1,12 @@
 import Pages from "@/components/Pages";
-import { SvgLogo } from "@/components/svg/Logo";
+import { maxWidth } from "@/config";
 import HomepageLayout from "@/layout/homepage";
-import Navbar from "@/layout/homepage/Navbar";
 import { wrapperStatic } from "@/redux/store";
 import SectionAboutUs from "@/sections/AboutUs";
 import SectionHome from "@/sections/Home";
 import SectionPartners from "@/sections/Partners";
 import Box from "@mui/material/Box/Box";
 import Container from "@mui/material/Container/Container";
-import Stack from "@mui/material/Stack/Stack";
-import Typography from "@mui/material/Typography/Typography";
 import { useTranslation } from "next-i18next";
 import { useEffect } from "react";
 
@@ -29,13 +26,13 @@ export default function HomePage() {
                 </Container>
 
                 <Box sx={{ backgroundColor: "#F3F3F3" }}>
-                    <Container sx={{ position: "relative", py: 6, px: 2, zIndex: 1 }}>
+                    <Container sx={{ py: 6, px: 2, zIndex: 1 }}>
                         <SectionPartners />
                     </Container>
                 </Box>
 
                 <Box id="about-us" className="section-northbit-home" sx={{ backgroundColor: "#F9F9F9" }}>
-                    <Container sx={{ py: 12, px: 2, zIndex: 1 }}>
+                    <Container maxWidth={maxWidth} sx={{ py: 12, px: 2, zIndex: 1 }}>
                         <SectionAboutUs />
                     </Container>
                 </Box>

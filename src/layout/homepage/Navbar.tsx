@@ -1,10 +1,10 @@
 import Router, { useRouter } from "next/router";
-import { DRAWER_WIDTH, INavbar, NAVBAR_HEIGHT, getNavbarMenu } from "../navbar.config";
+import { INavbar, NAVBAR_HEIGHT, getNavbarMenu } from "../navbar.config";
 import React from "react";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { styled, useThemeProps } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Link from "next/link";
 import ButtonBase from "@mui/material/ButtonBase";
 import useResponsive from "@/hooks/responsive";
@@ -18,16 +18,12 @@ import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import { isIOS } from "react-device-detect";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import { getDayJs, webUrl } from "@/utils/main";
+import { getDayJs } from "@/utils/main";
 import { SvgLogo } from "@/components/svg/Logo";
 import Button from "@/components/Button";
 import { useTranslation } from "next-i18next";
-import Card from "@mui/material/Card/Card";
-import Divider from "@mui/material/Divider/Divider";
 import { setCookie } from "cookies-next";
-import { domainCookie } from "@/config";
-import { Icon } from "@iconify/react";
-import { SvgIcon } from "@mui/material";
+import { domainCookie, maxWidth } from "@/config";
 
 const RootStyle = styled(AppBar, { shouldForwardProp: (prop: string) => !['transparent'].includes(prop) })<{ transparent?: boolean }>(({ theme, transparent, position }) => ({
     top: 0,
@@ -218,8 +214,8 @@ export default function Navbar() {
     return (
         <RootStyle transparent={transparent} position="fixed" sx={{ boxShadow: theme => theme.shadows[1] }}>
             <ToolbarStyle transparent={transparent}>
-                <Container maxWidth={"xl"} sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%" }}>
-                    <Stack direction="row" justifyContent="space-around" spacing={2} height="100%">
+                <Container maxWidth={maxWidth} sx={{ bgcolor: transparent ? "transparent" : "white", height: "100%" }}>
+                    <Stack direction="row" justifyContent="space-between" spacing={2}>
                         {!isMd ? (
                             <>
                                 <Link href={"/"} onClick={onClick()}>
@@ -274,41 +270,6 @@ export default function Navbar() {
                                                 >
                                                     <Typography variant="h6" fontWeight={500} component="span">{t(d.name as any)}</Typography>
                                                 </ButtonBase>
-                                                {/* <Box sx={{
-                                                    height: "100%",
-                                                    position: "relative",
-                                                    display: "flex",
-                                                    justifyContent: "center",
-                                                    alignItems: "center",
-                                                }}>
-                                                    <Box sx={{
-                                                        height: "50%",
-                                                        display: "flex",
-                                                        position: "absolute",
-                                                        top: 0,
-                                                        left: 0,
-                                                        right: 0,
-                                                        bottom: 0,
-                                                        ":hover": { bgcolor: "action.hover" },
-                                                        zIndex: 1, // Ensure the hover box is behind the button
-                                                    }} />
-                                                    <ButtonBase
-                                                        component="a"
-                                                        onClick={onClick(d)}
-                                                        sx={{
-                                                            py: 1,
-                                                            px: { xs: 1, md: 2, lg: 2 },
-                                                            borderRadius: 20,
-                                                            height: "100%",
-                                                            // backgroundColor: "transparent"
-                                                            // position: "relative",
-                                                            // zIndex: -1
-                                                        }}
-                                                    >
-                                                        <Typography variant="h6" fontWeight={500} component="span">{t(d.name as any)}</Typography>
-                                                    </ButtonBase>
-                                                </Box> */}
-
                                             </Link>
                                         </MenuButton>
                                     ))}
@@ -384,7 +345,6 @@ export default function Navbar() {
                                 <Link href={"/"} onClick={onClick()}>
                                     <SvgLogo sx={{ mt: 1 }} />
                                 </Link>
-1
                                 <Portal>
                                     <SwipeableDrawer
                                         open={open}
