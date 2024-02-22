@@ -13,6 +13,7 @@ import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import CardServices from "@/components/CardServices";
 import { ourServices } from "root/data/content-data";
+import useResponsive from "@/hooks/responsive";
 
 const BoxGrid = styled(Box)(({ theme }) => ({
     "&:hover": {
@@ -24,6 +25,7 @@ const BoxGrid = styled(Box)(({ theme }) => ({
 
 export default function SectionOurServices() {
     const [t] = useTranslation("main");
+    const isMd = useResponsive("down", 462);
     const navLeft = React.useRef<HTMLButtonElement>(null);
     const navRight = React.useRef<HTMLButtonElement>(null);
     const swiperRef = React.useRef<SwiperClass>();
@@ -43,62 +45,125 @@ export default function SectionOurServices() {
     }, [])
 
     return (
-        <BoxGrid position="relative">
-            <Typography variant="h1">{t("title_our_services")}</Typography>
-            <Swiper onInit={ref => swiperRef.current = ref} onSlideChange={onSlideChange} slidesPerView={1} spaceBetween={30} modules={[Navigation]}
-                navigation={{
-                    prevEl: navLeft.current,
-                    nextEl: navRight.current,
-                }}
-                style={{ padding: 24, height: "650px" }}
-                breakpoints={{
-                    0: {
-                        slidesPerView: 1,
-                    },
-                    600: {
-                        slidesPerView: 2,
-                    },
-                    768: {
-                        slidesPerView: 3,
-                    },
-                    1024: {
-                        slidesPerView: 3,
+        <>
+            <BoxGrid position="relative">
+                <Typography variant="h1">{t("title_our_services")}</Typography>
+                <Swiper onInit={ref => swiperRef.current = ref} onSlideChange={onSlideChange} slidesPerView={1} spaceBetween={30} modules={[Navigation]}
+                    navigation={{
+                        prevEl: navLeft.current,
+                        nextEl: navRight.current,
+                    }}
+                    style={
+                        isMd ? { padding: 24, height: "650px" }
+                        : { padding: 24, height: "650px", marginLeft: 48, marginRight: 48 }
                     }
-                }}
-            >
-                {ourServices.map((d, i) => (
-                    <SwiperSlide key={`${i}`} style={{ paddingTop: 16, paddingBottom: 16, height: "100%" }}>
-                        <CardServices data={d} />
-                    </SwiperSlide>
-                ))}
-            </Swiper>
+                    breakpoints={{
+                        0: {
+                            slidesPerView: 1,
+                        },
+                        600: {
+                            slidesPerView: 2,
+                        },
+                        768: {
+                            slidesPerView: 3,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                        }
+                    }}
+                >
+                    {ourServices.map((d, i) => (
+                        <SwiperSlide key={`${i}`} style={{ paddingTop: 16, paddingBottom: 16, height: "100%" }}>
+                            <CardServices data={d} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
 
-            <Fade in={!hide.left}>
-                <IconButton onClick={handleNavigationClick("left")} ref={navLeft} sx={{
-                    zIndex: 1,
-                    position: "absolute",
-                    left: { xs: 0, lg: -50 },
-                    top: `calc(55% - 48px)`,
-                    color: "primary.main",
-                    border: "2px solid",
-                    backgroundColor: "#F9F9F9"
-                }}>
-                    <Iconify icon="ic:round-arrow-back" width={32} height={32} />
-                </IconButton>
-            </Fade>
-            <Fade in={!hide.right}>
-                <IconButton onClick={handleNavigationClick("right")} ref={navRight} sx={{
-                    zIndex: 1,
-                    position: "absolute",
-                    right: { xs: 0, lg: -50 },
-                    top: `calc(55% - 48px)`,
-                    color: "primary.main",
-                    border: "2px solid",
-                    backgroundColor: "#F9F9F9"
-                }}>
-                    <Iconify icon="ic:round-arrow-forward" width={32} height={32} />
-                </IconButton>
-            </Fade>
-        </BoxGrid>
+                <Fade in={!hide.left}>
+                    <IconButton onClick={handleNavigationClick("left")} ref={navLeft} sx={{
+                        zIndex: 1,
+                        position: "absolute",
+                        left: { xs: 0, lg: 0 },
+                        top: `calc(55% - 48px)`,
+                        color: "primary.main",
+                        border: "2px solid",
+                        backgroundColor: "#F9F9F9"
+                    }}>
+                        <Iconify icon="ic:round-arrow-back" width={32} height={32} />
+                    </IconButton>
+                </Fade>
+                <Fade in={!hide.right}>
+                    <IconButton onClick={handleNavigationClick("right")} ref={navRight} sx={{
+                        zIndex: 1,
+                        position: "absolute",
+                        right: { xs: 0, lg: 0 },
+                        top: `calc(55% - 48px)`,
+                        color: "primary.main",
+                        border: "2px solid",
+                        backgroundColor: "#F9F9F9"
+                    }}>
+                        <Iconify icon="ic:round-arrow-forward" width={32} height={32} />
+                    </IconButton>
+                </Fade>
+            </BoxGrid>
+
+            <BoxGrid position="relative">
+                <Typography variant="h1">{t("title_coverages")}</Typography>
+                <Swiper onInit={ref => swiperRef.current = ref} onSlideChange={onSlideChange} slidesPerView={1} spaceBetween={30} modules={[Navigation]}
+                    navigation={{
+                        prevEl: navLeft.current,
+                        nextEl: navRight.current,
+                    }}
+                    style={{ padding: 24, height: "650px" }}
+                    breakpoints={{
+                        0: {
+                            slidesPerView: 1,
+                        },
+                        600: {
+                            slidesPerView: 2,
+                        },
+                        768: {
+                            slidesPerView: 3,
+                        },
+                        1024: {
+                            slidesPerView: 3,
+                        }
+                    }}
+                >
+                    {ourServices.slice(0, 3).map((d, i) => (
+                        <SwiperSlide key={`${i}`} style={{ paddingTop: 16, paddingBottom: 16, height: "100%" }}>
+                            <CardServices data={d} />
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+
+                {/* <Fade in={!hide.left}>
+                    <IconButton onClick={handleNavigationClick("left")} ref={navLeft} sx={{
+                        zIndex: 1,
+                        position: "absolute",
+                        left: { xs: 0, lg: -50 },
+                        top: `calc(55% - 48px)`,
+                        color: "primary.main",
+                        border: "2px solid",
+                        backgroundColor: "#F9F9F9"
+                    }}>
+                        <Iconify icon="ic:round-arrow-back" width={32} height={32} />
+                    </IconButton>
+                </Fade>
+                <Fade in={!hide.right}>
+                    <IconButton onClick={handleNavigationClick("right")} ref={navRight} sx={{
+                        zIndex: 1,
+                        position: "absolute",
+                        right: { xs: 0, lg: -50 },
+                        top: `calc(55% - 48px)`,
+                        color: "primary.main",
+                        border: "2px solid",
+                        backgroundColor: "#F9F9F9"
+                    }}>
+                        <Iconify icon="ic:round-arrow-forward" width={32} height={32} />
+                    </IconButton>
+                </Fade> */}
+            </BoxGrid>
+        </>
     );
 }

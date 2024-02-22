@@ -51,7 +51,7 @@ export default function HomePage() {
                 </Box>
 
                 <Box sx={{ backgroundColor: "#F9F9F9" }}>
-                    <Container id="about-us" className="section-northbit-home" maxWidth={maxWidth} sx={{ py: 12, px: 2, zIndex: 1 }}>
+                    <Container id="about-us" className="section-northbit-home" maxWidth={maxWidth} sx={{ pt: 12, px: 2, zIndex: 1 }}>
                         <SectionAboutUs />
                     </Container>
                     <Container id="our-services" className="section-northbit-home" maxWidth={maxWidth} sx={{ py: 12, px: 2, zIndex: 1 }}>
@@ -61,7 +61,6 @@ export default function HomePage() {
 
                 <Container id="contact-us" className="section-northbit-home" sx={{ py: 50, zIndex: 1 }}>
                     <h1>contact-us</h1>
-                    {/* <CardPackageHome /> */}
                 </Container>
 
                 <Container sx={{ my: 50, px: 2, zIndex: 1 }}>
