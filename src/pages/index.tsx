@@ -1,6 +1,5 @@
 import Img from "@/components/Img";
 import Pages from "@/components/Pages";
-import { maxWidth } from "@/config";
 import HomepageLayout from "@/layout/homepage";
 import { wrapperStatic } from "@/redux/store";
 import SectionAboutUs from "@/sections/AboutUs";
