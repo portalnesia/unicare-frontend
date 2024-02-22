@@ -1,5 +1,6 @@
+import CardMission from "@/components/CardMission";
 import Img from "@/components/Img";
-import { SvgArrow, SvgArt1 } from "@/components/svg/Art";
+import { SvgArrow, SvgArt1, SvgStar } from "@/components/svg/Art";
 import useResponsive from "@/hooks/responsive";
 import { FONT_SECONDARY } from "@/themes/typography";
 import Box from "@mui/material/Box/Box";
@@ -8,12 +9,13 @@ import Grid from "@mui/material/Grid/Grid";
 import Stack from "@mui/material/Stack/Stack";
 import Typography from "@mui/material/Typography/Typography";
 import { isMobile } from "react-device-detect";
+import { missions } from "root/data/content-data";
 
 export default function SectionCompanyProfile() {
     const isMd = useResponsive("down", 462);
     return (
         <>
-            <Box sx={{ backgroundColor: "primary.main" }}>
+            <Box sx={{ backgroundColor: "primary.main", overflow: "hidden" }}>
                 <Container sx={{ py: 12, px: 2, zIndex: 1, position: "relative" }}>
                     <Stack spacing={3}>
                         <Typography variant="h4" color="white">WHAT CAN WE DO</Typography>
@@ -32,9 +34,10 @@ export default function SectionCompanyProfile() {
                     }} />
                 </Container>
             </Box>
+
             <Box sx={{ backgroundColor: "#F3F3F3" }}>
-                <Container sx={{ py: 12, px: 2, zIndex: 1, position: "relative" }}>
-                    <Grid container spacing={10}>
+                <Container sx={{ py: 12, zIndex: 1, position: "relative" }}>
+                    <Grid container spacing={10} height={800}>
                         <Grid item xs={12} sm={6}>
                             <Stack spacing={3} alignItems="start">
                                 <Typography variant="h1">Nurturing Employee Wellbeing: Our Core Values</Typography>
@@ -50,16 +53,25 @@ export default function SectionCompanyProfile() {
                                         height: "100%",
                                         width: "100%",
                                         borderRadius: "8px",
+                                        overflow: "hidden"
                                     }}>
                                         <Box sx={{
                                             height: "60%",
                                             display: "flex",
                                             alignItems: "center",
                                             justifyContent: "center",
+                                            flexDirection: "column"
                                         }}>
-                                            <Typography color="white" fontSize={"24px"} fontWeight={700} fontFamily={FONT_SECONDARY}>Employee<br />-centric<br />Focus</Typography>
+                                            <SvgStar sx={{
+                                                position: "relative",
+                                                top: 7,
+                                                right: 50
+                                            }} />
+                                            <Typography color="white" fontWeight={700} fontFamily={FONT_SECONDARY} textAlign="center">Employee<br />-centric<br />Focus</Typography>
                                         </Box>
-                                        <Img src="https://dummyimage.com/400x300" height="40%" width="100%" />
+                                        <Img src="assets/company1.png" height="40%" width="100%" sx={{
+                                            objectFit: "cover",
+                                        }} />
                                     </Box>
                                 </Grid>
                                 <Grid item xs={4} display="flex" alignItems="center" py="calc(25% / 2)">
@@ -67,9 +79,22 @@ export default function SectionCompanyProfile() {
                                         bgcolor: "primary.dark",
                                         height: "100%",
                                         width: "100%",
-                                        borderRadius: "8px"
+                                        borderRadius: "8px",
+                                        overflow: "hidden"
                                     }}>
-
+                                        <Img src="assets/company2.png" height="40%" width="100%" sx={{
+                                            objectFit: "cover",
+                                        }} />
+                                        <Box sx={{
+                                            height: "60%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            flexDirection: "column"
+                                        }}>
+                                            <SvgStar />
+                                            <Typography color="white" fontWeight={700} fontFamily={FONT_SECONDARY} textAlign="center">Trustworthy<br />Partnership</Typography>
+                                        </Box>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={4} display="flex" alignItems="end" pt="25%">
@@ -79,28 +104,70 @@ export default function SectionCompanyProfile() {
                                         width: "100%",
                                         borderRadius: "8px"
                                     }}>
-
+                                        <Box sx={{
+                                            height: "60%",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            flexDirection: "column"
+                                        }}>
+                                            <SvgStar sx={{
+                                                position: "relative",
+                                                top: 7,
+                                                left: 50
+                                            }} />
+                                            <Typography color="white" fontWeight={700} fontFamily={FONT_SECONDARY} textAlign="center">Inclusivity<br />&<br />Accessibility</Typography>
+                                        </Box>
+                                        <Img src="assets/company3.png" height="40%" width="100%" sx={{
+                                            objectFit: "cover",
+                                        }} />
                                     </Box>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
 
-                    {/* <Stack spacing={3}>
-                        <Typography variant="h1">Nurturing Employee Wellbeing: Our Core Values</Typography>
-                        <Typography fontFamily="Lora" fontWeight={700} fontSize={60} textAlign="center" color="white">
-                            “Protect Your Team, Protect Your Company”
-                        </Typography>
-                        <Typography variant="body1" fontWeight={400} color="white">Secure your occupational health tomorrow today and ensure your company gets maximum protection.</Typography>
-                    </Stack> */}
-                    <SvgArt1 size={500} sx={{
+                    <SvgArt1 size={400} sx={{
                         position: "absolute",
-                        left: { xs: 0, lg: -450 },
-                        top: 100,
+                        left: { xs: 0, lg: 150 },
+                        bottom: -300,
                         display: { xs: "none", lg: "block" },
                         zIndex: -1,
                         transform: "scaleX(-1)"
                     }} />
+                    <SvgArt1 size={400} sx={{
+                        position: "absolute",
+                        left: { xs: 0, lg: -125 },
+                        bottom: -325,
+                        display: { xs: "none", lg: "block" },
+                        zIndex: -1,
+                        transform: "scaleX(-1)"
+                    }} />
+                </Container>
+            </Box>
+
+            <Box sx={{ backgroundColor: "#F9F9F9" }}>
+                <Container sx={{ py: 12, zIndex: 1, position: "relative" }}>
+                    <Stack spacing={3} justifyContent="center">
+                        <Typography variant="h1">Vision & Missions</Typography>
+                        <Typography variant="body1" textAlign="center" width={{ xs: "100%", lg: "65%" }}>Become a company with the best and trusted Managed Care services for company employees in Bali, by providing holistic, simple and comprehensive services, and committed to providing secure and sustainable protection on the future health of the company.</Typography>
+                        {/* <Stack direction={{ xs: "column", sm: "row" }} justifyContent="center" py={3} spacing={3}> */}
+                        {/* <Grid container py={3} spacing={3} width="100%">
+                            {missions.map((d, i) => (
+                                <Grid item xs={12} sm={4} >
+                                    <CardMission data={d} sx={{ width: "100%" }} />
+                                </Grid>
+                            ))}
+                        </Grid> */}
+                        {/* </Stack> */}
+                    </Stack>
+                    <Grid container py={10} spacing={{xs: 3, sm: 3}} width="100%">
+                            {missions.map((d, i) => (
+                                <Grid item xs={12} sm={4} >
+                                    <CardMission data={d} sx={{ width: "100%" }} />
+                                </Grid>
+                            ))}
+                        </Grid>
                 </Container>
             </Box>
         </>

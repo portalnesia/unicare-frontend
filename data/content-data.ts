@@ -48,3 +48,21 @@ export const coverages = [
         "description_t": "description_coverages_outpatient"
     }
 ]
+
+export const missions = [
+    {
+        "index": "01",
+        "image_path": "assets/mission1.png",
+        "description_t": "description_mission1"
+    },
+    {
+        "index": "02",
+        "image_path": "assets/mission2.png",
+        "description_t": "description_mission2"
+    },
+    {
+        "index": "03",
+        "image_path": "assets/mission3.png",
+        "description_t": "description_mission3"
+    },
+]

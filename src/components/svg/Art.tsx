@@ -63,3 +63,19 @@ export function SvgArrow({ size = 12, maxSize, sx }: SvgProps) {
         </SvgIcon>
     )
 }
+
+export function SvgStar({ size = 16, maxSize, sx }: SvgProps) {
+    const id = React.useRef(generateRandom(5))
+    return (
+        <SvgIcon {...(size || maxSize ? { sx: { fontSize: size, maxWidth: maxSize, height: 'auto', bgcolor: "transparent", color: "transparent", ...sx } } : { sx })}
+            fill="none"
+            viewBox="0 0 18 18"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill="#8AD82B"
+                d="M9 0a12.997 12.997 0 0 0 9 9 12.997 12.997 0 0 0-9 9 12.997 12.997 0 0 0-9-9 12.997 12.997 0 0 0 9-9Z"
+            />
+        </SvgIcon>
+    )
+}
