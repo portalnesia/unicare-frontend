@@ -1,5 +1,6 @@
 import Img from "@/components/Img";
 import Pages from "@/components/Pages";
+import { SvgArt1 } from "@/components/svg/Art";
 import HomepageLayout from "@/layout/homepage";
 import { wrapperStatic } from "@/redux/store";
 import SectionAboutUs from "@/sections/AboutUs";
@@ -60,7 +61,7 @@ export default function HomePage() {
                 </Box>
 
                 <Box sx={{ backgroundColor: "primary.main" }}>
-                    <Container sx={{ py: 12, px: 2, zIndex: 1 }}>
+                    <Container sx={{ py: 12, px: 2, zIndex: 1, position: "relative" }}>
                         <Stack spacing={3}>
                             <Typography variant="h4" color="white">WHAT CAN WE DO</Typography>
                             <Typography fontFamily="Lora" fontWeight={700} fontSize={60} textAlign="center" color="white">
@@ -68,6 +69,14 @@ export default function HomePage() {
                             </Typography>
                             <Typography variant="body1" fontWeight={400} color="white">Secure your occupational health tomorrow today and ensure your company gets maximum protection.</Typography>
                         </Stack>
+                        <SvgArt1 size={700} sx={{
+                            position: "absolute",
+                            left: { xs: 0, lg: -450 },
+                            top: 100,
+                            display: { xs: "none", lg: "block" },
+                            zIndex: -1,
+                            transform: "scaleX(-1)"
+                        }} />
                     </Container>
                 </Box>
 
