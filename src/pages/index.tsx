@@ -1,4 +1,3 @@
-import CardPackageHome from "@/components/CardPackageHome";
 import Img from "@/components/Img";
 import Pages from "@/components/Pages";
 import { maxWidth } from "@/config";
