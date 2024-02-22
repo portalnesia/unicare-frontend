@@ -8,6 +8,7 @@ import SectionHome from "@/sections/Home";
 import SectionOurServices from "@/sections/OurServices";
 import Box from "@mui/material/Box/Box";
 import Container from "@mui/material/Container/Container";
+import Stack from "@mui/material/Stack/Stack";
 import Typography from "@mui/material/Typography/Typography";
 import { useTranslation } from "next-i18next";
 import { useEffect } from "react";
@@ -51,11 +52,23 @@ export default function HomePage() {
                 </Box>
 
                 <Box sx={{ backgroundColor: "#F9F9F9" }}>
-                    <Container id="about-us" className="section-northbit-home" maxWidth={maxWidth} sx={{ pt: 12, px: 2, zIndex: 1 }}>
+                    <Container id="about-us" className="section-northbit-home" sx={{ pt: 12, px: 2, zIndex: 1 }}>
                         <SectionAboutUs />
                     </Container>
-                    <Container id="our-services" className="section-northbit-home" maxWidth={maxWidth} sx={{ py: 12, px: 2, zIndex: 1 }}>
+                    <Container id="our-services" className="section-northbit-home" sx={{ py: 12, px: 2, zIndex: 1 }}>
                         <SectionOurServices />
+                    </Container>
+                </Box>
+
+                <Box sx={{ backgroundColor: "primary.main" }}>
+                    <Container sx={{ py: 12, px: 2, zIndex: 1 }}>
+                        <Stack spacing={3}>
+                            <Typography variant="h4" color="white">WHAT CAN WE DO</Typography>
+                            <Typography fontFamily="Lora" fontWeight={700} fontSize={60} textAlign="center" color="white">
+                                “Protect Your Team, Protect Your Company”
+                            </Typography>
+                            <Typography variant="body1" fontWeight={400} color="white">Secure your occupational health tomorrow today and ensure your company gets maximum protection.</Typography>
+                        </Stack>
                     </Container>
                 </Box>
 

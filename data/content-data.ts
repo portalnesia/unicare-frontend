@@ -30,3 +30,21 @@ export const ourServices = [
         "description_t": "description_jkn_assitance"
     },
 ]
+
+export const coverages = [
+    {
+        "name": "BPJS Assistance",
+        "image_path": "assets/coverages_bpjs.png",
+        "description_t": "description_coverages_bpjs"
+    },
+    {
+        "name": "Hospitalization Care",
+        "image_path": "assets/coverages_hostpital.png",
+        "description_t": "description_coverages_hostpital"
+    },
+    {
+        "name": "Out-patient Care",
+        "image_path": "assets/coverages_outpatient.png",
+        "description_t": "description_coverages_outpatient"
+    }
+]

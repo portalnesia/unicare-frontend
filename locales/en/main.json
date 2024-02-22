@@ -23,5 +23,8 @@
     "description_doctor_tele": "Connect with qualified healthcare professionals from the comfort of your home",
     "description_jkn_assitance": "JKN assistance involve various forms of support provided under the health insurance program",
     "learn_more": "Learn More",
-    "title_coverages": "Coverages"
+    "title_coverages": "Coverages",
+    "description_coverages_bpjs": "Whether it’s urgent medical advice or assistance, our dedicated team is just a call away.",
+    "description_coverages_hostpital": "A professional service that provides assistance & support for individuals when they have medical needs.",
+    "description_coverages_outpatient": "Specialized resources dedicated to providing immediate assistance and care during critical situations"
 }
