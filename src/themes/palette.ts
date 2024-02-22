@@ -5,8 +5,8 @@ export const PRIMARY = {
     lighter: '#D9EBFD',
     light: '#82BCF7',
     main: '#003FB5',
-    dark: '#0B63BB',
-    darker: '#004182',
+    dark: '#002F86',
+    darker: '#001E56',
     contrastText: '#fff'
 };
 

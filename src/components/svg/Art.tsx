@@ -37,3 +37,29 @@ export function SvgArt1({ size = 120, maxSize, sx }: SvgProps) {
         </SvgIcon>
     )
 }
+
+export function SvgArrow({ size = 12, maxSize, sx }: SvgProps) {
+    const id = React.useRef(generateRandom(5))
+    return (
+        <SvgIcon {...(size || maxSize ? { sx: { fontSize: size, maxWidth: maxSize, height: 'auto', bgcolor: "transparent", color: "transparent", ...sx } } : { sx })}
+            fill="none"
+            viewBox="0 0 18 436"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <g
+                stroke="#003FB5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                clipPath="url(#a)"
+            >
+                <path d="M9 .998v432.009M17 427.021l-8 7.981-8-7.981" />
+            </g>
+            <defs>
+                <clipPath id="a">
+                    <path fill="#fff" d="M18 0v436H0V0z" />
+                </clipPath>
+            </defs>
+        </SvgIcon>
+    )
+}
