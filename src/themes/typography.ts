@@ -86,7 +86,8 @@ const typography: ThemeOptions['typography'] = {
     },
     body2: {
         lineHeight: 22 / 14,
-        fontSize: pxToRem(14)
+        fontSize: pxToRem(14),
+        color: "#858585"
     },
     caption: {
         lineHeight: 1.5,
