@@ -6,6 +6,7 @@ import { wrapperStatic } from "@/redux/store";
 import SectionAboutUs from "@/sections/AboutUs";
 import SectionCompanyProfile from "@/sections/CompanyProfile";
 import SectionHome from "@/sections/Home";
+import SectionOurPrograms from "@/sections/OurPrograms";
 import SectionOurServices from "@/sections/OurServices";
 import Box from "@mui/material/Box/Box";
 import Container from "@mui/material/Container/Container";
@@ -62,6 +63,8 @@ export default function HomePage() {
                 </Box>
 
                 <SectionCompanyProfile />
+
+                <SectionOurPrograms />
 
                 <Container id="contact-us" className="section-northbit-home" sx={{ py: 50, zIndex: 1 }}>
                     <h1>contact-us</h1>

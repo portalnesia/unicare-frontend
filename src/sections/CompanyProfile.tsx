@@ -165,9 +165,9 @@ export default function SectionCompanyProfile() {
                 </Container>
 
                 {/* Discover benefits */}
-                <Container sx={{ zIndex: 1, position: "relative" }}>
+                <Container sx={{ pb: 12, zIndex: 1, position: "relative" }}>
                     <Grid container alignItems="start" >
-                        <Grid item xs={12} sm={6} pb={5}>
+                        <Grid item xs={12} sm={6} pb={6}>
                             <Typography variant="h1" textAlign={{ xs: "center", sm: "start" }}>Discover the Benefits of Unicare Managed Care</Typography>
                         </Grid>
                         <Grid item container rowSpacing={{xs: 0, sm: 8}} justifyContent="center" px={{xs: 5, sm: 0}} >
@@ -208,6 +208,23 @@ export default function SectionCompanyProfile() {
                             </Grid>
                         </Grid>
                     </Grid>
+
+                    <SvgArt1 size={400} sx={{
+                        position: "absolute",
+                        left: { xs: 0, lg: -250 },
+                        bottom: -150,
+                        display: { xs: "none", lg: "block" },
+                        zIndex: -1,
+                        transform: "scaleX(-1)",
+                    }} />
+                    <SvgArt1 size={400} sx={{
+                        position: "absolute",
+                        right: { xs: 0, lg: -100 },
+                        bottom: 0,
+                        display: { xs: "none", lg: "block" },
+                        zIndex: -1,
+                        transform: "scaleY(-1)",
+                    }} />
                 </Container>
             </Box>
         </>
