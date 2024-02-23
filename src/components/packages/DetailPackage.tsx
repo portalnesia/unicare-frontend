@@ -22,7 +22,7 @@ export default function DetailPackage({ packageType, onDetailClick, sx }: Detail
             borderRadius: 1,
             ...sx
         }}>
-            <Stack py={6} spacing={2}>
+            <Stack py={7} spacing={2}>
                 <Stack direction="row" justifyContent="center" spacing={{ xs: 5 }}>
                     <Img lazy={false} src={`assets/${packageType}_front.png`} width="30%" height="auto" sx={{ borderRadius: 1 }} />
                     <Img lazy={false} src={`assets/${packageType}_back.png`} width="30%" height="auto" sx={{ borderRadius: 1 }} />
