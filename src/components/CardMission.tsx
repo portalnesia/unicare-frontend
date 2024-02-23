@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import Button from "./Button";
-import { SxProps } from "@mui/material/styles";
+import { SxProps, Theme } from "@mui/material/styles";
 import Img from "./Img";
 import { missions, ourServices } from "root/data/content-data";
 import { useTranslation } from "next-i18next";
@@ -10,7 +10,7 @@ import { FONT_SECONDARY } from "@/themes/typography";
 
 export interface CardMissionProps {
     data: typeof missions[number]
-    sx?: SxProps;
+    sx?: SxProps<Theme>;
 }
 
 export default function CardMission({ data, sx }: CardMissionProps) {
@@ -21,6 +21,15 @@ export default function CardMission({ data, sx }: CardMissionProps) {
             padding: 3,
             height: "100%",
             bgcolor: "white",
+            ":hover": {
+                bgcolor: "primary.main",
+                "& .MuiTypography-root": {
+                    color: "white !important",
+                },
+                "& .arrow-icon": {
+                    color: "white"
+                }
+            },
             ...sx
         }}>
 
