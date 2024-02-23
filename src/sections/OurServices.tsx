@@ -111,7 +111,7 @@ export default function SectionOurServices() {
             <Typography variant="h1" pt={5}>{t("title_coverages")}</Typography>
             <Stack direction={{ xs: "column", sm: "row" }} justifyContent="center" py={3} spacing={3}>
                 {coverages.map((d, i) => (
-                    <CardServices data={d} sx={{ height: "500px", width: "100%" }} />
+                    <CardServices key={i} data={d} sx={{ height: "500px", width: "100%" }} />
                 ))}
             </Stack>
         </>

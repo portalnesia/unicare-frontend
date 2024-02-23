@@ -157,7 +157,7 @@ export default function SectionCompanyProfile() {
                     </Stack>
                     <Grid container pt={10} spacing={{ xs: 3, sm: 3 }} width="100%">
                         {missions.map((d, i) => (
-                            <Grid item xs={12} sm={4} >
+                            <Grid key={i} item xs={12} sm={4} >
                                 <CardMission data={d} sx={{ width: "100%" }} />
                             </Grid>
                         ))}
