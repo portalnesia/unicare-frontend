@@ -1,5 +1,7 @@
 import Img from "@/components/Img";
+import Packages from "@/components/packages";
 import { SvgArt1 } from "@/components/svg/Art";
+import { maxWidth } from "@/config";
 import { FONT_SECONDARY } from "@/themes/typography";
 import Box from "@mui/material/Box/Box";
 import Container from "@mui/material/Container/Container";
@@ -24,6 +26,10 @@ export default function SectionOurPrograms() {
                     <Img src="assets/aboutus1.png" width="100%" height="auto" sx={{ objectFit: "cover", borderRadius: 2 }} />
                 </Grid>
             </Grid>
+
+            <Grid item xs={12} py={8} /> {/* Spacer */}
+
+            <Packages />
         </Container>
     );
 }
