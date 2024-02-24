@@ -1,4 +1,4 @@
-import { PackageType, getPackageTypeName } from "@/models/package";
+import { PackageType, getPackageTypeName } from "@/model/package";
 import Box from "@mui/material/Box/Box";
 import Stack from "@mui/material/Stack/Stack";
 import React from "react";

@@ -1,12 +1,15 @@
 import Card from "@mui/material/Card/Card";
 import CardContent from "@mui/material/CardContent/CardContent";
 import React from "react";
+import Clinic from "./Clinic";
+import { clinics } from "root/data/content-data";
 
 export default function Clinics() {
-    const [step, setStep] = React.useState(1);
+    const totalStep = clinics.length + 1
+    const [step, setStep] = React.useState<{ index: number, totalStep: number }>({ index: 1, totalStep: totalStep });
 
-    const handleNext = React.useCallback((index: number) => {
-        setStep(index)
+    const handleNext = React.useCallback((index: number) => () => {
+        setStep({ ...step, index: index })
     }, [])
 
     return (
@@ -18,16 +21,16 @@ export default function Clinics() {
             borderBottomRightRadius: 0,
         }}>
             <CardContent>
-                {step === 1 ? (
-                    <>asdasd</>
-                ) : step === 2 ? (
-                    <>123213</>
-                ) : step === 3 ? (
-                    <>!@$!@$</>
-                ) : step === 4 ? (
-                    <>!@$!@$</>
-                ) : step === 5 ? (
-                    <>!@$!@$</>
+                {step.index === 1 ? (
+                    <Clinic clinic={null} step={step} onNext={handleNext(2)} />
+                ) : step.index === 2 ? (
+                    <Clinic clinic={clinics[0]} step={step} onNext={handleNext(3)} />
+                ) : step.index === 3 ? (
+                    <Clinic clinic={clinics[1]} step={step} onNext={handleNext(4)} />
+                ) : step.index === 4 ? (
+                    <Clinic clinic={clinics[2]} step={step} onNext={handleNext(5)} />
+                ) : step.index === 5 ? (
+                    <Clinic clinic={clinics[3]} step={step} onNext={handleNext(1)} />
                 ) : null}
             </CardContent>
         </Card>

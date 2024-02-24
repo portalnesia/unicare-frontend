@@ -1,3 +1,5 @@
+import { Clinic } from "@/model/clinic"
+
 export const ourServices = [
     {
         "name": "On-call Service",
@@ -65,4 +67,43 @@ export const missions = [
         "image_path": "assets/mission3.png",
         "description_t": "description_mission3"
     },
+]
+
+export const clinics: Clinic[] = [
+    {
+        name: "Unicare Clinic Ubud 24 Jam",
+        address: "Jl. Raya Pengosekan No.88, Banjar Tegal Kelod, Kecamatan Ubud, Kabupaten Gianyar, Bali 80571",
+        call_center: [
+            "0822-8888-0911",
+            "0822-9829-8911"
+        ],
+        maps_link: ""
+    },
+    {
+        name: "Unicare Uluwatu 24 Jam",
+        address: "Jl. Raya Pengosekan No.88, Banjar Tegal Kelod, Kecamatan Ubud, Kabupaten Gianyar, Bali 80571",
+        call_center: [
+            "0822-8888-0911",
+            "0822-9829-8911"
+        ],
+        maps_link: ""
+    },
+    {
+        name: "Unicare Nusa Dua 24 Jam",
+        address: "Jl. Raya Pengosekan No.88, Banjar Tegal Kelod, Kecamatan Ubud, Kabupaten Gianyar, Bali 80571",
+        call_center: [
+            "0822-8888-0911",
+            "0822-9829-8911"
+        ],
+        maps_link: ""
+    },
+    {
+        name: "Unicare Central Parkir Kuta 24 Jam",
+        address: "Jl. Raya Pengosekan No.88, Banjar Tegal Kelod, Kecamatan Ubud, Kabupaten Gianyar, Bali 80571",
+        call_center: [
+            "0822-8888-0911",
+            "0822-9829-8911"
+        ],
+        maps_link: ""
+    }
 ]
