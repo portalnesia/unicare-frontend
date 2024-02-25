@@ -20,7 +20,7 @@ export default function Clinics() {
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
         }}>
-            <CardContent>
+            {/* <CardContent> */}
                 {step.index === 1 ? (
                     <Clinic clinic={null} step={step} onNext={handleNext(2)} />
                 ) : step.index === 2 ? (
@@ -32,7 +32,7 @@ export default function Clinics() {
                 ) : step.index === 5 ? (
                     <Clinic clinic={clinics[3]} step={step} onNext={handleNext(1)} />
                 ) : null}
-            </CardContent>
+            {/* </CardContent> */}
         </Card>
     );
 }
