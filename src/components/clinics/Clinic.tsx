@@ -35,7 +35,7 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
     }
 
     return (
-        <Grid container height={{ xs: "auto", sm: "auto" }} sx={{ ...sx }} >
+        <Grid container sx={{ ...sx }} >
             <Grid item xs={12} sm={6}
                 sx={
                     !isMd ? {
@@ -44,7 +44,8 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                         pr: 4,
                     } : {
                         px: 3,
-                        pt: 4
+                        pt: 4,
+                        height: "450px"
                     }
                 }
             >
@@ -109,13 +110,15 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                     </Box>
                 </Stack>
             </Grid>
-            <Grid item height="600px" xs={12} sm={6} sx={{
+            <Grid item height={{ xs: "100%", sm: "600px" }} xs={12} sm={6} sx={{
                 ...(isMd
                     ? { px: 3, pt: 4 }
                     : { pl: 8, py: 8, pr: 4 }),
                 zIndex: 1,
             }}>
-                <Stack spacing={3} direction="row">
+                <Stack spacing={3} direction="row" sx={{
+                    ...(isMd ? { transform: "translateY(20%)" } : {})
+                }}>
                     <Stack spacing={3} sx={{
                         display: "flex",
                         width: "50%",
