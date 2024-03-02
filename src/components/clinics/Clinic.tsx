@@ -21,11 +21,6 @@ export interface ClinicProps {
     sx?: SxProps<Theme>;
 }
 
-// sx: {
-//     pl: 8,
-//     pr: 4,
-//     py: 8
-// }
 export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
     const isMd = useResponsive("down", 462);
     let images: string[] = [
@@ -123,8 +118,6 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                 <Stack spacing={3} direction="row">
                     <Stack spacing={3} sx={{
                         display: "flex",
-                        // position: "absolute",
-                        // height: "100%",
                         width: "50%",
                         flexDirection: "column",
                         overflow: "hidden",
@@ -136,13 +129,11 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                             borderRadius: 1,
                             width: "100%",
                             height: "300px",
-                            // height: "300px",
                             objectFit: "cover",
                             overflow: "hidden",
                         }} />
                         <Img src={`assets/${images[1]}`} sx={{
                             borderRadius: 1,
-                            // height: "300px",
                             width: "100%",
                             height: "300px",
                             objectFit: "cover",
@@ -150,7 +141,6 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                         }} />
                         <Img src={`assets/${images[2]}`} sx={{
                             borderRadius: 1,
-                            // height: "300px",
                             width: "100%",
                             height: "300px",
                             objectFit: "cover",
@@ -159,8 +149,6 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                     </Stack>
                     <Stack spacing={3} sx={{
                         display: "flex",
-                        // position: "absolute",
-                        // height: "100%",
                         width: "50%",
                         flexDirection: "column",
                         overflow: "hidden",
@@ -172,13 +160,11 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                             borderRadius: 1,
                             width: "100%",
                             height: "300px",
-                            // height: "300px",
                             objectFit: "cover",
                             overflow: "hidden",
                         }} />
                         <Img src={`assets/${images[4]}`} sx={{
                             borderRadius: 1,
-                            // height: "300px",
                             width: "100%",
                             height: "300px",
                             objectFit: "cover",
