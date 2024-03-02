@@ -1,5 +1,4 @@
 import Card from "@mui/material/Card/Card";
-import CardContent from "@mui/material/CardContent/CardContent";
 import React from "react";
 import Clinic from "./Clinic";
 import { clinics } from "root/data/content-data";
@@ -57,7 +56,6 @@ export default function Clinics() {
                     display: { xs: "none", lg: "block" },
                     zIndex: 0,
                     transform: "scaleX(-1)",
-                    // bgcolor: "red"
                 }} />
                 <SvgArt1 size={400} sx={{
                     position: "absolute",
@@ -66,7 +64,6 @@ export default function Clinics() {
                     display: { xs: "none", lg: "block" },
                     zIndex: 0,
                     transform: "scaleX(-1)",
-                    // bgcolor: "red"
                 }} />
             </Box>
         </Card>

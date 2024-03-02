@@ -10,7 +10,6 @@ import { FONT_SECONDARY } from "@/themes/typography";
 import useResponsive from "@/hooks/responsive";
 import Img from "../Img";
 import { SxProps, Theme } from "@mui/material";
-import zIndex from "@mui/material/styles/zIndex";
 
 export interface ClinicProps {
     clinic: Clinic | null;
