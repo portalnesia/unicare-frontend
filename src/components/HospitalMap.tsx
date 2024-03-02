@@ -63,7 +63,7 @@ export default function HospitalMap({ sx }: MapProps) {
                             />
                             <Button fullWidth icon="jam:search" iconifyProps={{ml: -1}}><Typography variant="subtitle2">Find Provider</Typography></Button>
                             {[...Array(10)].map((_, i) => (
-                                <Box sx={{
+                                <Box key={i} sx={{
                                     borderRadius: 1,
                                     width: "100%",
                                     minHeight: "35%",

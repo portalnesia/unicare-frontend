@@ -22,7 +22,7 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 }
 
 const Img = React.forwardRef<HTMLImageElement, ImageProps>((props, ref) => {
-    const { src, lazy = true, className, sx, alt, onContextMenu: __, placeholder: _, ...rest } = props
+    const { src, lazy = true, className, sx, alt, onContextMenu: __, ...rest } = props
 
     return (
         <>
