@@ -170,7 +170,7 @@ export default function SectionCompanyProfile() {
                         <Grid item xs={12} sm={6} pb={6}>
                             <Typography variant="h1" textAlign={{ xs: "center", sm: "start" }}>Discover the Benefits of Unicare Managed Care</Typography>
                         </Grid>
-                        <Grid item container rowSpacing={{xs: 0, sm: 8}} justifyContent="center" px={{xs: 5, sm: 0}} >
+                        <Grid item container rowSpacing={{xs: 0, sm: 8}} columnSpacing={6} justifyContent="center" px={{xs: 5, sm: 0}} >
                             <Grid item xs={12} sm={4} py={3}>
                                 <Stack spacing={1} justifyContent="center" alignItems="center">
                                     <SvgProtect />

@@ -147,6 +147,7 @@ export function SvgVerified({ size = 80, maxSize, sx }: SvgProps) {
         </SvgIcon>
     )
 }
+
 export function SvgCallCenter({ size = 80, maxSize, sx }: SvgProps) {
     const id = React.useRef(generateRandom(5))
     return (
@@ -162,6 +163,89 @@ export function SvgCallCenter({ size = 80, maxSize, sx }: SvgProps) {
             <path
                 fill="#003FB5"
                 d="M61.652 31.089h2.896a5.455 5.455 0 0 1 5.455 5.455v10.91a5.455 5.455 0 0 1-5.455 5.454h-2.896A21.822 21.822 0 0 1 40.002 72v-5.455a16.365 16.365 0 0 0 16.364-16.364V33.816a16.364 16.364 0 1 0-32.729 0v19.092h-8.182A5.455 5.455 0 0 1 10 47.453v-10.91a5.455 5.455 0 0 1 5.455-5.454h2.896a21.822 21.822 0 0 1 43.3 0Zm-46.197 5.455v10.91h2.727v-10.91h-2.727Zm46.366 0v10.91h2.727v-10.91h-2.727ZM28.437 52.322l2.891-4.626a16.288 16.288 0 0 0 8.674 2.485 16.288 16.288 0 0 0 8.673-2.485l2.89 4.626a21.72 21.72 0 0 1-11.563 3.314 21.716 21.716 0 0 1-11.565-3.314Z"
+            />
+        </SvgIcon>
+    )
+}
+
+export function SvgEmail({ size = 80, maxSize, sx }: SvgProps) {
+    const id = React.useRef(generateRandom(5))
+    return (
+        <SvgIcon {...(size || maxSize ? { sx: { fontSize: size, maxWidth: maxSize, height: 'auto', bgcolor: "transparent", color: "transparent", ...sx } } : { sx })}
+            fill="none"
+            viewBox="0 0 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                stroke="#003FB5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={4}
+                d="M25.8 31h38.4c2.64 0 4.8 2.138 4.8 4.75v28.5c0 2.612-2.16 4.75-4.8 4.75H25.8c-2.64 0-4.8-2.138-4.8-4.75v-28.5c0-2.612 2.16-4.75 4.8-4.75Z"
+            />
+            <path
+                stroke="#003FB5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={4}
+                d="M69 34.958 45 51.583 21 34.958"
+            />
+            <path
+                fill="#8AD82B"
+                d="M12.72 9a14.036 14.036 0 0 0 9.72 9.72 14.036 14.036 0 0 0-9.72 9.72A14.036 14.036 0 0 0 3 18.72 14.036 14.036 0 0 0 12.72 9Z"
+            />
+        </SvgIcon>
+    )
+}
+
+export function SvgPhone({ size = 80, maxSize, sx }: SvgProps) {
+    const id = React.useRef(generateRandom(5))
+    return (
+        <SvgIcon {...(size || maxSize ? { sx: { fontSize: size, maxWidth: maxSize, height: 'auto', bgcolor: "transparent", color: "transparent", ...sx } } : { sx })}
+            fill="none"
+            viewBox="0 0 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill="#8AD82B"
+                d="M57 4a12.997 12.997 0 0 0 9 9 12.997 12.997 0 0 0-9 9 12.997 12.997 0 0 0-9-9 12.997 12.997 0 0 0 9-9Z"
+            />
+            <path
+                stroke="#003FB5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={5}
+                d="M67.887 59.927v8.43a5.62 5.62 0 0 1-6.126 5.62 55.612 55.612 0 0 1-24.25-8.627A54.795 54.795 0 0 1 20.65 48.49a55.612 55.612 0 0 1-8.627-24.364A5.62 5.62 0 0 1 17.615 18h8.43a5.62 5.62 0 0 1 5.62 4.834 36.08 36.08 0 0 0 1.967 7.896 5.62 5.62 0 0 1-1.264 5.93l-3.569 3.568c4 7.035 9.825 12.86 16.86 16.86l3.57-3.568a5.62 5.62 0 0 1 5.929-1.265 36.078 36.078 0 0 0 7.896 1.967 5.62 5.62 0 0 1 4.833 5.705Z"
+            />
+        </SvgIcon>
+    )
+}
+
+export function SvgLocation({ size = 80, maxSize, sx }: SvgProps) {
+    const id = React.useRef(generateRandom(5))
+    return (
+        <SvgIcon {...(size || maxSize ? { sx: { fontSize: size, maxWidth: maxSize, height: 'auto', bgcolor: "transparent", color: "transparent", ...sx } } : { sx })}
+            fill="none"
+            viewBox="0 0 80 80"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fill="#8AD82B"
+                d="M15.72 3a14.036 14.036 0 0 0 9.72 9.72 14.036 14.036 0 0 0-9.72 9.72A14.036 14.036 0 0 0 6 12.72 14.036 14.036 0 0 0 15.72 3Z"
+            />
+            <path
+                stroke="#003FB5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={4}
+                d="M68.15 43.238c0 8.374-5.535 16.418-11.477 22.576-2.928 3.035-5.863 5.517-8.068 7.24a72.226 72.226 0 0 1-2.53 1.894 72.333 72.333 0 0 1-2.53-1.893c-2.206-1.724-5.14-4.207-8.068-7.24C29.534 59.654 24 51.611 24 43.237c0-5.727 2.317-11.227 6.453-15.287 4.137-4.062 9.755-6.35 15.622-6.35 5.866 0 11.485 2.288 15.622 6.35 4.136 4.06 6.453 9.56 6.453 15.287Z"
+            />
+            <path
+                stroke="#003FB5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={4}
+                d="M54 42a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"
             />
         </SvgIcon>
     )

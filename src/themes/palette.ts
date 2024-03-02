@@ -47,13 +47,13 @@ const ERROR = {
     darker: '#7A0C2E',
 };
 
-export const TEXT_SECONDARY_COLOR = "#5C5C5C"
+export const TEXT_SECONDARY_COLOR = "#333333"
 
 const palette: PaletteOptions = {
     mode: 'light',
     common: { black: '#000', white: '#fff' },
     background: { paper: '#FBFBFB', default: '#FFFFFF' },
-    text: { primary: "#333333", secondary: TEXT_SECONDARY_COLOR },
+    text: { primary: "#5C5C5C", secondary: TEXT_SECONDARY_COLOR },
     primary: PRIMARY,
     secondary: SECONDARY,
     info: INFO,
