@@ -15,15 +15,15 @@ export default function SectionOurPrograms() {
         <>
             <Container sx={{ py: 12, px: 2, zIndex: 1, position: "relative" }}>
                 <Grid container justifyContent="center" spacing={8} >
-                    <Grid item xs={12} sm={6} display="flex" alignItems="stretch">
+                    <Grid my={3} item xs={12} sm={6} display="flex" alignItems="stretch">
                         <Stack direction="column" spacing={4} justifyContent="space-between" alignItems={{ xs: "center", sm: "start" }}>
                             <Typography variant="h2" color="primary.main" fontFamily={FONT_SECONDARY} >Our Programs</Typography>
                             <Typography variant="h1" >Trusted Care, Tailored for You: Explore Our Comprehensive Programs</Typography>
                             <Typography variant="body1" >At Unicare, we prioritize your well-being. Uncover a spectrum of programs crafted to go beyond the ordinary, ensuring you receive the care you deserve for a healthier life.</Typography>
                         </Stack>
                     </Grid>
-                    <Grid item xs={12} sm={6} display="flex" alignItems="stretch">
-                        <Img src="assets/aboutus1.png" width="100%" height="auto" sx={{ objectFit: "cover", borderRadius: 2 }} />
+                    <Grid item xs={12} sm={5} display="flex" alignItems="stretch">
+                        <Img src="assets/our_programs.png" width="100%" height="auto" sx={{ objectFit: "cover", borderRadius: 2 }} />
                     </Grid>
                 </Grid>
 
