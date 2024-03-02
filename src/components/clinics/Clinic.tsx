@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton/IconButton";
 import { FONT_SECONDARY } from "@/themes/typography";
 import useResponsive from "@/hooks/responsive";
 import Img from "../Img";
+import { SxProps, Theme } from "@mui/material";
 
 export interface ClinicProps {
     clinic: Clinic | null;
@@ -17,6 +18,7 @@ export interface ClinicProps {
         totalStep: number;
     };
     onNext?(): void;
+    sx?: SxProps<Theme>;
 }
 
 // sx: {
@@ -24,10 +26,21 @@ export interface ClinicProps {
 //     pr: 4,
 //     py: 8
 // }
-export default function Clinic({ clinic, step, onNext }: ClinicProps) {
+export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
     const isMd = useResponsive("down", 462);
+    let images: string[] = [
+        "clinic_first_1.png",
+        "clinic_first_2.png",
+        "clinic_first_3.png",
+        "clinic_first_4.png",
+        "clinic_first_5.png",
+    ]
+    if (clinic) {
+        images = clinic.images
+    }
+
     return (
-        <Grid container height={{ xs: "1000px", sm: "auto" }} >
+        <Grid container height={{ xs: "auto", sm: "auto" }} sx={{...sx}} >
             <Grid item xs={12} sm={6}
                 sx={
                     !isMd ? {
@@ -111,19 +124,19 @@ export default function Clinic({ clinic, step, onNext }: ClinicProps) {
                     pt: 4
                 }
             }>
-                <Stack spacing={3}>
+                <Stack spacing={3} direction="row">
                     <Stack spacing={3} sx={{
                         display: "flex",
                         // position: "absolute",
                         // height: "100%",
-                        width: "100%",
+                        width: "50%",
                         flexDirection: "column",
                         overflow: "hidden",
                         justifyContent: "center",
                         alignItems: "center",
                         transform: "translateY(-20%)"
                     }}>
-                        <Img src="https://dummyimage.com/400x300" sx={{
+                        <Img src={`assets/${images[0]}`} sx={{
                             borderRadius: 1,
                             width: "100%",
                             height: "300px",
@@ -131,7 +144,7 @@ export default function Clinic({ clinic, step, onNext }: ClinicProps) {
                             objectFit: "cover",
                             overflow: "hidden",
                         }} />
-                        <Img src="https://dummyimage.com/400x300" sx={{
+                        <Img src={`assets/${images[1]}`} sx={{
                             borderRadius: 1,
                             // height: "300px",
                             width: "100%",
@@ -139,7 +152,7 @@ export default function Clinic({ clinic, step, onNext }: ClinicProps) {
                             objectFit: "cover",
                             overflow: "hidden",
                         }} />
-                        <Img src="https://dummyimage.com/400x300" sx={{
+                        <Img src={`assets/${images[2]}`} sx={{
                             borderRadius: 1,
                             // height: "300px",
                             width: "100%",
@@ -152,14 +165,14 @@ export default function Clinic({ clinic, step, onNext }: ClinicProps) {
                         display: "flex",
                         // position: "absolute",
                         // height: "100%",
-                        width: "100%",
+                        width: "50%",
                         flexDirection: "column",
                         overflow: "hidden",
                         justifyContent: "center",
                         alignItems: "center",
-                        transform: "translateY(-20%)"
+                        transform: "translateY(-44%)"
                     }}>
-                        <Img src="https://dummyimage.com/400x300" sx={{
+                        <Img src={`assets/${images[3]}`} sx={{
                             borderRadius: 1,
                             width: "100%",
                             height: "300px",
@@ -167,7 +180,7 @@ export default function Clinic({ clinic, step, onNext }: ClinicProps) {
                             objectFit: "cover",
                             overflow: "hidden",
                         }} />
-                        <Img src="https://dummyimage.com/400x300" sx={{
+                        <Img src={`assets/${images[4]}`} sx={{
                             borderRadius: 1,
                             // height: "300px",
                             width: "100%",

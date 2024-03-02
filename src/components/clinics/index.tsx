@@ -3,14 +3,25 @@ import CardContent from "@mui/material/CardContent/CardContent";
 import React from "react";
 import Clinic from "./Clinic";
 import { clinics } from "root/data/content-data";
+import Box from "@mui/material/Box/Box";
 
 export default function Clinics() {
     const totalStep = clinics.length + 1
     const [step, setStep] = React.useState<{ index: number, totalStep: number }>({ index: 1, totalStep: totalStep });
+    const [opacity, setOpacity] = React.useState(1);
 
     const handleNext = React.useCallback((index: number) => () => {
-        setStep({ ...step, index: index })
+        setOpacity(0);
+        setTimeout(() => {
+            setStep({ ...step, index: index });
+            setOpacity(1);
+        }, 200);
+
     }, [])
+
+    React.useEffect(() => {
+        setOpacity(1);
+    }, [step]);
 
     return (
         <Card sx={{
@@ -20,7 +31,10 @@ export default function Clinics() {
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
         }}>
-            {/* <CardContent> */}
+            <Box sx={{
+                transition: 'opacity 0.5s ease-in-out',
+                opacity: opacity
+            }}>
                 {step.index === 1 ? (
                     <Clinic clinic={null} step={step} onNext={handleNext(2)} />
                 ) : step.index === 2 ? (
@@ -32,7 +46,7 @@ export default function Clinics() {
                 ) : step.index === 5 ? (
                     <Clinic clinic={clinics[3]} step={step} onNext={handleNext(1)} />
                 ) : null}
-            {/* </CardContent> */}
+            </Box>
         </Card>
     );
 }
