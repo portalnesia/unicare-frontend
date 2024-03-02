@@ -10,6 +10,7 @@ import { FONT_SECONDARY } from "@/themes/typography";
 import useResponsive from "@/hooks/responsive";
 import Img from "../Img";
 import { SxProps, Theme } from "@mui/material";
+import zIndex from "@mui/material/styles/zIndex";
 
 export interface ClinicProps {
     clinic: Clinic | null;
@@ -40,7 +41,7 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
     }
 
     return (
-        <Grid container height={{ xs: "auto", sm: "auto" }} sx={{...sx}} >
+        <Grid container height={{ xs: "auto", sm: "auto" }} sx={{ ...sx }} >
             <Grid item xs={12} sm={6}
                 sx={
                     !isMd ? {
@@ -114,16 +115,12 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                     </Box>
                 </Stack>
             </Grid>
-            <Grid item height="600px" xs={12} sm={6} sx={
-                !isMd ? {
-                    pl: 8,
-                    py: 8,
-                    pr: 4,
-                } : {
-                    px: 3,
-                    pt: 4
-                }
-            }>
+            <Grid item height="600px" xs={12} sm={6} sx={{
+                ...(isMd
+                    ? { px: 3, pt: 4 }
+                    : { pl: 8, py: 8, pr: 4 }),
+                zIndex: 1,
+            }}>
                 <Stack spacing={3} direction="row">
                     <Stack spacing={3} sx={{
                         display: "flex",
