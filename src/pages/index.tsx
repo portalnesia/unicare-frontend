@@ -6,6 +6,7 @@ import { wrapperStatic } from "@/redux/store";
 import SectionAboutUs from "@/sections/AboutUs";
 import SectionCompanyProfile from "@/sections/CompanyProfile";
 import SectionContactUs from "@/sections/ContactUs";
+import SectionFooter from "@/sections/Footer";
 import SectionHome from "@/sections/Home";
 import SectionOurPrograms from "@/sections/OurPrograms";
 import SectionOurServices from "@/sections/OurServices";
@@ -73,9 +74,27 @@ export default function HomePage() {
                     </Container>
                 </Box>
 
-                <Container sx={{ my: 50, px: 2, zIndex: 1 }}>
-                    <h1>Footer</h1>
-                </Container>
+                <Box sx={{ backgroundColor: "primary.main", position: "relative", overflow: "hidden" }}>
+                    <Container sx={{ py: 12, px: 2, zIndex: 1 }}>
+                        <SectionFooter />
+                    </Container>
+                    <SvgArt1 size={550} sx={{
+                        position: "absolute",
+                        left: 100,
+                        top: 350,
+                        display: { xs: "none", lg: "block" },
+                        zIndex: 0,
+                        transform: "scaleX(-1)",
+                    }} />
+                    <SvgArt1 size={550} sx={{
+                        position: "absolute",
+                        left: 550,
+                        top: 300,
+                        display: { xs: "none", lg: "block" },
+                        zIndex: 0,
+                        transform: "scaleX(-1)",
+                    }} />
+                </Box>
             </HomepageLayout>
         </Pages>
     )
