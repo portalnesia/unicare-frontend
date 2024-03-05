@@ -108,7 +108,7 @@ export default function Packages() {
                             <Iconify icon="ic:baseline-clear" />
                         </IconButton>
                     </Box>
-                    <Typography pb={6} variant="h3" fontFamily={FONT_SECONDARY} color={packageType === "premium" ? "#B49649" : packageType === "diamond_plus" ? "#5C5C5C" : "primary.main"} sx={{ flex: "none" }}>{`${getPackageTypeName(packageType)} Claim Procedure`}</Typography>
+                    {/* <Typography pb={6} variant="h3" fontFamily={FONT_SECONDARY} color={packageType === "premium" ? "#B49649" : packageType === "diamond_plus" ? "#5C5C5C" : "primary.main"} sx={{ flex: "none" }}>{`${getPackageTypeName(packageType)} Claim Procedure`}</Typography> */}
                     {packageType === "smart_health_plus" ? (
                         <SvgProcedureSmartHealthPlus sx={{  }} />
                     ) : packageType === "premium" ? (
