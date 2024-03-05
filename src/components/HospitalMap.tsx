@@ -1,6 +1,4 @@
 import { Theme } from "@emotion/react";
-import { Wrapper } from "@googlemaps/react-wrapper";
-import { CardContent, Grid, Typography } from "@mui/material";
 import Box from "@mui/material/Box/Box";
 import Card from "@mui/material/Card/Card";
 import Stack from "@mui/material/Stack/Stack";
@@ -10,6 +8,8 @@ import Button from "./Button";
 import Scrollbar from "./Scrollbar";
 import { useTranslation } from "next-i18next";
 import TextField from "./TextField";
+import Typography from "@mui/material/Typography/Typography";
+import Link from "@mui/material/Link/Link";
 
 export type MapProps = {
     sx?: SxProps<Theme> | undefined
@@ -42,7 +42,7 @@ export default function HospitalMap({ sx }: MapProps) {
         }}>
             <Stack direction="row" width="100%" height="100%">
                 <Box sx={{
-                    width: "30%",
+                    width: "35%",
                     height: "100%",
                     backgroundColor: "#F3F3F3",
                     boxShadow: "-1px 2px 20px 5px rgba(0, 0, 0, 0.25)",
@@ -50,7 +50,8 @@ export default function HospitalMap({ sx }: MapProps) {
                     <Scrollbar sx={{
                         width: "100%",
                         height: "100%",
-                        padding: 3
+                        px: 3,
+                        pt: 3,
                         // backgroundColor: "#F3F3F3",
                         // boxShadow: "-1px 2px 20px 5px rgba(0, 0, 0, 0.25)",
                     }}>
@@ -61,16 +62,25 @@ export default function HospitalMap({ sx }: MapProps) {
                                 value={locationField}
                                 onChange={(e) => onLocationFieldChange(e.target.value)}
                             />
-                            <Button fullWidth icon="jam:search" iconifyProps={{ml: -1}}><Typography variant="subtitle2">Find Provider</Typography></Button>
+                            <Button fullWidth icon="jam:search" iconifyProps={{ ml: -1 }}><Typography variant="subtitle2">Find Provider</Typography></Button>
                             {[...Array(10)].map((_, i) => (
                                 <Box key={i} sx={{
                                     borderRadius: 1,
                                     width: "100%",
                                     minHeight: "35%",
-                                    backgroundColor: "white"
+                                    backgroundColor: "white",
+                                    padding: 3,
+                                    display: "flex",
+                                    justifyContent: "center"
                                 }}>
-                                    <Stack direction="column">
-                                        <Typography variant="h2">{i}</Typography>
+                                    <Stack direction="column" alignItems="start" >
+                                        <Typography variant="h4">RS Mata Bali Mandara</Typography>
+                                        <Typography variant="body2">Jl. Angsoka No.8, Dangin Puri Kangin, Kec. Denpasar Utara, Kota Denpasar, Bali 80236</Typography>
+                                        <Typography pt={2} variant="body2" color="primary.main">Call Center 1: 0877-1699-6175</Typography>
+                                        <Typography variant="body2" color="primary.main">Call Center 2: 0822-9829-8911</Typography>
+                                        <Link pt={2} href="/" target="_blank">
+                                            <Typography variant="body2" color="primary.main">View on maps</Typography>
+                                        </Link>
                                     </Stack>
                                 </Box>
                             ))}
