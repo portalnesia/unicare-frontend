@@ -37,3 +37,15 @@ export function SvgArt1({ size = 120, maxSize, sx }: SvgProps) {
         </SvgIcon>
     )
 }
+
+export function SvgArtLogin({ size = 4000, maxSize, sx }: SvgProps) {
+    const id = React.useRef(generateRandom(5))
+    return (
+        <SvgIcon {...(size || maxSize ? { sx: { fontSize: size, maxWidth: maxSize, height: "auto", bgcolor: "transparent", color: "transparent", ...sx } } : { sx })}
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 4000 4000"
+        >
+        </SvgIcon>
+    )
+}

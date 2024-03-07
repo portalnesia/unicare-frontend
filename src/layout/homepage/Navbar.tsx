@@ -135,6 +135,10 @@ export default function Navbar() {
         router.replace({ pathname, query }, asPath, { locale: lang })
     }, [router])
 
+    const onSignInClick = React.useCallback(() => {
+        router.push("/login")
+    }, [])
+
     React.useEffect(() => {
         function onScroll() {
             const scroll = document?.documentElement?.scrollTop || document.body.scrollTop;
@@ -326,7 +330,9 @@ export default function Navbar() {
                                             }}>ID</Typography>
                                         </ButtonBase>
                                     </MenuButton>
-                                    <Button variant="text" sx={{ px: 5, flex: "none" }}><Typography color="primary" variant="subtitle2" >{t("sign_in")}</Typography></Button>
+                                    <Button variant="text" onClick={() => onSignInClick()} sx={{ px: 5, flex: "none" }}>
+                                        <Typography color="primary" variant="subtitle2" >{t("sign_in")}</Typography>
+                                        </Button>
                                     <Button
                                         icon="ci:menu-alt-05"
                                         iconPosition="start"
