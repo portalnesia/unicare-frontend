@@ -21,6 +21,7 @@ export default function CardServices({ data, onClick, sx }: CardServicesProps) {
             padding: 3,
             height: "100%",
             bgcolor: "white",
+            borderRadius: 1,
             ...sx
         }}>
 

@@ -2,6 +2,7 @@ import Button from "@/components/Button";
 import Img from "@/components/Img";
 import Pages from "@/components/Pages";
 import Recaptcha from "@/components/Recaptcha";
+import LoginSwiper from "@/components/SwiperLogin";
 import TextField from "@/components/TextField";
 import { SvgArtLogin } from "@/components/svg/Art";
 import { SvgLogo } from "@/components/svg/Logo";
@@ -19,6 +20,7 @@ import styled from "@mui/material/styles/styled";
 import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import React from "react";
+import { userLoginSwiper } from "root/data/content-data";
 
 // export const getServerSideProps = wrapper(async ({}) => {
 //     return {
@@ -31,14 +33,14 @@ import React from "react";
 export const getStaticProps = wrapperStatic({ translation: "main" })
 
 const RootStyle = styled('div')(({ theme }) => ({
-    backgroundColor: "#FFF",
+    backgroundColor: "#F9F9F9",
     [theme.breakpoints.up('md')]: {
         display: 'flex'
     }
 }));
 const SectionStyle = styled(Card)(({ theme }) => ({
     width: '100%',
-    maxWidth: "calc(100svw / 2)",
+    maxWidth: "calc(100svw / 2.5)",
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -56,7 +58,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
     justifyContent: 'center',
     // backgroundColor: "red",
     // margin: theme.spacing(3, 0, 3, 20),
-    margin: theme.spacing(0, 0, 0, 32),
+    margin: theme.spacing(0, 0, 0, 48),
     // padding: theme.spacing(3, 0, 2, 0),
     position: "relative"
 }));
@@ -84,7 +86,7 @@ export default function LoginUserPage() {
                         </Link>
                         <Box padding={"80px 0px"} gap={"80px"} alignItems="center" borderRadius={3}>
                             <form onSubmit={() => { }}>
-                                <Stack sx={{ mb: 5, alignItems: 'start' }}>
+                                <Stack sx={{ mt: 5, alignItems: 'start' }}>
                                     <Typography variant="h2" fontFamily={FONT_SECONDARY} color="primary.main" gutterBottom>
                                         {t("sign_in")}
                                     </Typography>
@@ -100,7 +102,7 @@ export default function LoginUserPage() {
                                             sx={{ mb: 1, width: "50%" }}
                                             required
                                             helperText="Input your registered 16 digit personal identity number"
-                                            bgcolor="white"
+                                            // bgcolor="white"
                                         />
                                         <Recaptcha ref={captchaRef} />
 
@@ -141,13 +143,15 @@ export default function LoginUserPage() {
                             position: "absolute",
                             borderRadius: 2,
                             width: "100%",
-                            maxHeight: "100%",
+                            height: "100%",
                             // zIndex: -1
                         }} />
                         <Box sx={{
-                            zIndex: 1
+                            zIndex: 1,
+                            width: "75%",
+                            height: "100%"
                         }}>
-                            <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>Hi, Welcome Back</Typography>
+                            <LoginSwiper contents={userLoginSwiper} />
                         </Box>
                     </Stack>
                 </SectionStyle>

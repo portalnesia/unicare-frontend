@@ -135,3 +135,36 @@ export const clinics: Clinic[] = [
         ]
     }
 ]
+
+export const userLoginSwiper = [
+    {
+        "title": "Track Your Insurance Premium",
+        "description": "Access your coverage details easily on our platform",
+        "items": [
+            "Information of your total paid premium",
+            "Information of your utilized limit",
+            "Information of your remaining Limit"
+        ],
+        "image": "user_login_1.png"
+    },
+    {
+        "title": "Stay Informed Everytime",
+        "description": "Access your coverage details easily on our platform",
+        "items": [
+            "Information of your total paid premium",
+            "Information of your utilized limit",
+            "Information of your remaining Limit"
+        ],
+        "image": "user_login_1.png"
+    },
+    {
+        "title": "Comprehensive Range of Services",
+        "description": "Access your coverage details easily on our platform",
+        "items": [
+            "Information of your total paid premium",
+            "Information of your utilized limit",
+            "Information of your remaining Limit"
+        ],
+        "image": "user_login_1.png"
+    },
+]
