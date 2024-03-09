@@ -150,7 +150,7 @@ export default function LoginUserPage() {
                                     </Stack>
 
                                     <Button type="submit" sx={{ mt: 3, px: 4 }} disabled={loading} loading={loading}>
-                                        <Typography variant="subtitle2" >"sign_in"</Typography>
+                                        <Typography variant="subtitle2" >sign_in</Typography>
                                     </Button>
                                     {typeof err === 'string' && (
                                         <Alert variant='outlined' sx={{ mt: 2, minWidth: { xs: '90%', md: 400, justifyContent: 'center' } }} severity='error'>{decodeURIComponent(err.replace(/\+/gim, ' '))}</Alert>
