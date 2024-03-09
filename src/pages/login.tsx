@@ -40,7 +40,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 }));
 const SectionStyle = styled(Card)(({ theme }) => ({
     width: '100%',
-    maxWidth: "calc(100svw / 2.5)",
+    maxWidth: "calc(100svw / 2.2)",
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -84,14 +84,14 @@ export default function LoginUserPage() {
                         <Link href="/">
                             <SvgLogo sx={{ width: 100, height: 100, position: "absolute", top: 0, left: 0, mt: 3 }} />
                         </Link>
-                        <Box padding={"80px 0px"} gap={"80px"} alignItems="center" borderRadius={3}>
+                        <Box padding={"0px 0px"} gap={"80px"} alignItems="center" borderRadius={3}>
                             <form onSubmit={() => { }}>
                                 <Stack sx={{ mt: 5, alignItems: 'start' }}>
                                     <Typography variant="h2" fontFamily={FONT_SECONDARY} color="primary.main" gutterBottom>
                                         {t("sign_in")}
                                     </Typography>
 
-                                    <Typography variant="h1" paddingRight={20}>Securely Access Your Coverage</Typography>
+                                    <Typography variant="h1" paddingRight={12}>Securely Access Your Coverage</Typography>
 
                                     <Stack alignItems="start" spacing={3} mt={5} width="100%">
                                         <TextField

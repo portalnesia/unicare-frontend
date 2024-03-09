@@ -33,10 +33,11 @@ export default function SectionOurServices() {
     const [hide, setHide] = React.useState({ left: true, right: false });
 
     const handleNavigationClick = React.useCallback((type: "left" | "right") => () => {
-        if (swiperRef.current) {
-            if (type === "left") swiperRef.current.slidePrev();
-            else swiperRef.current.slideNext();
-        }
+        // if (swiperRef.current) {
+        //     if (type === "left") swiperRef.current.slidePrev();
+        //     else swiperRef.current.slideNext();
+        // }
+        swiperRef.current?.slideToClosest();
     }, [])
 
     const onSlideChange = React.useCallback((sw: SwiperClass) => {

@@ -4,9 +4,9 @@ import Typography from "@mui/material/Typography/Typography";
 import { useTranslation } from "next-i18next";
 import React from "react";
 import { userLoginSwiper } from "root/data/content-data";
-import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from "swiper/react";
 import CardServices from "./CardServices";
-import { Navigation } from "swiper";
+import { Navigation, Swiper as SwiperClass } from "swiper";
 import Fade from "@mui/material/Fade/Fade";
 import IconButton from "@mui/material/IconButton/IconButton";
 import Iconify from "./Iconify";
@@ -23,6 +23,14 @@ interface SwiperLoginProps {
     contents: (typeof userLoginSwiper[number])[]
 }
 
+const BoxGrid = styled(Box)(({ theme }) => ({
+    "&:hover": {
+        "& .images": {
+            transform: 'scale(1.1)'
+        }
+    }
+}))
+
 export default function LoginSwiper({ contents }: SwiperLoginProps) {
     const [t] = useTranslation("main");
     const isMd = useResponsive("down", 462);
@@ -30,15 +38,19 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
     const navRight = React.useRef<HTMLButtonElement>(null);
     const swiperRef = React.useRef<SwiperClass>();
     const [hide, setHide] = React.useState({ left: true, right: false });
+    const [activeIndex, setActiveIndex] = React.useState(0);
 
     const handleNavigationClick = React.useCallback((type: "left" | "right") => () => {
-        if (swiperRef.current) {
-            if (type === "left") swiperRef.current.slidePrev();
-            else swiperRef.current.slideNext();
-        }
+        // console.log(`nav click ${type} activeIndex=${swiperRef.current?.activeIndex}`)
+        // if (swiperRef.current) {
+        //     if (type === "left") swiperRef.current.slidePrev();
+        //     else swiperRef.current.slideNext();
+        // }
+        swiperRef.current?.slideToClosest();
     }, [])
 
     const onSlideChange = React.useCallback((sw: SwiperClass) => {
+        setActiveIndex(sw.activeIndex);
         if (sw.isBeginning) setHide({ left: true, right: false });
         else if (sw.isEnd) setHide({ left: false, right: true });
         else setHide({ left: false, right: false });
@@ -46,18 +58,20 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
 
     return (
         // <>
-        <Box
+        <BoxGrid
             // position="relative"
             // width="100px"
             // flexDirection="row"
             // display="grid"
             sx={{
-                // bgcolor: "red",
+                // bgcolor: "yellow",
                 height: "100%",
                 width: "100%",
-                borderRadius: "80px",
-                // display: "flex",
-                // flexDirection: "row",
+                // borderRadius: "80px",
+                display: "block",
+                // justifyContent: "center",
+                // alignItems: "end"
+                // flexDirection: "column",
                 // p: 3,
                 // position: "relative"
             }}
@@ -71,31 +85,32 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                     // isMd ? { padding: 24, height: "650px" }
                     //     : { padding: 24, height: "650px", marginLeft: 48, marginRight: 48 }
                     {
-                        height: "650px",
+                        // height: "100%",
                         // position: "absolute",
                         // backgroundColor: "yellow",
-                        borderRadius: 3
+                        borderRadius: 3,
                     }
                 }
-                breakpoints={{
-                    0: {
-                        slidesPerView: 1,
-                    },
-                    600: {
-                        slidesPerView: 1,
-                    },
-                    768: {
-                        slidesPerView: 1,
-                    },
-                    1024: {
-                        slidesPerView: 1,
-                    }
-                }}
+                // breakpoints={{
+                //     0: {
+                //         slidesPerView: 1,
+                //     },
+                //     600: {
+                //         slidesPerView: 1,
+                //     },
+                //     768: {
+                //         slidesPerView: 1,
+                //     },
+                //     1024: {
+                //         slidesPerView: 1,
+                //     }
+                // }}
             >
                 {contents.map((d, i) => (
                     <SwiperSlide key={`${i}`} style={{ paddingTop: 16, paddingBottom: 16, }}>
                         <Box sx={{
-                            padding: 3,
+                            px: 3,
+                            pb: 3,
                             // height: "550px",
                             // width: "100%",
                             bgcolor: "white",
@@ -103,8 +118,8 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "start",
-                            mx: "10%",
-                            mt: "20%"
+                            mx: "5%",
+                            mt: "10%"
                         }}>
                             <Box sx={{
                                 display: "flex",
@@ -112,9 +127,9 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                                 alignItems: "center",
                                 flexDirection: "column",
                             }}>
-                                <Img src={`assets/${d.image}`} height="50%" width="50%" />
+                                <Img src={`assets/${d.image}`} height="60%" width="60%" />
                                 <Stack spacing={2} width="100%">
-                                    <Typography variant="h3" fontFamily={FONT_SECONDARY} color="primary.main">{d.title}</Typography>
+                                    <Typography variant="h3" fontFamily={FONT_SECONDARY} color="primary.main" textAlign="center" sx={{ flexWrap: "nowrap" }}>{d.title}</Typography>
                                     <Typography variant="subtitle1" fontWeight={500} textAlign="center" sx={{
                                         display: "-webkit-box",
                                         WebkitBoxOrient: "vertical",
@@ -141,33 +156,57 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <Fade in={!hide.left}>
+            <Box sx={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "space-between",
+                pt: 8,
+                px: 6,
+                // position: "absolute",
+                // left: 0,
+                right: 0,
+                // top: 0,
+                bottom: 0,
+                // bgcolor: "red",
+                zIndex: 1,
+            }}>
                 <IconButton onClick={handleNavigationClick("left")} ref={navLeft} sx={{
                     zIndex: 1,
-                    position: "absolute",
-                    left: { xs: 0, lg: 0 },
-                    top: `calc(55% - 48px)`,
+                    // position: "absolute",
+                    // left: { xs: 0, lg: 0 },
+                    // top: `calc(55% - 48px)`,
                     color: "primary.main",
                     border: "2px solid",
                     backgroundColor: "#F9F9F9"
                 }}>
-                    <Iconify icon="ic:round-arrow-back" width={32} height={32} />
+                    <Iconify icon="ic:round-arrow-back" width={40} height={40} />
                 </IconButton>
-            </Fade>
-            <Fade in={!hide.right}>
+                <Stack direction="row" width="100%" spacing={3} px={6}>
+                    {/* {[...Array(5)].map((_, i) => ( */}
+                    {contents.map((_, i) => (
+                        <Box key={i} sx={{
+                            height: "6px",
+                            // width: "calc(100% / 3)",
+                            // flex: "0 0 ${100 / 5}%",
+                            flex: 1,
+                            bgcolor: activeIndex === i ? "white" : "grey",
+                            borderRadius: "38px"
+                        }} />
+                        ))}
+                </Stack>
                 <IconButton onClick={handleNavigationClick("right")} ref={navRight} sx={{
                     zIndex: 1,
-                    position: "absolute",
-                    right: { xs: 0, lg: 0 },
-                    top: `calc(55% - 48px)`,
+                    // position: "absolute",
+                    // right: { xs: 0, lg: 0 },
+                    // top: `calc(55% - 48px)`,
                     color: "primary.main",
                     border: "2px solid",
                     backgroundColor: "#F9F9F9"
                 }}>
-                    <Iconify icon="ic:round-arrow-forward" width={32} height={32} />
+                    <Iconify icon="ic:round-arrow-forward" width={40} height={40} />
                 </IconButton>
-            </Fade>
-        </Box>
+            </Box>
+        </BoxGrid>
         // </>
     );
 }
