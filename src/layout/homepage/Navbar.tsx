@@ -139,6 +139,10 @@ export default function Navbar() {
         router.push("/login")
     }, [router])
 
+    const onAdminClick = React.useCallback(() => {
+        router.push("/admin")
+    }, [router])
+
     React.useEffect(() => {
         function onScroll() {
             const scroll = document?.documentElement?.scrollTop || document.body.scrollTop;
@@ -336,6 +340,7 @@ export default function Navbar() {
                                     <Button
                                         icon="ci:menu-alt-05"
                                         iconPosition="start"
+                                        onClick={onAdminClick}
                                         sx={{ transform: "scaleX(-1);" }}
                                     >
                                         <Typography variant="subtitle2" sx={{ transform: "scaleX(-1);" }}>{t("administration")}</Typography>

@@ -78,7 +78,7 @@ export default function LoginUserPage() {
         e.preventDefault();
         try {
             setLoading(true);
-            const resp = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJybCI6IkNVU1RPTUVSIiwiZXhwIjoxNzExNzM1MjAwLCJpZCI6MTIzLCJpYXQiOjE3MTAwMjI5Mzd9.Nspn8rs4C44It9JyFotmCe_gDhN0_ijM3ERNEZw6Ouc";
+            const resp = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJybCI6IlBST1ZJREVSIiwiZXhwIjoxNzExNzM1MjAwLCJpZCI6MzIxLCJpYXQiOjE3MTAwMjY0MDV9.TwnhR03bV_wytzTDpUmMDXX_J1KSRY1z6QLRUxWBQ3g";
             // const resp = await post<Auth>(`/customer/login`, input);
             // const resp: Auth = {
             //     roles: IRoles.CUSTOMER,
@@ -89,7 +89,7 @@ export default function LoginUserPage() {
             // const dateExpired = new Date(resp.expired_at * 1000);
             setCookie("_auth", resp, { expires: dateExpired, secure: process.env.NODE_ENV === "production" })
             setTimeout(() => {
-                Router.replace("/managed-care");
+                Router.replace("/administration");
             }, 200);
         } catch (e) {
             let msg = "Something went wrong";
@@ -101,7 +101,7 @@ export default function LoginUserPage() {
     }, [input, dispatch, post])
 
     return (
-        <Pages title="Login" canonical="/login" noIndex admin={false}>
+        <Pages title="Administration" canonical="/admin" noIndex admin={false}>
             <RootStyle>
                 <AuthLayout>
                 </AuthLayout>

@@ -101,7 +101,8 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
 
             if (typeof auth_token === "string") {
                 try {
-                    const token = jwt.verify(auth_token, process.env.SECRET_JWT || "", { issuer: "northbit", audience: "unicare" })
+                    const token = jwt.decode(auth_token) // for development only
+                    // const token = jwt.verify(auth_token, process.env.SECRET_JWT || "", { issuer: "northbit", audience: "unicare" })
                     if (typeof token === "object" && typeof token?.id === "number" && typeof token?.rl === "string" && token.exp) {
                         if (rolesArray.includes(token.rl)) {
                             // to get user data, request to /api/user/me
@@ -137,9 +138,38 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
             }
 
             // TODO: sesuaiin yang mana private yang mana public
-            if (!auth_token && (!ctx.resolvedUrl.startsWith("/login") && !ctx.resolvedUrl.startsWith("/logout") && !ctx.resolvedUrl.startsWith("/reset-password"))) {
+            const url = new URL(ctx.resolvedUrl, webUrl());
+            if (!auth_token && (!ctx.resolvedUrl.startsWith("/login") && ctx.resolvedUrl !== "/admin" && !ctx.resolvedUrl.startsWith("/logout") && !ctx.resolvedUrl.startsWith("/reset-password"))) {
+                if (!ctx.resolvedUrl.startsWith("/administration")) {
+                    return redirect<P>(webUrl("/login")) as GetServerSidePropsResult<IPages<P>>;
+                } else {
+                    return redirect<P>(webUrl("/admin")) as GetServerSidePropsResult<IPages<P>>;
+                }
+            } else if (!!auth_token && auth?.roles !== IRoles.CUSTOMER && ctx.resolvedUrl.startsWith("/managed-care")) {
                 return redirect<P>(webUrl("/login")) as GetServerSidePropsResult<IPages<P>>;
+            } else if (!!auth_token && auth && !rolesArray.filter(item => item !== IRoles.CUSTOMER).includes(auth.roles) && ctx.resolvedUrl.startsWith("/administration")) {
+                return redirect<P>(webUrl("/admin")) as GetServerSidePropsResult<IPages<P>>;
+            } else if (!!auth_token && ["/reset-password", "/login", "/admin"].includes(url.pathname)) {
+                // if (ctx.resolvedUrl !== "/admin") {
+                if (!ctx.resolvedUrl.startsWith("/admin")) {
+                    if (auth?.roles === IRoles.CUSTOMER) {
+                        return redirect<P>(webUrl("/managed-care")) as GetServerSidePropsResult<IPages<P>>;
+                    }
+                } else {
+                    if (auth && rolesArray.filter(item => item !== IRoles.CUSTOMER).includes(auth.roles)) {
+                        return redirect<P>(webUrl("/administration")) as GetServerSidePropsResult<IPages<P>>;
+                    }
+                }
             }
+
+            // else if (!!auth_token && ["/managed-care", "/administration"].includes(url.pathname)) {
+            //     if (!ctx.resolvedUrl.startsWith("/admin") && ) {
+            //         return redirect<P>(webUrl("/managed-care")) as GetServerSidePropsResult<IPages<P>>;
+            //     } else {
+            //         return redirect<P>(webUrl("/administration")) as GetServerSidePropsResult<IPages<P>>;
+            //     }
+            // }
+
 
             const result = await callback({ store, redirect, fetchAPI, auth, ...ctx });
             return result;

@@ -1,24 +1,31 @@
+import { Auth } from "@/model/auth";
+
 export const NAVBAR_HEIGHT = 120;
 export const DRAWER_WIDTH = 270;
 
 export type INavbarChild = {
-    name: string,
-    link: string
-    tooltip?: string
-    icon?: string
-    desc?: string
-    blank?: boolean
+    name: string;
+    link: string;
+    tooltip?: string;
+    icon?: string;
+    desc?: string;
+    blank?: boolean;
+    fn?: string;
+    shallow?: boolean;
+    child?: INavbarChild[];
 }
 
 export type INavbar = {
-    name: string,
-    link: string,
-    tooltip?: string
-    icon?: string
-    iconActive?: string
-    desc?: string
-    child?: INavbarChild[]
-    blank?: boolean
+    fn?: string;
+    name: string;
+    link: string;
+    tooltip?: string;
+    icon?: string;
+    iconActive?: string;
+    shallow?: boolean;
+    desc?: string;
+    child?: INavbarChild[];
+    blank?: boolean;
 }
 
 export const getNavbarMenu = (): INavbar[] => ([{
@@ -35,3 +42,26 @@ export const getNavbarMenu = (): INavbar[] => ([{
     link: "/#contact-us",
 },
 ])
+
+export const getManagedCareNavbar = (auth?: Auth | null): INavbar[] => [
+    {
+        name: "Dashboard",
+        link: "/dashboard",
+        icon: "material-symbols:team-dashboard",
+        // child: getDashboardChild(auth?.role).filter((a) => typeof a?.submenu === "undefined"),
+    },
+    {
+        name: "Services",
+        link: "/services",
+        icon: "clarity:employee-group-solid",
+    },
+];
+
+export const getCMSNavbarSecondary = (): INavbar[] => [
+    {
+        name: "Logout",
+        link: "#",
+        fn: "logout",
+        icon: "majesticons:logout",
+    },
+];
