@@ -23,7 +23,7 @@ export default function HospitalMap({ sx }: MapProps) {
 
     const onLocationFieldChange = React.useCallback((value: string) => {
         setLocationField(value)
-    }, [locationField])
+    }, [])
 
     React.useEffect(() => {
         if (ref.current) {
@@ -32,7 +32,7 @@ export default function HospitalMap({ sx }: MapProps) {
                 zoom: 4
             })
         }
-    }, [ref.current]);
+    }, []);
 
     return (
         <Card sx={{

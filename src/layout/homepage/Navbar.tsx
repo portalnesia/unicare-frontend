@@ -137,7 +137,7 @@ export default function Navbar() {
 
     const onSignInClick = React.useCallback(() => {
         router.push("/login")
-    }, [])
+    }, [router])
 
     React.useEffect(() => {
         function onScroll() {
@@ -223,7 +223,7 @@ export default function Navbar() {
                         {!isMd ? (
                             <>
                                 <Link href={"/"} onClick={onClick()}>
-                                    <SvgLogo sx={{ width: 100, height: 100, mt: 1 }} />
+                                    <SvgLogo size={100} sx={{ mt: 1 }} />
                                 </Link>
 
                                 <Stack direction="row" spacing={1} height="50%">

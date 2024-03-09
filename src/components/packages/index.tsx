@@ -28,7 +28,7 @@ export default function Packages() {
         // const pswp = new PhotoSwipe(options);
         // pswp.init();
         setModalOpen(true)
-    }, [packageType])
+    }, [])
 
     return (
         <>

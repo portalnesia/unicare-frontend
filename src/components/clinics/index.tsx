@@ -17,11 +17,11 @@ export default function Clinics() {
             setOpacity(1);
         }, 200);
 
-    }, [])
+    }, [step])
 
     React.useEffect(() => {
         setOpacity(1);
-    }, [step]);
+    }, []);
 
     return (
         <Card sx={{
