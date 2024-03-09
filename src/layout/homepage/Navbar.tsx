@@ -223,7 +223,7 @@ export default function Navbar() {
                         {!isMd ? (
                             <>
                                 <Link href={"/"} onClick={onClick()}>
-                                    <SvgLogo sx={{ mt: 1 }} />
+                                    <SvgLogo sx={{ width: 100, height: 100, mt: 1 }} />
                                 </Link>
 
                                 <Stack direction="row" spacing={1} height="50%">

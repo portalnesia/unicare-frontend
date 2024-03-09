@@ -58,7 +58,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
     justifyContent: 'center',
     // backgroundColor: "red",
     // margin: theme.spacing(3, 0, 3, 20),
-    margin: theme.spacing(0, 0, 0, 48),
+    margin: theme.spacing(0, 0, 0, 36),
     // padding: theme.spacing(3, 0, 2, 0),
     position: "relative"
 }));
@@ -82,11 +82,11 @@ export default function LoginUserPage() {
                 }}>
                     <ContentStyle>
                         <Link href="/">
-                            <SvgLogo sx={{ width: 100, height: 100, position: "absolute", top: 0, left: 0, mt: 3 }} />
+                            <SvgLogo sx={{ width: 125, position: "absolute", top: 0, left: 0, mt: 3 }} />
                         </Link>
                         <Box padding={"0px 0px"} gap={"80px"} alignItems="center" borderRadius={3}>
                             <form onSubmit={() => { }}>
-                                <Stack sx={{ mt: 5, alignItems: 'start' }}>
+                                <Stack sx={{ mt: 12, alignItems: 'start' }}>
                                     <Typography variant="h2" fontFamily={FONT_SECONDARY} color="primary.main" gutterBottom>
                                         {t("sign_in")}
                                     </Typography>
@@ -102,7 +102,7 @@ export default function LoginUserPage() {
                                             sx={{ mb: 1, width: "50%" }}
                                             required
                                             helperText="Input your registered 16 digit personal identity number"
-                                            // bgcolor="white"
+                                        // bgcolor="white"
                                         />
                                         <Recaptcha ref={captchaRef} />
 

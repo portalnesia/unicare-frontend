@@ -18,6 +18,7 @@ import Stack from "@mui/material/Stack/Stack";
 import Img from "./Img";
 import { FONT_SECONDARY } from "@/themes/typography";
 import Divider from "@mui/material/Divider/Divider";
+import Button from "./Button";
 
 interface SwiperLoginProps {
     contents: (typeof userLoginSwiper[number])[]
@@ -91,20 +92,20 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                         borderRadius: 3,
                     }
                 }
-                // breakpoints={{
-                //     0: {
-                //         slidesPerView: 1,
-                //     },
-                //     600: {
-                //         slidesPerView: 1,
-                //     },
-                //     768: {
-                //         slidesPerView: 1,
-                //     },
-                //     1024: {
-                //         slidesPerView: 1,
-                //     }
-                // }}
+            // breakpoints={{
+            //     0: {
+            //         slidesPerView: 1,
+            //     },
+            //     600: {
+            //         slidesPerView: 1,
+            //     },
+            //     768: {
+            //         slidesPerView: 1,
+            //     },
+            //     1024: {
+            //         slidesPerView: 1,
+            //     }
+            // }}
             >
                 {contents.map((d, i) => (
                     <SwiperSlide key={`${i}`} style={{ paddingTop: 16, paddingBottom: 16, }}>
@@ -170,16 +171,24 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                 // bgcolor: "red",
                 zIndex: 1,
             }}>
-                <IconButton onClick={handleNavigationClick("left")} ref={navLeft} sx={{
+                <IconButton disabled={hide.left} onClick={handleNavigationClick("left")} ref={navLeft} sx={{
                     zIndex: 1,
                     // position: "absolute",
                     // left: { xs: 0, lg: 0 },
                     // top: `calc(55% - 48px)`,
                     color: "primary.main",
-                    border: "2px solid",
-                    backgroundColor: "#F9F9F9"
+                    // border: "2px solid",
+                    height: "100%",
+                    bgcolor: "white",
+                    "&:hover": {
+                        bgcolor: "#D6D6D6"
+                    },
+                    "&:disabled": {
+                        color: "#D6D6D6",
+                        bgcolor: "#F3F3F3",
+                    },
                 }}>
-                    <Iconify icon="ic:round-arrow-back" width={40} height={40} />
+                    <Iconify icon="ic:round-arrow-back" width={48} height={48} />
                 </IconButton>
                 <Stack direction="row" width="100%" spacing={3} px={6}>
                     {/* {[...Array(5)].map((_, i) => ( */}
@@ -192,18 +201,28 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                             bgcolor: activeIndex === i ? "white" : "grey",
                             borderRadius: "38px"
                         }} />
-                        ))}
+                    ))}
                 </Stack>
-                <IconButton onClick={handleNavigationClick("right")} ref={navRight} sx={{
+                <IconButton disabled={hide.right} onClick={handleNavigationClick("right")} ref={navRight} sx={{
                     zIndex: 1,
                     // position: "absolute",
                     // right: { xs: 0, lg: 0 },
                     // top: `calc(55% - 48px)`,
                     color: "primary.main",
-                    border: "2px solid",
-                    backgroundColor: "#F9F9F9"
+                    // border: "2px solid",
+                    // borderRadius: "50%",
+                    height: "100%",
+                    // width: "100%",
+                    bgcolor: "white",
+                    "&:hover": {
+                        bgcolor: "#D6D6D6"
+                    },
+                    "&:disabled": {
+                        color: "#D6D6D6",
+                        bgcolor: "#F3F3F3",
+                    },
                 }}>
-                    <Iconify icon="ic:round-arrow-forward" width={40} height={40} />
+                    <Iconify icon="ic:round-arrow-forward" width={48} height={48} />
                 </IconButton>
             </Box>
         </BoxGrid>

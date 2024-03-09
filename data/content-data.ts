@@ -149,22 +149,22 @@ export const userLoginSwiper = [
     },
     {
         "title": "Stay Informed Everytime",
-        "description": "Access your coverage details easily on our platform",
+        "description": "Receive timely notifications for your premiums and limits",
         "items": [
-            "Information of your total paid premium",
-            "Information of your utilized limit",
-            "Information of your remaining Limit"
+            "Renewal notifications",
+            "Instant alerts for depleted limits",
+            "Easily contact our customer support"
         ],
-        "image": "user_login_1.png"
+        "image": "user_login_2.png"
     },
     {
         "title": "Comprehensive Range of Services",
-        "description": "Access your coverage details easily on our platform",
+        "description": "Effortlessly access and explore detailed information on your benefits",
         "items": [
-            "Information of your total paid premium",
-            "Information of your utilized limit",
-            "Information of your remaining Limit"
+            "Smart Health Plus insured benefits",
+            "Premium & Diamond Plus insured benefits",
+            "A to Z detailed services"
         ],
-        "image": "user_login_1.png"
+        "image": "user_login_3.png"
     },
 ]
