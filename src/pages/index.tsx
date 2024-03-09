@@ -56,7 +56,7 @@ export default function HomePage() {
                 </Box>
 
                 <Box sx={{ backgroundColor: "#F9F9F9" }}>
-                    <Container id="about-us" className="section-northbit-home" sx={{ pt: 12, px: 2, zIndex: 1 }}>
+                    <Container sx={{ pt: 12, px: 2, zIndex: 1 }}>
                         <SectionAboutUs />
                     </Container>
                     <Container id="our-services" className="section-northbit-home" sx={{ py: 12, px: 2, zIndex: 1 }}>

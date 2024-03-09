@@ -36,7 +36,7 @@ export default function SectionAboutUs() {
                 </Box>
             </Grid>
 
-            <Grid item xs={12} py={5} /> {/* Spacer */}
+            <Grid id="about-us" className="section-northbit-home" item xs={12} py={5} /> {/* Spacer */}
 
             <Grid item xs={12} sm={5} display="flex" alignItems="stretch">
                 <Img src="assets/aboutus1.png" width="100%" height="auto" sx={{ objectFit: "cover", borderRadius: 2 }} />

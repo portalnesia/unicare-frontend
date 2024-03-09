@@ -71,6 +71,10 @@ export default function LoginUserPage() {
     const { post } = useAPI();
     const captchaRef = React.useRef<Recaptcha>(null)
 
+    const login = React.useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
+        
+    }, [])
+
     return (
         <Pages title="Login" canonical="/login" noIndex admin={false}>
             <RootStyle>
@@ -85,7 +89,7 @@ export default function LoginUserPage() {
                             <SvgLogo sx={{ width: 125, position: "absolute", top: 0, left: 0, mt: 3 }} />
                         </Link>
                         <Box padding={"0px 0px"} gap={"80px"} alignItems="center" borderRadius={3}>
-                            <form onSubmit={() => { }}>
+                            <form onSubmit={login}>
                                 <Stack sx={{ mt: 12, alignItems: 'start' }}>
                                     <Typography variant="h2" fontFamily={FONT_SECONDARY} color="primary.main" gutterBottom>
                                         {t("sign_in")}
