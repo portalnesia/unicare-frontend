@@ -128,21 +128,21 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                         alignItems: "center",
                         transform: "translateY(-20%)"
                     }}>
-                        <Img src={`assets/${images[0]}`} sx={{
+                        <Img src={`/assets/${images[0]}`} sx={{
                             borderRadius: 1,
                             width: "100%",
                             height: "300px",
                             objectFit: "cover",
                             overflow: "hidden",
                         }} />
-                        <Img src={`assets/${images[1]}`} sx={{
+                        <Img src={`/assets/${images[1]}`} sx={{
                             borderRadius: 1,
                             width: "100%",
                             height: "300px",
                             objectFit: "cover",
                             overflow: "hidden",
                         }} />
-                        <Img src={`assets/${images[2]}`} sx={{
+                        <Img src={`/assets/${images[2]}`} sx={{
                             borderRadius: 1,
                             width: "100%",
                             height: "300px",
@@ -159,14 +159,14 @@ export default function Clinic({ clinic, step, onNext, sx }: ClinicProps) {
                         alignItems: "center",
                         transform: "translateY(-44%)"
                     }}>
-                        <Img src={`assets/${images[3]}`} sx={{
+                        <Img src={`/assets/${images[3]}`} sx={{
                             borderRadius: 1,
                             width: "100%",
                             height: "300px",
                             objectFit: "cover",
                             overflow: "hidden",
                         }} />
-                        <Img src={`assets/${images[4]}`} sx={{
+                        <Img src={`/assets/${images[4]}`} sx={{
                             borderRadius: 1,
                             width: "100%",
                             height: "300px",

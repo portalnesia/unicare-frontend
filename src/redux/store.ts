@@ -11,13 +11,14 @@ import { useDispatch as originalUseDispatch, useSelector as originalUseSelector 
 import { AxiosError } from 'axios';
 import axios from '@/utils/axios';
 import { ResponseData } from '@/hooks/api';
-import { isAuthExpired, webUrl } from '@/utils/main';
-import { getCookie } from 'cookies-next';
+import { getDayJs, isAuthExpired, webUrl } from '@/utils/main';
+import { getCookie, setCookie } from 'cookies-next';
 import nextI18nextConfig from 'root/next-i18next.config';
 import { SSRConfig } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import jwt from 'jsonwebtoken'
 import { IRoles, rolesArray } from '@/model/auth';
+import { domainCookie } from '@/config';
 
 export const useDispatch = () => originalUseDispatch<Dispatch<ActionType>>()
 export const useSelector = <D = State>(selector: (state: State) => D) => originalUseSelector<State, D>(selector)
@@ -80,6 +81,7 @@ type CallbackParams<P extends {}> = GetServerSidePropsContext<ParsedUrlQuery, an
     // only use when auth is available
     fetchAPI: <D = any>(url: string) => Promise<D>
     auth?: State['auth'] | null,
+    getTranslation(translation?: string | string[], locale?: string): Promise<SSRConfig>;
 })
 
 type Callback<P extends {}> = (params: CallbackParams<P>) => Promise<GetServerSidePropsResult<IPages<P>>>
@@ -141,7 +143,7 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
             const url = new URL(ctx.resolvedUrl, webUrl());
             if (!auth_token && (!ctx.resolvedUrl.startsWith("/login") && ctx.resolvedUrl !== "/admin" && !ctx.resolvedUrl.startsWith("/logout") && !ctx.resolvedUrl.startsWith("/reset-password"))) {
                 if (!ctx.resolvedUrl.startsWith("/administration")) {
-                    return redirect<P>(webUrl("/login")) as GetServerSidePropsResult<IPages<P>>;
+                    // return redirect<P>(webUrl("/login")) as GetServerSidePropsResult<IPages<P>>;
                 } else {
                     return redirect<P>(webUrl("/admin")) as GetServerSidePropsResult<IPages<P>>;
                 }
@@ -170,8 +172,18 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
             //     }
             // }
 
+            const locale = getCookie("NEXT_LOCALE", { req: ctx.req, res: ctx.res });
+            if (typeof locale === "string" && ctx.locale !== locale) {
+                setCookie(
+                    "NEXT_LOCALE",
+                    ctx.locale,
+                    { domain: domainCookie, expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production", req: ctx.req, res: ctx.res }
+                )
+                console.log(`ctxlocale=${ctx.locale} local changed ${getCookie("NEXT_LOCALE", { req: ctx.req, res: ctx.res })}`)
+            }
 
-            const result = await callback({ store, redirect, fetchAPI, auth, ...ctx });
+            // const result = await callback({ store, redirect, fetchAPI, auth, ...ctx });
+            const result = await callback({ store, redirect, fetchAPI, auth, getTranslation, ...ctx });
             return result;
         } catch (err) {
             if (process.env.NODE_ENV !== 'production' && err instanceof Error) console.log(err.message, err.stack)

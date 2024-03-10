@@ -21,7 +21,7 @@ export default function Packages() {
 
     const handleDetailClick = React.useCallback(() => {
         // const options: PhotoSwipeOptions = {
-        //     dataSource: [{src: "assets/procedure_1.svg", width: 1102, height: 460}],
+        //     dataSource: [{src: "/assets/procedure_1.svg", width: 1102, height: 460}],
         //     secondaryZoomLevel: 2,
         //     maxZoomLevel: 2
         // }

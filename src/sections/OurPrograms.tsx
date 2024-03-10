@@ -23,7 +23,7 @@ export default function SectionOurPrograms() {
                         </Stack>
                     </Grid>
                     <Grid item xs={12} sm={5} display="flex" alignItems="stretch">
-                        <Img src="assets/our_programs.png" width="100%" height="auto" sx={{ objectFit: "cover", borderRadius: 2 }} />
+                        <Img src="/assets/our_programs.png" width="100%" height="auto" sx={{ objectFit: "cover", borderRadius: 2 }} />
                     </Grid>
                 </Grid>
 

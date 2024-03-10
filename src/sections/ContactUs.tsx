@@ -15,7 +15,7 @@ export default function SectionContactUs() {
     return (
         <Grid container justifyContent="center" spacing={10} >
             <Grid item xs={12} sm={6} display="flex" alignItems="stretch">
-                <Img src="assets/contact_us.png" width="100%" height="100%" sx={{ objectFit: "cover", borderRadius: 2 }} />
+                <Img src="/assets/contact_us.png" width="100%" height="100%" sx={{ objectFit: "cover", borderRadius: 2 }} />
             </Grid>
             <Grid py={1} item xs={12} sm={6}>
                 <Stack direction="column" spacing={4} justifyContent="space-between" alignItems={{ xs: "center", sm: "start" }}>

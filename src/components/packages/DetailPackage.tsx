@@ -24,8 +24,8 @@ export default function DetailPackage({ packageType, onDetailClick, sx }: Detail
         }}>
             <Stack py={7} spacing={2}>
                 <Stack direction="row" justifyContent="center" spacing={{ xs: 5 }}>
-                    <Img lazy={false} src={`assets/${packageType}_front.png`} width="30%" height="auto" sx={{ borderRadius: 1 }} />
-                    <Img lazy={false} src={`assets/${packageType}_back.png`} width="30%" height="auto" sx={{ borderRadius: 1 }} />
+                    <Img lazy={false} src={`/assets/${packageType}_front.png`} width="30%" height="auto" sx={{ borderRadius: 1 }} />
+                    <Img lazy={false} src={`/assets/${packageType}_back.png`} width="30%" height="auto" sx={{ borderRadius: 1 }} />
                 </Stack>
                 <Typography pt={3} variant="h3" color="primary.main" fontFamily={FONT_SECONDARY} >{getPackageTypeName(packageType)}</Typography>
                 <Typography px={{ xs: 0, sm: 12 }} pb={3} variant="body1" textAlign="center">{t(`description_${packageType}` as any)}</Typography>

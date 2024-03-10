@@ -8,7 +8,7 @@ import { SvgLogo } from "@/components/svg/Logo";
 import useAPI, { ApiError } from "@/hooks/api";
 import AuthLayout from "@/layout/AuthLayout";
 import { Auth, IRoles } from "@/model/auth";
-import wrapper, { useDispatch } from "@/redux/store";
+import wrapper, { useDispatch, wrapperStatic } from "@/redux/store";
 import { FONT_SECONDARY } from "@/themes/typography";
 import Alert from "@mui/material/Alert/Alert";
 import Box from "@mui/material/Box/Box";
@@ -18,15 +18,17 @@ import Stack from "@mui/material/Stack/Stack";
 import Typography from "@mui/material/Typography/Typography";
 import styled from "@mui/material/styles/styled";
 import { setCookie } from "cookies-next";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
 import { userLoginSwiper } from "root/data/content-data";
 
-export const getServerSideProps = wrapper(async ({}) => {
+export const getServerSideProps = wrapper(async ({ getTranslation, locale }) => {
     return {
         props: {
             data: {},
+            ...await getTranslation("main", locale),
         }
     }
 });
@@ -65,7 +67,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 }));
 
 export default function LoginUserPage() {
-    // const [t] = useTranslation("main");
+    const [t] = useTranslation("main");
     const dispatch = useDispatch();
     // const setNotif = useNotification();
     const [err, setErr] = React.useState<string>();
@@ -117,7 +119,7 @@ export default function LoginUserPage() {
                             <form onSubmit={login}>
                                 <Stack sx={{ mt: 12, alignItems: 'start' }}>
                                     <Typography variant="h2" fontFamily={FONT_SECONDARY} color="primary.main" gutterBottom>
-                                        {/* {t("sign_in")} */}
+                                        {t("sign_in")}
                                     </Typography>
 
                                     <Typography variant="h1" paddingRight={12}>Securely Access Your Coverage</Typography>
@@ -150,7 +152,7 @@ export default function LoginUserPage() {
                                     </Stack>
 
                                     <Button type="submit" sx={{ mt: 3, px: 4 }} disabled={loading} loading={loading}>
-                                        <Typography variant="subtitle2" >sign_in</Typography>
+                                        <Typography variant="subtitle2" >{t("sign_in")}</Typography>
                                     </Button>
                                     {typeof err === 'string' && (
                                         <Alert variant='outlined' sx={{ mt: 2, minWidth: { xs: '90%', md: 400, justifyContent: 'center' } }} severity='error'>{decodeURIComponent(err.replace(/\+/gim, ' '))}</Alert>
@@ -168,7 +170,7 @@ export default function LoginUserPage() {
                         backgroundColor: "transparent"
                     }}>
                         {/* <SvgArtLogin /> */}
-                        <Img src="assets/wave_resize.png" sx={{
+                        <Img src="/assets/wave_resize.png" sx={{
                             position: "absolute",
                             borderRadius: 2,
                             width: "100%",

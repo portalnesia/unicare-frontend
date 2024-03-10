@@ -39,7 +39,7 @@ export default function SectionAboutUs() {
             <Grid id="about-us" className="section-northbit-home" item xs={12} py={5} /> {/* Spacer */}
 
             <Grid item xs={12} sm={5} display="flex" alignItems="stretch">
-                <Img src="assets/aboutus1.png" width="100%" height="auto" sx={{ objectFit: "cover", borderRadius: 2 }} />
+                <Img src="/assets/aboutus1.png" width="100%" height="auto" sx={{ objectFit: "cover", borderRadius: 2 }} />
             </Grid>
             <Grid item xs={12} sm={7}>
                 <Stack direction="column" spacing={4} justifyContent="space-between" alignItems={{ xs: "center", sm: "start" }}>

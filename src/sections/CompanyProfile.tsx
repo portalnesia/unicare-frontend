@@ -71,7 +71,7 @@ export default function SectionCompanyProfile() {
                                             }} />
                                             <Typography color="white" fontWeight={700} fontFamily={FONT_SECONDARY} textAlign="center">Employee<br />-centric<br />Focus</Typography>
                                         </Box>
-                                        <Img src="assets/company1.png" height="40%" width="100%" sx={{
+                                        <Img src="/assets/company1.png" height="40%" width="100%" sx={{
                                             objectFit: "cover",
                                         }} />
                                     </Box>
@@ -84,7 +84,7 @@ export default function SectionCompanyProfile() {
                                         borderRadius: "8px",
                                         overflow: "hidden"
                                     }}>
-                                        <Img src="assets/company2.png" height="40%" width="100%" sx={{
+                                        <Img src="/assets/company2.png" height="40%" width="100%" sx={{
                                             objectFit: "cover",
                                         }} />
                                         <Box sx={{
@@ -120,7 +120,7 @@ export default function SectionCompanyProfile() {
                                             }} />
                                             <Typography color="white" fontWeight={700} fontFamily={FONT_SECONDARY} textAlign="center">Inclusivity<br />&<br />Accessibility</Typography>
                                         </Box>
-                                        <Img src="assets/company3.png" height="40%" width="100%" sx={{
+                                        <Img src="/assets/company3.png" height="40%" width="100%" sx={{
                                             objectFit: "cover",
                                         }} />
                                     </Box>

@@ -66,7 +66,7 @@ export default function SectionFooter() {
             {!isMd && (
                 <Stack direction="row" justifyContent="space-between" alignItems="start" zIndex={1}>
                     <Link href="/" onClick={onClick}>
-                        <Img src="logo_white.svg" />
+                        <Img src="/logo_white.svg" />
                     </Link>
                     <Stack spacing={3} alignItems="start">
                         <Typography pb={2} variant="h3" color="white" fontFamily={FONT_SECONDARY}>{t("title_pages")}</Typography>

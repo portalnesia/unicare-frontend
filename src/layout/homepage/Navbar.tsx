@@ -136,7 +136,7 @@ export default function Navbar() {
     }, [router])
 
     const onSignInClick = React.useCallback(() => {
-        router.push("/login")
+        router.push('/login');
     }, [router])
 
     const onAdminClick = React.useCallback(() => {

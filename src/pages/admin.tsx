@@ -168,7 +168,7 @@ export default function LoginUserPage() {
                         backgroundColor: "transparent"
                     }}>
                         {/* <SvgArtLogin /> */}
-                        <Img src="assets/wave_resize.png" sx={{
+                        <Img src="/assets/wave_resize.png" sx={{
                             position: "absolute",
                             borderRadius: 2,
                             width: "100%",

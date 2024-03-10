@@ -2,7 +2,7 @@ import Img from "@/components/Img";
 import Pages from "@/components/Pages";
 import { SvgArt1 } from "@/components/svg/Art";
 import HomepageLayout from "@/layout/homepage";
-import { wrapperStatic } from "@/redux/store";
+import wrapper, { wrapperStatic } from "@/redux/store";
 import SectionAboutUs from "@/sections/AboutUs";
 import SectionCompanyProfile from "@/sections/CompanyProfile";
 import SectionContactUs from "@/sections/ContactUs";
@@ -19,7 +19,15 @@ import { useEffect } from "react";
 import Marquee from "react-fast-marquee";
 import partners from "root/data/partners.json"
 
-export const getStaticProps = wrapperStatic({ translation: "main" })
+// export const getStaticProps = wrapperStatic({ translation: "main" })
+export const getServerSideProps = wrapper(async ({ getTranslation, locale }) => {
+    return {
+        props: {
+            data: {},
+            ...await getTranslation("main", locale),
+        }
+    }
+});
 
 export default function HomePage() {
     const [t] = useTranslation("main");

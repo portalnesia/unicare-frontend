@@ -4,6 +4,6 @@ import React from "react";
 
 export function SvgLogo({ size = 50, maxSize, sx }: SvgProps) {
   return (
-    <Img src="logo.svg" sx={sx}  />
+    <Img src="/logo.svg" sx={sx}  />
    )
 }

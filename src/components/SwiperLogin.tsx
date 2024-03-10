@@ -128,7 +128,7 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                                 alignItems: "center",
                                 flexDirection: "column",
                             }}>
-                                <Img src={`assets/${d.image}`} height="60%" width="60%" />
+                                <Img src={`/assets/${d.image}`} height="60%" width="60%" />
                                 <Stack spacing={2} width="100%">
                                     <Typography variant="h3" fontFamily={FONT_SECONDARY} color="primary.main" textAlign="center" sx={{ flexWrap: "nowrap" }}>{d.title}</Typography>
                                     <Typography variant="subtitle1" fontWeight={500} textAlign="center" sx={{
