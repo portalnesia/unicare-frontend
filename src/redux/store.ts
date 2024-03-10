@@ -141,9 +141,18 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
 
             // TODO: sesuaiin yang mana private yang mana public
             const url = new URL(ctx.resolvedUrl, webUrl());
-            if (!auth_token && (!ctx.resolvedUrl.startsWith("/login") && ctx.resolvedUrl !== "/admin" && !ctx.resolvedUrl.startsWith("/logout") && !ctx.resolvedUrl.startsWith("/reset-password"))) {
+            if (!auth_token &&
+                (
+                    !ctx.resolvedUrl.startsWith("/login") &&
+                    ctx.resolvedUrl !== "/admin" &&
+                    !ctx.resolvedUrl.startsWith("/logout") &&
+                    !ctx.resolvedUrl.startsWith("/reset-password") &&
+                    ctx.resolvedUrl.startsWith("/administration") ||
+                    ctx.resolvedUrl.startsWith("/managed-care")
+                )
+            ) {
                 if (!ctx.resolvedUrl.startsWith("/administration")) {
-                    // return redirect<P>(webUrl("/login")) as GetServerSidePropsResult<IPages<P>>;
+                    return redirect<P>(webUrl("/login")) as GetServerSidePropsResult<IPages<P>>;
                 } else {
                     return redirect<P>(webUrl("/admin")) as GetServerSidePropsResult<IPages<P>>;
                 }
@@ -152,7 +161,6 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
             } else if (!!auth_token && auth && !rolesArray.filter(item => item !== IRoles.CUSTOMER).includes(auth.roles) && ctx.resolvedUrl.startsWith("/administration")) {
                 return redirect<P>(webUrl("/admin")) as GetServerSidePropsResult<IPages<P>>;
             } else if (!!auth_token && ["/reset-password", "/login", "/admin"].includes(url.pathname)) {
-                // if (ctx.resolvedUrl !== "/admin") {
                 if (!ctx.resolvedUrl.startsWith("/admin")) {
                     if (auth?.roles === IRoles.CUSTOMER) {
                         return redirect<P>(webUrl("/managed-care")) as GetServerSidePropsResult<IPages<P>>;
@@ -164,14 +172,6 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
                 }
             }
 
-            // else if (!!auth_token && ["/managed-care", "/administration"].includes(url.pathname)) {
-            //     if (!ctx.resolvedUrl.startsWith("/admin") && ) {
-            //         return redirect<P>(webUrl("/managed-care")) as GetServerSidePropsResult<IPages<P>>;
-            //     } else {
-            //         return redirect<P>(webUrl("/administration")) as GetServerSidePropsResult<IPages<P>>;
-            //     }
-            // }
-
             const locale = getCookie("NEXT_LOCALE", { req: ctx.req, res: ctx.res });
             if (typeof locale === "string" && ctx.locale !== locale) {
                 setCookie(
@@ -179,10 +179,8 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
                     ctx.locale,
                     { domain: domainCookie, expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production", req: ctx.req, res: ctx.res }
                 )
-                console.log(`ctxlocale=${ctx.locale} local changed ${getCookie("NEXT_LOCALE", { req: ctx.req, res: ctx.res })}`)
             }
 
-            // const result = await callback({ store, redirect, fetchAPI, auth, ...ctx });
             const result = await callback({ store, redirect, fetchAPI, auth, getTranslation, ...ctx });
             return result;
         } catch (err) {
