@@ -374,12 +374,12 @@ export default function Navbar() {
                                             zIndex={2}
                                         >
                                             <Link href={"/"} onClick={onClick()} passHref legacyBehavior>
-                                                <ListItemButton aria-label="Bali Telkomsel" component="a" onClick={onClick()} sx={{
+                                                <ListItemButton aria-label="Unicare" component="a" onClick={onClick()} sx={{
                                                     p: 2,
                                                     width: "100%",
                                                     justifyContent: "flex-start"
                                                 }}>
-                                                    <Typography sx={{ fontWeight: "bold" }}>Bali Telkomsel Sim Card</Typography>
+                                                    <Typography sx={{ fontWeight: "bold" }}>Unicare</Typography>
                                                 </ListItemButton>
                                             </Link>
                                         </Box>
@@ -392,7 +392,7 @@ export default function Navbar() {
                                                         width: "100%",
                                                         justifyContent: "flex-start"
                                                     }}>
-                                                        <Typography>{d.name}</Typography>
+                                                        <Typography>{t(d.name as any)}</Typography>
                                                     </ListItemButton>
                                                 </Link>
                                             ))}
