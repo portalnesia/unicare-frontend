@@ -119,7 +119,7 @@ export default function LoginUserPage() {
             setLoading(false);
             setErr(msg);
         }
-    }, [input, dispatch, post])
+    }, [input, dispatch, post, signInType])
 
     return (
         <Pages title="Administration" canonical="/admin" noIndex admin={false}>

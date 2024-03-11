@@ -62,7 +62,7 @@ export default function LoginSwiper({ contents, startIndex = 0, autoPlay = true,
         if (sw.isBeginning) setHide({ left: true, right: false });
         else if (sw.isEnd) setHide({ left: false, right: true });
         else setHide({ left: false, right: false });
-    }, [])
+    }, [onActiveIndexChange])
 
     React.useEffect(() => {
         swiperRef.current?.slideTo(startIndex);

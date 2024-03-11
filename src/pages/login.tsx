@@ -10,6 +10,7 @@ import AuthLayout from "@/layout/AuthLayout";
 import { Auth, IRoles } from "@/model/auth";
 import wrapper, { useDispatch, wrapperStatic } from "@/redux/store";
 import { FONT_SECONDARY } from "@/themes/typography";
+import { ThemeContext } from "@emotion/react";
 import Alert from "@mui/material/Alert/Alert";
 import Box from "@mui/material/Box/Box";
 import Card from "@mui/material/Card/Card";
@@ -111,7 +112,9 @@ export default function LoginUserPage() {
                 <Container sx={{
 
                 }}>
-                    <ContentStyle>
+                    <ContentStyle sx={{
+                        ml: {xs: 0, lg: 36}
+                    }}>
                         <Link href="/">
                             <SvgLogo sx={{ width: 125, position: "absolute", top: 0, left: 0, mt: 3 }} />
                         </Link>

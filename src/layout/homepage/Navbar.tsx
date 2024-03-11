@@ -90,7 +90,7 @@ export default function Navbar() {
     const router = useRouter();
     const [open, setOpen] = React.useState(false);
     // const isSwipe = useResponsive('down', 651);
-    const isMd = useResponsive("down", 462);
+    const isMd = useResponsive("down", "md");
     const [transparent, setTransparent] = React.useState(false);
     const [t] = useTranslation("main");
 
@@ -294,7 +294,7 @@ export default function Navbar() {
                                                 ":hover": { bgcolor: "action.hover" },
                                             }}
                                         >
-                                            <Typography variant="h6" component="span" color={"primary.main"} sx={{
+                                            <Typography variant="h6" color={"primary.main"} sx={{
                                                 "&::after": {
                                                     content: '""',
                                                     display: "block",
@@ -334,17 +334,23 @@ export default function Navbar() {
                                             }}>ID</Typography>
                                         </ButtonBase>
                                     </MenuButton>
-                                    <Button variant="text" onClick={() => onSignInClick()} sx={{ px: 5, flex: "none" }}>
-                                        <Typography color="primary" variant="subtitle2" >{t("sign_in")}</Typography>
+                                    <Box sx={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        gap: 2,
+                                    }}>
+                                        <Button variant="text" onClick={() => onSignInClick()} sx={{ px: 5, flex: "none" }}>
+                                            <Typography color="primary" variant="subtitle2" >{t("sign_in")}</Typography>
                                         </Button>
-                                    <Button
-                                        icon="ci:menu-alt-05"
-                                        iconPosition="start"
-                                        onClick={onAdminClick}
-                                        sx={{ transform: "scaleX(-1);" }}
-                                    >
-                                        <Typography variant="subtitle2" sx={{ transform: "scaleX(-1);" }}>{t("administration")}</Typography>
-                                    </Button>
+                                        <Button
+                                            icon="ci:menu-alt-05"
+                                            iconPosition="start"
+                                            onClick={onAdminClick}
+                                            sx={{ transform: "scaleX(-1);" }}
+                                        >
+                                            <Typography variant="subtitle2" sx={{ transform: "scaleX(-1);" }}>{t("administration")}</Typography>
+                                        </Button>
+                                    </Box>
                                 </Stack>
                             </>
                         ) : (
@@ -396,6 +402,82 @@ export default function Navbar() {
                                                     </ListItemButton>
                                                 </Link>
                                             ))}
+                                            <Stack px={2} direction="column" spacing={2} alignItems="start">
+                                                <Box sx={{
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    gap: 2,
+                                                }}>
+                                                <MenuButton>
+                                                    <ButtonBase
+                                                        component="a"
+                                                        onClick={() => {
+                                                            handleChangeLanguage("en")
+                                                        }}
+                                                        sx={{
+                                                            py: 1, px: 0, borderRadius: 2,
+                                                            ":hover": { bgcolor: "action.hover" },
+                                                        }}
+                                                    >
+                                                        <Typography variant="h6" color={"primary.main"} sx={{
+                                                            "&::after": {
+                                                                content: '""',
+                                                                display: "block",
+                                                                position: 'absolute',
+                                                                margin: "auto",
+                                                                width: 0,
+                                                                height: 2,
+                                                                backgroundColor: "primary.main",
+                                                                ...(router.locale == "en" ? {
+                                                                    width: "100%",
+                                                                } : {})
+                                                            }
+                                                        }}>EN</Typography>
+                                                    </ButtonBase>
+                                                </MenuButton>
+                                                <MenuButton>
+                                                    <ButtonBase
+                                                        component="a"
+                                                        onClick={() => {
+                                                            handleChangeLanguage("id")
+                                                        }}
+                                                        sx={{ py: 1, mr: 1, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
+                                                    >
+                                                        <Typography variant="h6" component="span" color={"primary.main"} sx={{
+                                                            "&::after": {
+                                                                content: '""',
+                                                                display: "block",
+                                                                position: 'absolute',
+                                                                margin: "auto",
+                                                                width: 0,
+                                                                height: 2,
+                                                                backgroundColor: "primary.main",
+                                                                ...(router.locale == "id" ? {
+                                                                    width: "100%",
+                                                                } : {})
+                                                            },
+                                                        }}>ID</Typography>
+                                                    </ButtonBase>
+                                                </MenuButton>
+                                                </Box>
+                                                <Box sx={{
+                                                    display: "flex",
+                                                    flexDirection: "column",
+                                                    gap: 2,
+                                                }}>
+                                                    <Button variant="text" onClick={() => onSignInClick()} sx={{ px: 5, flex: "none" }}>
+                                                        <Typography color="primary" variant="subtitle2" >{t("sign_in")}</Typography>
+                                                    </Button>
+                                                    <Button
+                                                        icon="ci:menu-alt-05"
+                                                        iconPosition="start"
+                                                        onClick={onAdminClick}
+                                                        sx={{ transform: "scaleX(-1);" }}
+                                                    >
+                                                        <Typography variant="subtitle2" sx={{ transform: "scaleX(-1);" }}>{t("administration")}</Typography>
+                                                    </Button>
+                                                </Box>
+                                            </Stack>
                                         </List>
                                     </SwipeableDrawer>
                                 </Portal>
