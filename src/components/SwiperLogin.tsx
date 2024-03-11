@@ -19,9 +19,12 @@ import Img from "./Img";
 import { FONT_SECONDARY } from "@/themes/typography";
 import Divider from "@mui/material/Divider/Divider";
 import Button from "./Button";
+import { delay } from "@reduxjs/toolkit/dist/utils";
 
 interface SwiperLoginProps {
-    contents: (typeof userLoginSwiper[number])[]
+    contents: (typeof userLoginSwiper[number])[];
+    startIndex?: number;
+    autoPlay?: boolean
 }
 
 const BoxGrid = styled(Box)(({ theme }) => ({
@@ -32,14 +35,16 @@ const BoxGrid = styled(Box)(({ theme }) => ({
     }
 }))
 
-export default function LoginSwiper({ contents }: SwiperLoginProps) {
+export default function LoginSwiper({ contents, startIndex = 0, autoPlay = true }: SwiperLoginProps) {
     const [t] = useTranslation("main");
     const isMd = useResponsive("down", 462);
     const navLeft = React.useRef<HTMLButtonElement>(null);
     const navRight = React.useRef<HTMLButtonElement>(null);
     const swiperRef = React.useRef<SwiperClass>();
+
     const [hide, setHide] = React.useState({ left: true, right: false });
-    const [activeIndex, setActiveIndex] = React.useState(0);
+    const [activeIndex, setActiveIndex] = React.useState(startIndex);
+    const [swiperHover, setSwiperHover] = React.useState(false);
 
     const handleNavigationClick = React.useCallback((type: "left" | "right") => () => {
         // console.log(`nav click ${type} activeIndex=${swiperRef.current?.activeIndex}`)
@@ -57,6 +62,28 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
         else setHide({ left: false, right: false });
     }, [])
 
+    React.useEffect(() => {
+        swiperRef.current?.slideTo(startIndex);
+    }, [startIndex, autoPlay])
+
+    React.useEffect(() => {
+        if (!autoPlay) return;
+        const intervalId = setInterval(() => {
+            if (swiperHover) {
+                return;
+            }
+            if (swiperRef.current?.isEnd) {
+                swiperRef.current.slideTo(0);
+            } else {
+                swiperRef.current?.slideNext();
+            }
+        }, 5000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [swiperHover, autoPlay]);
+
     return (
         // <>
         <BoxGrid
@@ -64,6 +91,8 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
             // width="100px"
             // flexDirection="row"
             // display="grid"
+            onPointerEnter={() => setSwiperHover(true)}
+            onPointerLeave={() => setSwiperHover(false)}
             sx={{
                 // bgcolor: "yellow",
                 height: "100%",
@@ -108,9 +137,11 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
             // }}
             >
                 {contents.map((d, i) => (
-                    <SwiperSlide key={`${i}`} style={{ paddingTop: 16, paddingBottom: 16, }}>
+                    <SwiperSlide
+                        key={`${i}`}
+                        style={{ paddingTop: 16, paddingBottom: 16, }}>
                         <Box sx={{
-                            px: 3,
+                            px: 4,
                             pb: 3,
                             // height: "550px",
                             // width: "100%",
@@ -171,7 +202,7 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                 // bgcolor: "red",
                 zIndex: 1,
             }}>
-                <IconButton disabled={hide.left} onClick={handleNavigationClick("left")} ref={navLeft} sx={{
+                <IconButton onClick={handleNavigationClick("left")} ref={navLeft} sx={{
                     zIndex: 1,
                     // position: "absolute",
                     // left: { xs: 0, lg: 0 },
@@ -203,7 +234,7 @@ export default function LoginSwiper({ contents }: SwiperLoginProps) {
                         }} />
                     ))}
                 </Stack>
-                <IconButton disabled={hide.right} onClick={handleNavigationClick("right")} ref={navRight} sx={{
+                <IconButton onClick={handleNavigationClick("right")} ref={navRight} sx={{
                     zIndex: 1,
                     // position: "absolute",
                     // right: { xs: 0, lg: 0 },

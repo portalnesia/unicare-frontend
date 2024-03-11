@@ -168,3 +168,36 @@ export const userLoginSwiper = [
         "image": "user_login_3.png"
     },
 ]
+
+export const adminLoginSwiper = [
+    {
+        "title": "Admin Provider",
+        "description": " Access patients’ data, coverage status, coverage limit, and many more",
+        "items": [
+            "Upload claim benefits administration form",
+            "Upload MR & patients’ check-up report",
+            "Upload billing report"
+        ],
+        "image": "admin_login_1.png"
+    },
+    {
+        "title": "Super Admin",
+        "description": "Easily access up-to-date patients’ medical check-up report, and coverage status ",
+        "items": [
+            "Receive up-to-date patients’ check-up report",
+            "Set-up and change patients’ coverage status",
+            "Access patients’ billing report"
+        ],
+        "image": "admin_login_2.png"
+    },
+    {
+        "title": "Master I",
+        "description": "Access to add new patients feature, insurance premium values and benefits",
+        "items": [
+            "Upload a billing or limit report to provider",
+            "Access to patients’ billing report from provider",
+            "Patients’ insurance premium accumulation"
+        ],
+        "image": "admin_login_3.png"
+    },
+]
