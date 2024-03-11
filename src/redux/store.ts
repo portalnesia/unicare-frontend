@@ -98,6 +98,18 @@ export class BackendError {
 export default function wrapper<P extends {}>(callback: Callback<P>) {
     return wrapperRoot.getServerSideProps((store) => async (ctx) => {
         try {
+            const locale = getCookie("NEXT_LOCALE", { req: ctx.req, res: ctx.res });
+            if (typeof locale === "string") {
+                // if (ctx.locale !== locale) {
+                //     setCookie(
+                //         "NEXT_LOCALE",
+                //         ctx.locale,
+                //         { domain: domainCookie, expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production", req: ctx.req, res: ctx.res }
+                //     )
+                // }
+                ctx.locale = locale
+            }
+
             const auth_token = getCookie("_auth", { req: ctx.req, res: ctx.res });
             let auth: State["auth"] = null;
 
@@ -139,7 +151,6 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
                 }
             }
 
-            // TODO: sesuaiin yang mana private yang mana public
             const url = new URL(ctx.resolvedUrl, webUrl());
             if (!auth_token &&
                 (
@@ -152,33 +163,24 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
                 )
             ) {
                 if (!ctx.resolvedUrl.startsWith("/administration")) {
-                    return redirect<P>(webUrl("/login")) as GetServerSidePropsResult<IPages<P>>;
+                    return redirect<P>(webUrl(`/login`)) as GetServerSidePropsResult<IPages<P>>;
                 } else {
-                    return redirect<P>(webUrl("/admin")) as GetServerSidePropsResult<IPages<P>>;
+                    return redirect<P>(webUrl(`/admin`)) as GetServerSidePropsResult<IPages<P>>;
                 }
             } else if (!!auth_token && auth?.roles !== IRoles.CUSTOMER && ctx.resolvedUrl.startsWith("/managed-care")) {
-                return redirect<P>(webUrl("/login")) as GetServerSidePropsResult<IPages<P>>;
+                return redirect<P>(webUrl(`/login`)) as GetServerSidePropsResult<IPages<P>>;
             } else if (!!auth_token && auth && !rolesArray.filter(item => item !== IRoles.CUSTOMER).includes(auth.roles) && ctx.resolvedUrl.startsWith("/administration")) {
-                return redirect<P>(webUrl("/admin")) as GetServerSidePropsResult<IPages<P>>;
+                return redirect<P>(webUrl(`/admin`)) as GetServerSidePropsResult<IPages<P>>;
             } else if (!!auth_token && ["/reset-password", "/login", "/admin"].includes(url.pathname)) {
-                if (!ctx.resolvedUrl.startsWith("/admin")) {
+                if (!ctx.resolvedUrl.startsWith(`/admin`)) {
                     if (auth?.roles === IRoles.CUSTOMER) {
-                        return redirect<P>(webUrl("/managed-care")) as GetServerSidePropsResult<IPages<P>>;
+                        return redirect<P>(webUrl(`/managed-care`)) as GetServerSidePropsResult<IPages<P>>;
                     }
                 } else {
                     if (auth && rolesArray.filter(item => item !== IRoles.CUSTOMER).includes(auth.roles)) {
-                        return redirect<P>(webUrl("/administration")) as GetServerSidePropsResult<IPages<P>>;
+                        return redirect<P>(webUrl(`/administration`)) as GetServerSidePropsResult<IPages<P>>;
                     }
                 }
-            }
-
-            const locale = getCookie("NEXT_LOCALE", { req: ctx.req, res: ctx.res });
-            if (typeof locale === "string" && ctx.locale !== locale) {
-                setCookie(
-                    "NEXT_LOCALE",
-                    ctx.locale,
-                    { domain: domainCookie, expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production", req: ctx.req, res: ctx.res }
-                )
             }
 
             const result = await callback({ store, redirect, fetchAPI, auth, getTranslation, ...ctx });

@@ -4,7 +4,7 @@ import { webUrl } from "@/utils/main";
 import { deleteCookie } from "cookies-next";
 
 
-export const getServerSideProps = wrapper(async ({ req, res, store, redirect, auth }) => {
+export const getServerSideProps = wrapper(async ({ req, res, store, redirect, auth, locale }) => {
     const role = auth?.roles;
     store.dispatch({
         type: "CUSTOM",
@@ -14,9 +14,9 @@ export const getServerSideProps = wrapper(async ({ req, res, store, redirect, au
     })
     deleteCookie("_auth", { req, res });
     if (role === IRoles.CUSTOMER) {
-        return redirect(webUrl("/login"));
+        return redirect(webUrl(`/login`));
     } else {
-        return redirect(webUrl("/admin"));
+        return redirect(webUrl(`/admin`));
     }
 })
 

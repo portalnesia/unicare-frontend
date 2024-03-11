@@ -22,7 +22,7 @@ import { getDayJs } from "@/utils/main";
 import { SvgLogo } from "@/components/svg/Logo";
 import Button from "@/components/Button";
 import { useTranslation } from "next-i18next";
-import { setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 import { domainCookie, maxWidth } from "@/config";
 
 const RootStyle = styled(AppBar, { shouldForwardProp: (prop: string) => !['transparent'].includes(prop) })<{ transparent?: boolean }>(({ theme, transparent, position }) => ({
@@ -93,6 +93,8 @@ export default function Navbar() {
     const isMd = useResponsive("down", "md");
     const [transparent, setTransparent] = React.useState(false);
     const [t] = useTranslation("main");
+    const cookieLocale = getCookie("NEXT_LOCALE");
+    const localeCookie = typeof cookieLocale === "string" ? cookieLocale : "en";
 
     const navbar = React.useMemo(() => {
         return getNavbarMenu();
@@ -132,7 +134,8 @@ export default function Navbar() {
             { domain: domainCookie, expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production" }
         )
         const { pathname, query, asPath } = router
-        router.replace({ pathname, query }, asPath, { locale: lang })
+        // router.replace({ pathname, query }, asPath, { locale: lang })
+        router.replace({ pathname, query }, asPath)
     }, [router])
 
     const onSignInClick = React.useCallback(() => {
@@ -230,7 +233,7 @@ export default function Navbar() {
                                     <SvgLogo size={100} sx={{ mt: 1 }} />
                                 </Link>
 
-                                <Stack direction="row" spacing={1} height="50%">
+                                <Stack direction="row" spacing={1} height="50%" maxWidth="100%">
                                     {navbar.map((d, i) => (
                                         <MenuButton key={`${d.name}-${i}`} className={`section-hash-button`} data-hash={d.link} activeMenu={isActive(d)} sx={{
                                             height: "100%",
@@ -241,7 +244,7 @@ export default function Navbar() {
                                                     onClick={onClick(d)}
                                                     sx={{
                                                         py: 1,
-                                                        px: { xs: 1, md: 2, lg: 2 },
+                                                        px: { xs: 1, md: 1, sm: 1.5, lg: 2 },
                                                         borderRadius: 20,
                                                         height: "100%",
                                                         // ":hover": { background: "linear-gradient(to bottom, transparent 0%, lightgrey 50%, transparent 100%)", opacity: "25%" },
@@ -276,7 +279,16 @@ export default function Navbar() {
                                                         },
                                                     }}
                                                 >
-                                                    <Typography variant="h6" fontWeight={500} component="span">{t(d.name as any)}</Typography>
+                                                    <Typography variant="h6" fontWeight={500} component="span" sx={{
+                                                        textWrap: "nowrap",
+                                                        fontSize: {
+                                                            xs: 16,
+                                                            sm: 16,
+                                                            md: 16,
+                                                            lg: 16,
+                                                            // xl: "28px",
+                                                        },
+                                                    }}>{t(d.name as any)}</Typography>
                                                 </ButtonBase>
                                             </Link>
                                         </MenuButton>
@@ -303,7 +315,7 @@ export default function Navbar() {
                                                     width: 0,
                                                     height: 2,
                                                     backgroundColor: "primary.main",
-                                                    ...(router.locale == "en" ? {
+                                                    ...(localeCookie == "en" ? {
                                                         width: "100%",
                                                     } : {})
                                                 }
@@ -327,7 +339,7 @@ export default function Navbar() {
                                                     width: 0,
                                                     height: 2,
                                                     backgroundColor: "primary.main",
-                                                    ...(router.locale == "id" ? {
+                                                    ...(localeCookie == "id" ? {
                                                         width: "100%",
                                                     } : {})
                                                 },
@@ -337,16 +349,16 @@ export default function Navbar() {
                                     <Box sx={{
                                         display: "flex",
                                         flexWrap: "wrap",
-                                        gap: 2,
+                                        gap: { xs: 0.5, lg: 2 },
                                     }}>
-                                        <Button variant="text" onClick={() => onSignInClick()} sx={{ px: 5, flex: "none" }}>
+                                        <Button variant="text" onClick={() => onSignInClick()} sx={{ px: 5, flex: "none", }}>
                                             <Typography color="primary" variant="subtitle2" >{t("sign_in")}</Typography>
                                         </Button>
                                         <Button
                                             icon="ci:menu-alt-05"
                                             iconPosition="start"
                                             onClick={onAdminClick}
-                                            sx={{ transform: "scaleX(-1);" }}
+                                            sx={{ transform: "scaleX(-1);", }}
                                         >
                                             <Typography variant="subtitle2" sx={{ transform: "scaleX(-1);" }}>{t("administration")}</Typography>
                                         </Button>
@@ -408,57 +420,57 @@ export default function Navbar() {
                                                     flexDirection: "row",
                                                     gap: 2,
                                                 }}>
-                                                <MenuButton>
-                                                    <ButtonBase
-                                                        component="a"
-                                                        onClick={() => {
-                                                            handleChangeLanguage("en")
-                                                        }}
-                                                        sx={{
-                                                            py: 1, px: 0, borderRadius: 2,
-                                                            ":hover": { bgcolor: "action.hover" },
-                                                        }}
-                                                    >
-                                                        <Typography variant="h6" color={"primary.main"} sx={{
-                                                            "&::after": {
-                                                                content: '""',
-                                                                display: "block",
-                                                                position: 'absolute',
-                                                                margin: "auto",
-                                                                width: 0,
-                                                                height: 2,
-                                                                backgroundColor: "primary.main",
-                                                                ...(router.locale == "en" ? {
-                                                                    width: "100%",
-                                                                } : {})
-                                                            }
-                                                        }}>EN</Typography>
-                                                    </ButtonBase>
-                                                </MenuButton>
-                                                <MenuButton>
-                                                    <ButtonBase
-                                                        component="a"
-                                                        onClick={() => {
-                                                            handleChangeLanguage("id")
-                                                        }}
-                                                        sx={{ py: 1, mr: 1, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
-                                                    >
-                                                        <Typography variant="h6" component="span" color={"primary.main"} sx={{
-                                                            "&::after": {
-                                                                content: '""',
-                                                                display: "block",
-                                                                position: 'absolute',
-                                                                margin: "auto",
-                                                                width: 0,
-                                                                height: 2,
-                                                                backgroundColor: "primary.main",
-                                                                ...(router.locale == "id" ? {
-                                                                    width: "100%",
-                                                                } : {})
-                                                            },
-                                                        }}>ID</Typography>
-                                                    </ButtonBase>
-                                                </MenuButton>
+                                                    <MenuButton>
+                                                        <ButtonBase
+                                                            component="a"
+                                                            onClick={() => {
+                                                                handleChangeLanguage("en")
+                                                            }}
+                                                            sx={{
+                                                                py: 1, px: 0, borderRadius: 2,
+                                                                ":hover": { bgcolor: "action.hover" },
+                                                            }}
+                                                        >
+                                                            <Typography variant="h6" color={"primary.main"} sx={{
+                                                                "&::after": {
+                                                                    content: '""',
+                                                                    display: "block",
+                                                                    position: 'absolute',
+                                                                    margin: "auto",
+                                                                    width: 0,
+                                                                    height: 2,
+                                                                    backgroundColor: "primary.main",
+                                                                    ...(localeCookie == "en" ? {
+                                                                        width: "100%",
+                                                                    } : {})
+                                                                }
+                                                            }}>EN</Typography>
+                                                        </ButtonBase>
+                                                    </MenuButton>
+                                                    <MenuButton>
+                                                        <ButtonBase
+                                                            component="a"
+                                                            onClick={() => {
+                                                                handleChangeLanguage("id")
+                                                            }}
+                                                            sx={{ py: 1, mr: 1, borderRadius: 2, ":hover": { bgcolor: "action.hover" } }}
+                                                        >
+                                                            <Typography variant="h6" component="span" color={"primary.main"} sx={{
+                                                                "&::after": {
+                                                                    content: '""',
+                                                                    display: "block",
+                                                                    position: 'absolute',
+                                                                    margin: "auto",
+                                                                    width: 0,
+                                                                    height: 2,
+                                                                    backgroundColor: "primary.main",
+                                                                    ...(localeCookie == "id" ? {
+                                                                        width: "100%",
+                                                                    } : {})
+                                                                },
+                                                            }}>ID</Typography>
+                                                        </ButtonBase>
+                                                    </MenuButton>
                                                 </Box>
                                                 <Box sx={{
                                                     display: "flex",

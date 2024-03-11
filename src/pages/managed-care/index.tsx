@@ -9,8 +9,8 @@ import { webUrl } from "@/utils/main";
 //     return redirect(webUrl("/dashboard"))
 // })
 
-export const getServerSideProps = wrapper(async ({ redirect }) => {
-    return redirect(webUrl("/managed-care/dashboard"));
+export const getServerSideProps = wrapper(async ({ redirect, locale }) => {
+    return redirect(webUrl(`/managed-care/dashboard`));
 })
 
 export default function ManagedCarePages() {

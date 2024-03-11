@@ -113,7 +113,7 @@ export default function LoginUserPage() {
 
                 }}>
                     <ContentStyle sx={{
-                        ml: {xs: 0, lg: 36}
+                        ml: { xs: 0, lg: 36 }
                     }}>
                         <Link href="/">
                             <SvgLogo sx={{ width: 125, position: "absolute", top: 0, left: 0, mt: 3 }} />
