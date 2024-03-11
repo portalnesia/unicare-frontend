@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Typography from '@mui/material/Typography';
-import { getManagedCareNavbar, getCMSNavbarSecondary, DRAWER_WIDTH, NAVBAR_HEIGHT } from '@/layout/navbar.config';
+import { getManagedCareNavbar, getCMSNavbarSecondary, DRAWER_WIDTH, NAVBAR_HEIGHT, getAdminNavbar } from '@/layout/navbar.config';
 import useResponsive from '@/hooks/responsive';
 import Scrollbar from '@/components/Scrollbar';
 // import Logo from '@comp/Logo';
@@ -15,6 +15,8 @@ import Stack from '@mui/material/Stack';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { isIOS } from 'react-device-detect';
 import { useSelector } from '@/redux/store';
+import Img from '@/components/Img';
+import { IRoles, adminRolesArray } from '@/model/auth';
 
 const RootStyle = styled('div')(({ theme }) => ({
     [theme.breakpoints.up('lg')]: {
@@ -41,7 +43,12 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar, title 
     }, [])
 
     const [navConfig, navSecondary] = useMemo(() => {
-        const nav = getManagedCareNavbar(auth);
+        let nav;
+        if (adminRolesArray.includes(auth?.roles? auth.roles : IRoles.CUSTOMER)) {
+            nav = getAdminNavbar(auth);
+        } else {
+            nav = getManagedCareNavbar(auth);
+        }
         const secondary = getCMSNavbarSecondary();
         return [nav, secondary]
     }, [auth])
@@ -56,7 +63,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar, title 
     const renderContent = useMemo(() => (
         <Scrollbar
             sx={{
-                height: 1, display: 'flex', flexDirection: 'column',
+                height: 1, display: 'flex', flexDirection: 'column', pt: 3,
                 '& .os-viewport, & div[data-overlayscrollbars-viewport]': { height: 1, display: 'flex', flexDirection: 'column' }
             }}
             options={{
@@ -65,23 +72,24 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar, title 
                 }
             }}
         >
-            <Stack zIndex={1} position="absolute" px={2.5} py={1.5} width={DRAWER_WIDTH - 0.5} height={NAVBAR_HEIGHT} direction='row' alignItems='center' spacing={1} sx={{
+            <Stack zIndex={1} position="absolute" px={2.5} py={1.5} width={DRAWER_WIDTH - 0.5} height={NAVBAR_HEIGHT} direction='row' alignItems='center' justifyContent="center" spacing={1} sx={{
                 boxShadow: 'none',
                 backdropFilter: 'blur(6px)',
                 WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
                 backgroundColor: t => alpha(isDesktop ? t.palette.background.default : t.palette.background.paper, 0.72),
             }}>
-                <Link href="/"><Typography variant="h4" sx={{ color: t => t.palette.primary.main, letterSpacing: 5, textTransform: 'uppercase', fontWeight: 'bold' }}>HELIOSTOUR</Typography></Link>
+                {/* <Link href="/"><Typography variant="h4" sx={{ color: t => t.palette.primary.main, letterSpacing: 5, textTransform: 'uppercase', fontWeight: 'bold' }}>Unicare</Typography></Link> */}
+                <Link href="/"><Img src="/logo.svg" width={100} /></Link>
             </Stack>
 
             <Box sx={{ mt: 10, mx: 2.5 }} />
 
-            <NavSection mt={2} indexPath={indexPath} navConfig={navConfig} />
+            <NavSection mt={8} indexPath={indexPath} navConfig={navConfig} />
 
             <Box sx={{ flexGrow: 1 }} />
 
             <Box sx={{ pb: 3, mt: 5 }}>
-                <NavSection mt={2} indexPath={indexPath} navConfig={navSecondary} />
+                <NavSection mt={2} indexPath={indexPath} navConfig={navSecondary} defaultButton />
             </Box>
         </Scrollbar>
     ), [indexPath, navConfig, isDesktop, navSecondary]);

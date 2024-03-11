@@ -26,6 +26,7 @@ export type INavbar = {
     desc?: string;
     child?: INavbarChild[];
     blank?: boolean;
+    key?: string;
 }
 
 export const getNavbarMenu = (): INavbar[] => ([{
@@ -46,22 +47,40 @@ export const getNavbarMenu = (): INavbar[] => ([{
 export const getManagedCareNavbar = (auth?: Auth | null): INavbar[] => [
     {
         name: "Dashboard",
-        link: "/dashboard",
-        icon: "material-symbols:team-dashboard",
+        link: "/managed-care/dashboard",
+        icon: "jam:home",
+        key: "dashboard"
         // child: getDashboardChild(auth?.role).filter((a) => typeof a?.submenu === "undefined"),
     },
     {
         name: "Services",
-        link: "/services",
-        icon: "clarity:employee-group-solid",
+        link: "/managed-care/services",
+        icon: "jam:medical",
+        key: "services"
+    },
+];
+
+export const getAdminNavbar = (auth?: Auth | null): INavbar[] => [
+    {
+        name: "Dashboard",
+        link: "/administration/dashboard",
+        icon: "jam:home",
+        key: "dashboard"
+        // child: getDashboardChild(auth?.role).filter((a) => typeof a?.submenu === "undefined"),
+    },
+    {
+        name: "Data Pasien",
+        link: "/administration/data-pasien",
+        icon: "jam:users",
+        key: "data-pasien"
     },
 ];
 
 export const getCMSNavbarSecondary = (): INavbar[] => [
     {
-        name: "Logout",
+        name: "Sign out",
         link: "#",
         fn: "logout",
-        icon: "majesticons:logout",
+        icon: "jam:log-out",
     },
 ];

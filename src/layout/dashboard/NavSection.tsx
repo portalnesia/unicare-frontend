@@ -5,10 +5,8 @@ import { useTheme, styled, SxProps, Theme } from '@mui/material/styles';
 import { alpha } from '@mui/system/colorManipulator';
 import Iconify from '@/components/Iconify';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
-import List from '@mui/material/List';
 import Box, { BoxProps } from '@mui/material/Box';
 import { INavbar, INavbarChild } from '../navbar.config';
 import { webUrl } from '@/utils/main';
@@ -18,7 +16,9 @@ import ButtonBase from '@mui/material/ButtonBase';
 import { Without } from '@/types/general';
 import Stack from '@mui/material/Stack';
 import Portal from '@mui/material/Portal';
-import IconButton from '@mui/material/IconButton';
+import Button from '@/components/Button';
+import Divider from '@mui/material/Divider/Divider';
+import Typography from '@mui/material/Typography/Typography';
 
 // ----------------------------------------------------------------------
 
@@ -27,23 +27,23 @@ export const ButtonStyle = styled(ButtonBase)<{ target?: string, href?: string, 
         ...theme.typography.body2,
         width: '100%',
         justifyContent: "start",
-        borderRadius: 12,
+        borderRadius: 4,
         height: 48,
         position: 'relative',
         textTransform: 'capitalize',
         paddingLeft: theme.spacing(2.5),
         paddingRight: theme.spacing(2.5),
         ...active ? {
-            color: '#fff',
-            fontWeight: 'bold',
-            backgroundColor: theme.palette.primary.main,
-            "& svg": {
-                color: '#fff',
-            }
-        } : {
             color: theme.palette.primary.main,
+            fontWeight: 'bold',
+            backgroundColor: "#EDF3FC",
             "& svg": {
                 color: theme.palette.primary.main,
+            }
+        } : {
+            color: "#858585",
+            "& svg": {
+                color: "#858585",
             }
         },
         "&:hover": {
@@ -51,7 +51,7 @@ export const ButtonStyle = styled(ButtonBase)<{ target?: string, href?: string, 
             "& svg": {
                 color: theme.palette.primary.main,
             },
-            backgroundColor: alpha(theme.palette.primary.light, 0.2)
+            // backgroundColor: alpha(theme.palette.primary.light, 0.2)
         }
     })
 );
@@ -103,9 +103,10 @@ export interface NavItemProps {
     linkProps?: Partial<ComponentProps<typeof Link>>
     rootSx?: SxProps<Theme>
     onClick?: (path: INavbar | INavbarChild) => (e: MouseEvent<HTMLButtonElement>) => void
+    defaultButton?: boolean
 };
 
-export function NavItem({ item, active, linkProps, onClick, rootSx }: NavItemProps) {
+export function NavItem({ item, active, linkProps, onClick, rootSx, defaultButton }: NavItemProps) {
     const theme = useTheme();
     const isActiveRoot = active(item);
     const { name, link, icon, child, desc, blank, fn, shallow } = item;
@@ -137,21 +138,31 @@ export function NavItem({ item, active, linkProps, onClick, rootSx }: NavItemPro
         <>
             <Box width="calc(100% - 32px)" ml="auto !important" mr="auto !important">
                 <Link href={link} passHref legacyBehavior shallow={shallow} {...linkProps}>
-                    <ButtonStyle
-                        onClick={fn === "logout" ? logout : onClick?.(item)}
-                        component='a'
-                        // disableGutters
-                        className='no-underline no-blank'
-                        active={isActiveRoot}
-                        sx={{
-                            ...rootSx
-                        }}
-                        {...(blank ? { target: "_blank" } : {})}
-                    >
-                        {icon && <ListItemIconStyle><Iconify icon={icon} /></ListItemIconStyle>}
-                        <ListItemText disableTypography primary={name} />
-                        {desc && desc}
-                        {/* {child && (
+                    {defaultButton ? (
+                        <Button
+                            icon={icon ? icon : null}
+                            iconPosition="end"
+                            onClick={fn === "logout" ? logout : onClick?.(item)}
+                            fullWidth
+                        >
+                            <Typography variant="subtitle2">{name}</Typography>
+                        </Button>
+                    ) : (
+                        <ButtonStyle
+                            onClick={fn === "logout" ? logout : onClick?.(item)}
+                            component='a'
+                            // disableGutters
+                            className='no-underline no-blank'
+                            active={isActiveRoot}
+                            sx={{
+                                ...rootSx
+                            }}
+                            {...(blank ? { target: "_blank" } : {})}
+                        >
+                            {icon && <ListItemIconStyle><Iconify icon={icon} /></ListItemIconStyle>}
+                            <ListItemText disableTypography primary={name} />
+                            {desc && desc}
+                            {/* {child && (
                             <IconButton onClick={handleOpen} sx={{ zIndex: 1, ml: 1 }}>
                                 <Iconify
                                     icon={open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'}
@@ -159,7 +170,8 @@ export function NavItem({ item, active, linkProps, onClick, rootSx }: NavItemPro
                                 />
                             </IconButton>
                         )} */}
-                    </ButtonStyle>
+                        </ButtonStyle>
+                    )}
                 </Link>
                 {child && (
                     <Collapse in={open} timeout="auto">
@@ -176,7 +188,7 @@ export function NavItem({ item, active, linkProps, onClick, rootSx }: NavItemPro
                                             className="no-underline no-blank"
                                             key={name}
                                             active={isActiveSub}
-                                            sx={{width:"100%"}}
+                                            sx={{ width: "100%" }}
                                             {...(item.blank ? { target: "_blank" } : {})}
                                         >
                                             <ListItemText disableTypography primary={name} />
@@ -191,6 +203,13 @@ export function NavItem({ item, active, linkProps, onClick, rootSx }: NavItemPro
                         </Stack>
                     </Collapse>
                 )}
+                {!isActiveRoot && (
+                    <Divider orientation="horizontal" flexItem sx={{
+                        height: "100%",
+                        borderColor: "#D6D6D6",
+                    }} />
+                )}
+
             </Box>
 
             {Boolean(fn) && (
@@ -207,9 +226,10 @@ export interface NavConfigProps extends Partial<Without<BoxProps, 'onClick'>> {
     indexPath?: string
     isActive?: (path: INavbar) => boolean
     onClick?(e: MouseEvent<HTMLButtonElement>): void
+    defaultButton?: boolean
 };
 
-export default function NavSection({ navConfig, indexPath, isActive, onClick: _a, ...other }: NavConfigProps) {
+export default function NavSection({ navConfig, indexPath, isActive, onClick: _a, defaultButton, ...other }: NavConfigProps) {
     const router = useRouter()
     // const [__a, __b, closeDashboardForm] = useDashboardForm();
     // const [__c, __d, closeOperationalCost] = useOperationalCostForm();
@@ -255,7 +275,7 @@ export default function NavSection({ navConfig, indexPath, isActive, onClick: _a
         <Box {...other}>
             <Stack width="100%" spacing={1} alignItems="start">
                 {navConfig.map((item) => (
-                    <NavItem key={item.name} item={item} active={match} />
+                    <NavItem key={item.name} item={item} active={match} defaultButton={defaultButton} />
                 ))}
             </Stack>
         </Box>
