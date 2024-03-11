@@ -5,11 +5,11 @@ import Pages from "@/components/Pages";
 import PasswordForm from "@/components/PasswordForm";
 import LoginSwiper from "@/components/SwiperLogin";
 import TextField from "@/components/TextField";
-import { SvgAdminProviderLogin, SvgArrow, SvgArrowBack } from "@/components/svg/Icons";
+import { SvgArrowBack } from "@/components/svg/Icons";
 import { SvgLogo } from "@/components/svg/Logo";
 import useAPI, { ApiError } from "@/hooks/api";
 import AuthLayout from "@/layout/AuthLayout";
-import { Auth, IRoles, adminRolesArray, getAdminRoleName, rolesArray } from "@/model/auth";
+import { IRoles, adminRolesArray, getAdminRoleName } from "@/model/auth";
 import wrapper, { useDispatch } from "@/redux/store";
 import { FONT_SECONDARY } from "@/themes/typography";
 import Alert from "@mui/material/Alert/Alert";
@@ -25,7 +25,7 @@ import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import Router from "next/router";
 import React from "react";
-import { adminLoginSwiper, userLoginSwiper } from "root/data/content-data";
+import { adminLoginSwiper } from "root/data/content-data";
 
 export const getServerSideProps = wrapper(async ({ getTranslation, locale }) => {
     return {
@@ -97,13 +97,13 @@ export default function LoginUserPage() {
                 case IRoles.PROVIDER:
                     resp = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJybCI6IlBST1ZJREVSIiwiZXhwIjoxNzExNzM1MjAwLCJpZCI6MywiaWF0IjoxNzEwMTQzOTczfQ.fyN4Ekf6bZfcuX1OpZVW0T7mI63vp_4UER4o1uxvReo";
                     break;
-                case IRoles.ADMIN: 
+                case IRoles.ADMIN:
                     resp = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJybCI6IkFETUlOIiwiZXhwIjoxNzExNzM1MjAwLCJpZCI6MiwiaWF0IjoxNzEwMTQzOTYyfQ.w4W_0_wCKZYn4GjzcxctlY74VzZiR0l8ThOMI7Da59c";
                     break;
-                case IRoles.MASTER: 
+                case IRoles.MASTER:
                     resp = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJybCI6Ik1BU1RFUiIsImV4cCI6MTcxMTczNTIwMCwiaWQiOjEsImlhdCI6MTcxMDE0Mzk0M30.pudHbkZPwZKburPW3Qek5Tgan0210ITEV9FBJ2G4Y7k";
                     break;
-                default: 
+                default:
                     resp = "";
             }
             // const resp = await post<Auth>(`/customer/login`, input);
@@ -120,10 +120,6 @@ export default function LoginUserPage() {
             setErr(msg);
         }
     }, [input, dispatch, post])
-
-    React.useEffect(() => {
-
-    }, [signInType])
 
     return (
         <Pages title="Administration" canonical="/admin" noIndex admin={false}>
@@ -176,24 +172,37 @@ export default function LoginUserPage() {
                                     <Typography pb={3} variant="h2" fontFamily={FONT_SECONDARY} color="primary.main" gutterBottom>
                                         Sign in as
                                     </Typography>
-                                    {/* {Object.values(IRoles).filter(item => item !== IRoles.CUSTOMER).reverse().map((iRole, i) => ( */}
-                                    {adminRolesArray.map((iRole, i) => (
-                                        <Card key={i} sx={{ width: "100%" }}>
-                                            <CardActionArea
-                                                onClick={() => onClickAdminType(iRole)}
-                                                sx={{
-                                                    display: "flex",
-                                                    flexDirection: "row",
-                                                    justifyContent: "start",
-                                                    padding: 3
-                                                }}>
-                                                <SvgAdminProviderLogin />
-                                                <Typography ml={3} variant="h3" fontFamily={FONT_SECONDARY} color="text.secondary" gutterBottom>
-                                                    {getAdminRoleName(iRole)}
-                                                </Typography>
-                                            </CardActionArea>
-                                        </Card>
-                                    ))}
+                                    {adminRolesArray.map((iRole, i) => {
+                                        const renderAdminIcon = (role: IRoles) => {
+                                            switch (role) {
+                                                case IRoles.PROVIDER:
+                                                    return <Img src="/assets/provider.svg" width={122} />;
+                                                case IRoles.ADMIN:
+                                                    return <Img src="/assets/admin.svg" width={122} />;
+                                                case IRoles.MASTER:
+                                                    return <Img src="/assets/master1.svg" width={122} />;
+                                                default:
+                                                    return null;
+                                            }
+                                        };
+                                        return (
+                                            <Card key={i} sx={{ width: "100%" }}>
+                                                <CardActionArea
+                                                    onClick={() => onClickAdminType(iRole)}
+                                                    sx={{
+                                                        display: "flex",
+                                                        flexDirection: "row",
+                                                        justifyContent: "start",
+                                                        padding: 3
+                                                    }}>
+                                                    {renderAdminIcon(iRole)}
+                                                    <Typography ml={3} variant="h3" fontFamily={FONT_SECONDARY} color="text.secondary" gutterBottom>
+                                                        {getAdminRoleName(iRole)}
+                                                    </Typography>
+                                                </CardActionArea>
+                                            </Card>
+                                        );
+                                    })}
                                 </Stack>
                             ) : (
                                 <form onSubmit={login}>
@@ -246,21 +255,23 @@ export default function LoginUserPage() {
                         position: "relative",
                         backgroundColor: "transparent"
                     }}>
-                        {/* <SvgArtLogin /> */}
                         <Img src="/assets/wave_resize.png" sx={{
                             position: "absolute",
                             borderRadius: 2,
                             width: "100%",
                             height: "100%",
-                            // zIndex: -1
                         }} />
                         <Box sx={{
                             zIndex: 1,
                             width: "75%",
                             height: "100%"
                         }}>
-                            {/* <LoginSwiper contents={adminLoginSwiper} startIndex={(() => { return signInType ? adminRolesArray.indexOf(signInType) : 0 })()}  /> */}
-                            <LoginSwiper contents={adminLoginSwiper} startIndex={startIndex} autoPlay={!signInType}  />
+                            <LoginSwiper
+                                contents={adminLoginSwiper}
+                                startIndex={startIndex}
+                                autoPlay={!signInType}
+                                onActiveIndexChange={(i) => setStartIndex(i)}
+                            />
                         </Box>
                     </Stack>
                 </SectionStyle>

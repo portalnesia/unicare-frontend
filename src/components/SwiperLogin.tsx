@@ -24,7 +24,8 @@ import { delay } from "@reduxjs/toolkit/dist/utils";
 interface SwiperLoginProps {
     contents: (typeof userLoginSwiper[number])[];
     startIndex?: number;
-    autoPlay?: boolean
+    autoPlay?: boolean;
+    onActiveIndexChange?: (index: number) => void; 
 }
 
 const BoxGrid = styled(Box)(({ theme }) => ({
@@ -35,7 +36,7 @@ const BoxGrid = styled(Box)(({ theme }) => ({
     }
 }))
 
-export default function LoginSwiper({ contents, startIndex = 0, autoPlay = true }: SwiperLoginProps) {
+export default function LoginSwiper({ contents, startIndex = 0, autoPlay = true, onActiveIndexChange }: SwiperLoginProps) {
     const [t] = useTranslation("main");
     const isMd = useResponsive("down", 462);
     const navLeft = React.useRef<HTMLButtonElement>(null);
@@ -57,6 +58,7 @@ export default function LoginSwiper({ contents, startIndex = 0, autoPlay = true 
 
     const onSlideChange = React.useCallback((sw: SwiperClass) => {
         setActiveIndex(sw.activeIndex);
+        onActiveIndexChange?.(sw.activeIndex);
         if (sw.isBeginning) setHide({ left: true, right: false });
         else if (sw.isEnd) setHide({ left: false, right: true });
         else setHide({ left: false, right: false });
