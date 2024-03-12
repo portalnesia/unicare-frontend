@@ -130,7 +130,7 @@ export default function Navbar() {
         setCookie(
             "NEXT_LOCALE",
             lang,
-            { domain: domainCookie, expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production" }
+            { expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production" }
         )
         const { pathname, query, asPath } = router
         router.replace({ pathname, query }, asPath, { locale: lang })
