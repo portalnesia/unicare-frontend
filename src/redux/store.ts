@@ -169,7 +169,6 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
                     }
                 }
             }
-
             const result = await callback({ store, redirect, fetchAPI, auth, getTranslation, ...ctx });
             return result;
         } catch (err) {
@@ -183,8 +182,8 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
     })
 }
 
-async function getTranslation(translation?: string | string[], locale: string = 'id') {
-    const translations = translation ? ['menu', 'main'].concat(typeof translation === 'string' ? [translation] : translation) : ['menu', 'main'];
+async function getTranslation(translation?: string | string[], locale: string = 'en') {
+    const translations = translation ? ['main'].concat(typeof translation === 'string' ? [translation] : translation) : ['main'];
     return await serverSideTranslations(locale, translations, nextI18nextConfig)
 }
 

@@ -17,6 +17,7 @@ import { isIOS } from 'react-device-detect';
 import { useSelector } from '@/redux/store';
 import Img from '@/components/Img';
 import { IRoles, adminRolesArray } from '@/model/auth';
+import { useTranslation } from 'next-i18next';
 
 const RootStyle = styled('div')(({ theme }) => ({
     [theme.breakpoints.up('lg')]: {
@@ -37,6 +38,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar, title 
     const asPath = useMemo(() => router.asPath, [router.asPath]);
     const isDesktop = useResponsive('up', 'lg');
     const auth = useSelector(s => s.auth);
+    const [t] = useTranslation("main")
 
     const indexPath = useMemo(() => {
         return "/dashboard"
@@ -44,14 +46,14 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar, title 
 
     const [navConfig, navSecondary] = useMemo(() => {
         let nav;
-        if (adminRolesArray.includes(auth?.roles? auth.roles : IRoles.CUSTOMER)) {
+        if (adminRolesArray.includes(auth?.roles ? auth.roles : IRoles.CUSTOMER)) {
             nav = getAdminNavbar(auth);
         } else {
-            nav = getManagedCareNavbar(auth);
+            nav = getManagedCareNavbar(t, auth);
         }
         const secondary = getCMSNavbarSecondary();
         return [nav, secondary]
-    }, [auth])
+    }, [auth, t])
 
     useEffect(() => {
         if (isOpenSidebar) {

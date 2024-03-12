@@ -1,4 +1,5 @@
 import { Auth } from "@/model/auth";
+import { TFunction } from "i18next";
 
 export const NAVBAR_HEIGHT = 120;
 export const DRAWER_WIDTH = 270;
@@ -44,16 +45,16 @@ export const getNavbarMenu = (): INavbar[] => ([{
 },
 ])
 
-export const getManagedCareNavbar = (auth?: Auth | null): INavbar[] => [
+export const getManagedCareNavbar = (t: TFunction<"main">, auth?: Auth | null): INavbar[] => [
     {
-        name: "Dashboard",
+        name: t("title_dashboard"),
         link: "/managed-care/dashboard",
         icon: "jam:home",
         key: "dashboard"
         // child: getDashboardChild(auth?.role).filter((a) => typeof a?.submenu === "undefined"),
     },
     {
-        name: "Services",
+        name: t("title_services"),
         link: "/managed-care/services",
         icon: "jam:medical",
         key: "services"

@@ -1,7 +1,7 @@
 import wrapper from "@/redux/store";
 import { webUrl } from "@/utils/main";
 
-export const getServerSideProps = wrapper(async ({ redirect, locale }) => {
+export const getServerSideProps = wrapper(async ({ redirect }) => {
     return redirect(webUrl(`/administration/dashboard`));
 })
 
