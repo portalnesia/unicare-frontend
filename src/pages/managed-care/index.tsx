@@ -9,7 +9,7 @@ import { webUrl } from "@/utils/main";
 //     return redirect(webUrl("/dashboard"))
 // })
 
-export const getServerSideProps = wrapper(async ({ redirect, locale }) => {
+export const getServerSideProps = wrapper(async ({ redirect }) => {
     return redirect(webUrl(`/managed-care/dashboard`));
 })
 

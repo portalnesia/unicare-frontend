@@ -2,10 +2,11 @@ import Pages from "@/components/Pages";
 import DashboardLayout from "@/layout/dashboard";
 import { getManagedCareNavbar } from "@/layout/navbar.config";
 import wrapper from "@/redux/store";
+import { useTranslation } from "next-i18next";
 import { useRouter } from "next/router";
 import React from "react";
 
-export const getServerSideProps = wrapper(async ({ params, redirect, }) => {
+export const getServerSideProps = wrapper(async ({ params, redirect, locale, getTranslation }) => {
     if (typeof params?.slug?.[0] !== "string") return redirect();
     if (
         ![
@@ -17,6 +18,7 @@ export const getServerSideProps = wrapper(async ({ params, redirect, }) => {
     }
     return {
         props: {
+            ...await getTranslation("main", locale),
             data: {},
         },
     };
@@ -25,10 +27,11 @@ export const getServerSideProps = wrapper(async ({ params, redirect, }) => {
 export default function ManagedCare() {
     const router = useRouter();
     const type = router.query?.slug?.[0];
+    const [t] = useTranslation("main");
 
     const title = React.useMemo(() => {
-        return getManagedCareNavbar().find((d) => d.key === type)?.name
-    }, [type])
+        return getManagedCareNavbar(t).find((d) => d.key === type)?.name
+    }, [type, t])
 
     return (
         <Pages title={`${title} - Managed Care`} canonical={`/managed-care/${type}`} noIndex>

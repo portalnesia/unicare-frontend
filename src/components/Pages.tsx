@@ -3,6 +3,7 @@ import { ReactNode, useMemo } from 'react';
 import { config } from "@/config"
 import { webUrl } from '@/utils/main';
 import React from 'react';
+import useInit from '@/hooks/init';
 
 export interface PageProps {
     children: ReactNode
@@ -19,6 +20,7 @@ export interface PageProps {
 }
 
 export default function Pages({ children, title, desc, keyword, canonical: canonicalProps, image, noIndex = false, admin = true }: PageProps) {
+    useInit();
     const canonical = useMemo(() => webUrl(canonicalProps), [canonicalProps])
     const header = useMemo(() => {
         return {

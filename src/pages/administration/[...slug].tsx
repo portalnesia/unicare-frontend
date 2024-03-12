@@ -5,7 +5,7 @@ import wrapper from "@/redux/store";
 import { useRouter } from "next/router";
 import React from "react";
 
-export const getServerSideProps = wrapper(async ({ params, redirect, }) => {
+export const getServerSideProps = wrapper(async ({ params, redirect, getTranslation, locale }) => {
     if (typeof params?.slug?.[0] !== "string") return redirect();
     if (
         ![
@@ -17,6 +17,7 @@ export const getServerSideProps = wrapper(async ({ params, redirect, }) => {
     }
     return {
         props: {
+            ...await getTranslation("main", locale),
             data: {},
         },
     };
