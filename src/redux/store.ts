@@ -98,18 +98,6 @@ export class BackendError {
 export default function wrapper<P extends {}>(callback: Callback<P>) {
     return wrapperRoot.getServerSideProps((store) => async (ctx) => {
         try {
-            const locale = getCookie("NEXT_LOCALE", { req: ctx.req, res: ctx.res });
-            if (typeof locale === "string") {
-                // if (ctx.locale !== locale) {
-                //     setCookie(
-                //         "NEXT_LOCALE",
-                //         ctx.locale,
-                //         { domain: domainCookie, expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production", req: ctx.req, res: ctx.res }
-                //     )
-                // }
-                ctx.locale = locale
-            }
-
             const auth_token = getCookie("_auth", { req: ctx.req, res: ctx.res });
             let auth: State["auth"] = null;
 
@@ -135,7 +123,6 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
                     console.error("ERROR AUTH", err)
                 }
             }
-
 
             const fetchAPI = async<R = any>(url: string) => {
                 try {

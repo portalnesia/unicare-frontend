@@ -57,7 +57,7 @@ createServerHandler({
     server.use(helmet.xssFilter());
 
     server.use("/api", useApiProxy);
-    server.use("/assets", useApiProxy);
+    // server.use("/assets", useApiProxy);
 
     server.use(express.json());
     server.use(express.urlencoded({ extended: true }));

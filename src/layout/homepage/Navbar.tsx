@@ -93,8 +93,7 @@ export default function Navbar() {
     const isMd = useResponsive("down", "md");
     const [transparent, setTransparent] = React.useState(false);
     const [t] = useTranslation("main");
-    const cookieLocale = getCookie("NEXT_LOCALE");
-    const localeCookie = typeof cookieLocale === "string" ? cookieLocale : "en";
+    const localeCookie = router.locale || "en";
 
     const navbar = React.useMemo(() => {
         return getNavbarMenu();
@@ -134,8 +133,8 @@ export default function Navbar() {
             { domain: domainCookie, expires: getDayJs().add(1, 'year').toDate(), sameSite: "lax", secure: process.env.NODE_ENV === "production" }
         )
         const { pathname, query, asPath } = router
-        // router.replace({ pathname, query }, asPath, { locale: lang })
-        router.replace({ pathname, query }, asPath)
+        router.replace({ pathname, query }, asPath, { locale: lang })
+        // router.replace({ pathname, query }, asPath)
     }, [router])
 
     const onSignInClick = React.useCallback(() => {
@@ -166,7 +165,6 @@ export default function Navbar() {
     React.useEffect(() => {
         if (router.pathname === '/') {
             if (window.location.hash?.length) {
-                console.log(window.location.hash);
                 setTimeout(onMenuClick({ link: `/${window.location.hash}` }), 500);
             }
             const state = window.history.state;
