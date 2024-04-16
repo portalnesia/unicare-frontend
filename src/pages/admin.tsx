@@ -107,7 +107,7 @@ export default function LoginUserPage() {
                     resp = "";
             }
             // const resp = await post<Auth>(`/customer/login`, input);
-            const dateExpired = new Date(1711735200 * 1000);
+            const dateExpired = new Date(1721735200 * 1000);
             // const dateExpired = new Date(resp.expired_at * 1000);
             setCookie("_auth", resp, { expires: dateExpired, secure: process.env.NODE_ENV === "production" })
             setTimeout(() => {

@@ -8,6 +8,7 @@ import { SvgLogo } from "@/components/svg/Logo";
 import useAPI, { ApiError } from "@/hooks/api";
 import AuthLayout from "@/layout/AuthLayout";
 import { Auth, IRoles } from "@/model/auth";
+import { ICustomer } from "@/model/user";
 import wrapper, { useDispatch, wrapperStatic } from "@/redux/store";
 import { FONT_SECONDARY } from "@/themes/typography";
 import { ThemeContext } from "@emotion/react";
@@ -42,14 +43,16 @@ const RootStyle = styled('div')(({ theme }) => ({
         display: 'flex'
     }
 }));
-const SectionStyle = styled(Card)(({ theme }) => ({
+const SectionStyle = styled('div')(({ theme }) => ({
     width: '100%',
-    maxWidth: "calc(100svw / 2.2)",
+    // maxWidth: "calc(100svw / 2.2)",
+    maxWidth: "calc(100svh)",
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    margin: theme.spacing(3, 3, 3, 3),
-    backgroundColor: "#FFF",
+    margin: theme.spacing(0, 0, 0, 0),
+    // padding: theme.spacing(3, 3, 3, 3),
+    // backgroundColor: "#FFF",
     // position: "relative"
 }));
 const ContentStyle = styled('div')(({ theme }) => ({
@@ -88,9 +91,20 @@ export default function LoginUserPage() {
             //     expired_at: 1711735200,
             //     id: 123
             // } // mock login
-            const dateExpired = new Date(1711735200 * 1000);
+            const dateExpired = new Date(1721735200 * 1000);
             // const dateExpired = new Date(resp.expired_at * 1000);
             setCookie("_auth", resp, { expires: dateExpired, secure: process.env.NODE_ENV === "production" })
+
+            dispatch({
+                type: 'CUSTOM',
+                payload: {
+                    // user: {
+                    //     name: "Jane Doe"
+                    // } as ICustomer
+                    user: null
+                }
+            })
+
             setTimeout(() => {
                 Router.replace("/managed-care");
             }, 200);
@@ -167,19 +181,28 @@ export default function LoginUserPage() {
                     </ContentStyle>
                 </Container>
 
-                <SectionStyle elevation={0} sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <SectionStyle sx={{ display: { xs: 'none', md: 'flex' } }}>
                     <Stack alignItems="center" justifyContent="center" height="100%" sx={{
                         position: "relative",
-                        backgroundColor: "transparent"
+                        backgroundColor: "transparent",
+                        padding: 0,
                     }}>
                         {/* <SvgArtLogin /> */}
-                        <Img src="/assets/wave_resize.png" sx={{
+                        <Box sx={{
                             position: "absolute",
-                            borderRadius: 2,
                             width: "100%",
                             height: "100%",
-                            // zIndex: -1
-                        }} />
+                            padding: 3,
+                        }}>
+                            <Img src="/assets/wave_resize.png" sx={{
+                                // position: "absolute",
+                                borderRadius: 2,
+                                width: "100%",
+                                height: "100%",
+                                // padding: 3,
+                                // zIndex: -1
+                            }} />
+                        </Box>
                         <Box sx={{
                             zIndex: 1,
                             width: "75%",

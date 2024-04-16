@@ -117,7 +117,7 @@ export default function LoginSwiper({ contents, startIndex = 0, autoPlay = true,
                     // isMd ? { padding: 24, height: "650px" }
                     //     : { padding: 24, height: "650px", marginLeft: 48, marginRight: 48 }
                     {
-                        // height: "100%",
+                        // height: "90%",
                         // position: "absolute",
                         // backgroundColor: "yellow",
                         borderRadius: 3,
@@ -140,12 +140,11 @@ export default function LoginSwiper({ contents, startIndex = 0, autoPlay = true,
             >
                 {contents.map((d, i) => (
                     <SwiperSlide
-                        key={`${i}`}
-                        style={{ paddingTop: 16, paddingBottom: 16, }}>
+                        key={`${i}`}>
                         <Box sx={{
                             px: 4,
                             pb: 3,
-                            // height: "550px",
+                            // height: "450px",
                             // width: "100%",
                             bgcolor: "white",
                             borderRadius: 1,
@@ -192,15 +191,18 @@ export default function LoginSwiper({ contents, startIndex = 0, autoPlay = true,
             </Swiper>
             <Box sx={{
                 width: "100%",
+                // height: "auto",
                 display: "flex",
+                // flex: 1,
                 justifyContent: "space-between",
-                pt: 8,
+                pt: 4,
+                pb: 0,
                 px: 6,
                 // position: "absolute",
                 // left: 0,
-                right: 0,
+                // right: 0,
                 // top: 0,
-                bottom: 0,
+                // bottom: 0,
                 // bgcolor: "red",
                 zIndex: 1,
             }}>
