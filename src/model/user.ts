@@ -1,4 +1,5 @@
 import { IRoles } from "./auth";
+import { PackageType } from "./package";
 
 
 export type IUser = {
@@ -13,5 +14,5 @@ export type ICustomer = {
     nik: string;
     bpjs_number: string;
     name: string;
-    roles: IRoles
+    package: PackageType
 }

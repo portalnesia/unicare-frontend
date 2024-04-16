@@ -33,7 +33,8 @@ const RootStyle = styled('div')({
 function Header({ showDate, title }: { title: string, showDate?: boolean }) {
     const user = useSelector(s => s.user as ICustomer | null );
     const user1 = useSelector((s) => {
-        console.log(s)
+        console.log(`user s is: `, s)
+        console.log(`user user is: `, user)
     });
     return (
         <Stack direction="row" justifyContent="space-between" spacing={1} width="100%" alignItems="center" sx={{
@@ -41,7 +42,7 @@ function Header({ showDate, title }: { title: string, showDate?: boolean }) {
         }}>
 
             {/* <ButtonBase sx={{ py: 1, px: 1.5, borderRadius: 3 }}> */}
-            <Stack direction="row" justifyContent="space-between" spacing={2}>
+            <Stack direction="row" justifyContent="space-between" spacing={2} py={3} pl={3}>
                 <Avatar sx={{
                     width: 48,
                     height: 48
@@ -50,7 +51,7 @@ function Header({ showDate, title }: { title: string, showDate?: boolean }) {
                     {/* <Typography sx={{ fontWeight: "bold" }}>{auth?.role||""}</Typography> */}
                     {/* <Typography sx={{ color: "#969696" }}>{auth?.username||""}</Typography> */}
                     <Typography variant='h4' color="white">{user?.name ? `Hi, ${user.name}` : ""}</Typography>
-                    <Typography variant="body2" color="white">{user?.roles || ""}</Typography>
+                    <Typography variant="body2" color="white">{user?.package || ""}</Typography>
                 </Box>
             </Stack>
             {/* </ButtonBase> */}
