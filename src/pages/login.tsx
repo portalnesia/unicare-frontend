@@ -11,6 +11,7 @@ import { Auth, IRoles } from "@/model/auth";
 import { ICustomer } from "@/model/user";
 import wrapper, { useDispatch, wrapperStatic } from "@/redux/store";
 import { FONT_SECONDARY } from "@/themes/typography";
+import { State } from "@/types/redux";
 import { ThemeContext } from "@emotion/react";
 import Alert from "@mui/material/Alert/Alert";
 import Box from "@mui/material/Box/Box";
@@ -94,16 +95,21 @@ export default function LoginUserPage() {
             const dateExpired = new Date(1721735200 * 1000);
             // const dateExpired = new Date(resp.expired_at * 1000);
             setCookie("_auth", resp, { expires: dateExpired, secure: process.env.NODE_ENV === "production" })
-
-            dispatch({
-                type: 'CUSTOM',
-                payload: {
-                    // user: {
-                    //     name: "Jane Doe"
-                    // } as ICustomer
-                    user: null
-                }
-            })
+            // let user: State["user"] = null;
+            // user = {
+            //     id: 123,
+            //     name: "Jane Doe",
+            //     bpjs_number: "123",
+            //     package: "smart_health_plus",
+            //     nik: "367105123123123123"
+            // }
+            // dispatch({
+            //     type: 'CUSTOM',
+            //     payload: {
+            //         ...{ user }
+            //         // user: null
+            //     }
+            // })
 
             setTimeout(() => {
                 Router.replace("/managed-care");

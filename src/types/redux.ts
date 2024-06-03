@@ -8,7 +8,8 @@ export type State = {
      *  null means no auth
      *  undefined means data not yet requested
      */
-    user?: IUser | ICustomer | null;
+    // user?: IUser | ICustomer | null;
+    user: ICustomer | null;
 }
 
 export type ActionType = {

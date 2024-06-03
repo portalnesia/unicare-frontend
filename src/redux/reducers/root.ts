@@ -4,6 +4,7 @@ import { Reducer } from 'redux'
 
 const initialState: State = {
     auth: null,
+    user: null
 }
 
 const rootReducer: Reducer<State, ActionType> = (state = initialState, action) => {
@@ -13,6 +14,7 @@ const rootReducer: Reducer<State, ActionType> = (state = initialState, action) =
                 ...state
             }
             if (action?.payload?.auth) nextState.auth = action?.payload?.auth;
+            if (action?.payload?.user) nextState.user = action?.payload?.user;
             return nextState
         case 'CUSTOM':
             return { ...state, ...action?.payload }

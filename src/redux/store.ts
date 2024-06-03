@@ -100,6 +100,14 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
         try {
             const auth_token = getCookie("_auth", { req: ctx.req, res: ctx.res });
             let auth: State["auth"] = null;
+            let user: State["user"] = null;
+            user = {
+                id: 123,
+                name: "Jane Doe",
+                bpjs_number: "123",
+                package: "smart_health_plus",
+                nik: "367105123123123123"
+            }
 
             if (typeof auth_token === "string") {
                 try {
@@ -117,6 +125,7 @@ export default function wrapper<P extends {}>(callback: Callback<P>) {
                                 return redirect<P>(webUrl("/")) as GetServerSidePropsResult<IPages<P>>;
                             }
                             stored(store, { auth })
+                            stored(store, { user })
                         }
                     }
                 } catch (err) {
